@@ -1,0 +1,475 @@
+// WGT 3형식 데이터 — 원본 HTML에서 자동 추출
+// VERB_DATA[3] 를 초기화한다.
+(function() {
+  if (!window.VERB_DATA) window.VERB_DATA = {};
+  window.VERB_DATA[3] = {
+    have: {
+      standard: (() => {
+        const subjPlurals = ["The students", "They", "The children", "We", "The girls", "The workers"];
+        const TENSES = ["현재", "과거", "미래"];
+        const rawRows = [
+        { vBase: "have", s: "I", p: "긍정", o: "a good idea", o_kor: "좋은 아이디어를", kor: { 현재:"가지고 있다.", 과거:"가지고 있었다.", 미래:"가지고 있을 것이다." }, s_kor: "나는", b_en: "for the project", b_kor: "프로젝트를 위한", c_en: ["in my mind"], c_kor: ["마음속에"] },
+        { vBase: "have", s: "You", p: "부정", o: "the key", o_kor: "그 열쇠를", kor: { 현재:"가지고 있지 않다.", 과거:"가지고 있지 않았다.", 미래:"가지고 있지 않을 것이다." }, s_kor: "너는", b_en: "to the door", b_kor: "문을 여는", c_en: [ADV.RN_EN], c_kor: [ADV.RN_KR] },
+        { vBase: "have", s: "He", p: "의문", o: "enough money", o_kor: "충분한 돈을", kor: { 현재:"가지고 있니?", 과거:"가지고 있었니?", 미래:"가지고 있을까?" }, s_kor: "그는", b_en: "for the ticket", b_kor: "표를 살", c_en: ["in his wallet"], c_kor: ["지갑 안에"] },
+        { vBase: "have", s: "She", p: "긍정", o: "a meeting", o_kor: "회의를", kor: { 현재:"가진다.", 과거:"가졌다.", 미래:"가질 것이다." }, s_kor: "그녀는", b_en: "with her clients", b_kor: "고객들과의", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] },
+        { vBase: "have", s: "We", p: "부정", o: "free time", o_kor: "자유 시간을", kor: { 현재:"가지고 있지 않다.", 과거:"가지고 있지 않았다.", 미래:"가지고 있지 않을 것이다." }, s_kor: "우리는", b_en: "during the week", b_kor: "주중에는", c_en: ["due to work"], c_kor: ["업무 때문에"] },
+        { vBase: "have", s: "They", p: "의문", o: "a chance", o_kor: "기회를", kor: { 현재:"가지고 있니?", 과거:"가지고 있었니?", 미래:"가지고 있을까?" }, s_kor: "그들은", b_en: "to win the game", b_kor: "경기에 이길", c_en: ["against the team"], c_kor: ["그 팀을 상대로"] },
+        { vBase: "have", s: "The boy", p: "긍정", o: "a wooden toy", o_kor: "나무 장난감을", kor: { 현재:"가지고 있다.", 과거:"가지고 있었다.", 미래:"가지고 있을 것이다." }, s_kor: "그 소년은", b_en: "from his grandfather", b_kor: "할아버지에게 받은", c_en: ["in his room"], c_kor: ["방 안에"] },
+        { vBase: "have", s: "The girls", p: "부정", o: "a secret", o_kor: "비밀을", kor: { 현재:"가지고 있지 않다.", 과거:"가지고 있지 않았다.", 미래:"가지고 있지 않을 것이다." }, s_kor: "소녀들은", b_en: "between them", b_kor: "그들 사이에", c_en: ["at this moment"], c_kor: ["이 순간에는"] },
+        { vBase: "have", s: "My dad", p: "의문", o: "a new laptop", o_kor: "새 노트북을", kor: { 현재:"가지고 계시니?", 과거:"가지고 계셨니?", 미래:"가지고 계실까?" }, s_kor: "나의 아빠는", b_en: "for his presentation", b_kor: "발표를 위한", c_en: ["at the office"], c_kor: ["사무실에"] },
+        { vBase: "have", s: "My mom", p: "긍정", o: "a lot of patience", o_kor: "많은 인내심을", kor: { 현재:"가지고 계신다.", 과거:"가지고 계셨다.", 미래:"가지고 계실 것이다." }, s_kor: "나의 엄마는", b_en: "with young children", b_kor: "어린 아이들에 대한", c_en: ["in her heart"], c_kor: ["마음속에"] },
+        { vBase: "have", s: "The students", p: "부정", o: "any questions", o_kor: "어떤 질문도", kor: { 현재:"가지고 있지 않다.", 과거:"가지고 있지 않았다.", 미래:"가지고 있지 않을 것이다." }, s_kor: "그 학생들은", b_en: "about the lesson", b_kor: "수업에 대한", c_en: ["after the class"], c_kor: ["수업이 끝난 후에"] },
+        { vBase: "have", s: "The teacher", p: "의문", o: "the answer", o_kor: "정답을", kor: { 현재:"가지고 계시니?", 과거:"가지고 계셨니?", 미래:"가지고 계실까?" }, s_kor: "선생님은", b_en: "to the problem", b_kor: "그 문제에 대한", c_en: [ADV.NOW_EN], c_kor: [ADV.NOW_KR] },
+        { vBase: "have", s: "I", p: "긍정", o: "a strong belief", o_kor: "강한 믿음을", kor: { 현재:"가지고 있다.", 과거:"가지고 있었다.", 미래:"가지고 있을 것이다." }, s_kor: "나는", b_en: "in his ability", b_kor: "그의 능력에 대한", c_en: ["deep inside"], c_kor: ["마음속 깊이"] },
+        { vBase: "have", s: "You", p: "부정", o: "a heavy bag", o_kor: "무거운 가방을", kor: { 현재:"가지고 있지 않다.", 과거:"가지고 있지 않았다.", 미래:"가지고 있지 않을 것이다." }, s_kor: "너는", b_en: "for the trip", b_kor: "여행을 위한", c_en: ["at the airport"], c_kor: ["공항에서"] },
+        { vBase: "have", s: "He", p: "의문", o: "a clear goal", o_kor: "명확한 목표를", kor: { 현재:"가지고 있니?", 과거:"가지고 있었니?", 미래:"가지고 있을까?" }, s_kor: "그는", b_en: "for his future", b_kor: "미래를 위한", c_en: ["at his age"], c_kor: ["그의 나이에"] },
+        { vBase: "have", s: "She", p: "긍정", o: "a true friend", o_kor: "진정한 친구를", kor: { 현재:"가지고 있다.", 과거:"가지고 있었다.", 미래:"가지고 있을 것이다." }, s_kor: "그녀는", b_en: "in this city", b_kor: "이 도시에", c_en: ["by her side"], c_kor: ["그녀의 곁에"] },
+        { vBase: "have", s: "We", p: "부정", o: "the courage", o_kor: "용기를", kor: { 현재:"가지고 있지 않다.", 과거:"가지고 있지 않았다.", 미래:"가지고 있지 않을 것이다." }, s_kor: "우리는", b_en: "to tell the truth", b_kor: "진실을 말할", c_en: ["in front of everyone"], c_kor: ["모두의 앞에서"] },
+        { vBase: "have", s: "They", p: "의문", o: "a summer house", o_kor: "여름 별장을", kor: { 현재:"가지고 있니?", 과거:"가지고 있었니?", 미래:"가지고 있을까?" }, s_kor: "그들은", b_en: "near the beach", b_kor: "해변 근처에", c_en: ["for vacations"], c_kor: ["휴가를 위한"] },
+        { vBase: "have", s: "The man", p: "긍정", o: "a serious problem", o_kor: "심각한 문제를", kor: { 현재:"가지고 있다.", 과거:"가지고 있었다.", 미래:"가지고 있을 것이다." }, s_kor: "그 남자는", b_en: "with his car", b_kor: "그의 차에 대한", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] },
+        { vBase: "have", s: "The woman", p: "부정", o: "a special hobby", o_kor: "특별한 취미를", kor: { 현재:"가지고 있지 않다.", 과거:"가지고 있지 않았다.", 미래:"가지고 있지 않을 것이다." }, s_kor: "그 여자는", b_en: "for her free time", b_kor: "그녀의 여가 시간을 위한", c_en: ["despite her wealth"], c_kor: ["부유함에도 불구하고"] },
+        { vBase: "have", s: "The children", p: "의문", o: "a soccer ball", o_kor: "축구공을", kor: { 현재:"가지고 있니?", 과거:"가지고 있었니?", 미래:"가지고 있을까?" }, s_kor: "아이들은", b_en: "for the game", b_kor: "경기를 위한", c_en: ["in the playground"], c_kor: ["운동장에"] },
+        { vBase: "have", s: "My brother", p: "긍정", o: "an electric guitar", o_kor: "일렉트릭 기타를", kor: { 현재:"가지고 있다.", 과거:"가지고 있었다.", 미래:"가지고 있을 것이다." }, s_kor: "내 남동생은", b_en: "in his room", b_kor: "그의 방에", c_en: ["for band practice"], c_kor: ["밴드 연습을 위한"] },
+        { vBase: "have", s: "My sister", p: "부정", o: "a city map", o_kor: "도시 지도를", kor: { 현재:"가지고 있지 않다.", 과거:"가지고 있지 않았다.", 미래:"가지고 있지 않을 것이다." }, s_kor: "내 여동생은", b_en: "for the journey", b_kor: "여행을 위한", c_en: ["in her hands"], c_kor: ["그녀의 손에"] },
+        { vBase: "have", s: "The workers", p: "의문", o: "the right tools", o_kor: "알맞은 도구들을", kor: { 현재:"가지고 있니?", 과거:"가지고 있었니?", 미래:"가지고 있을까?" }, s_kor: "노동자들은", b_en: "to fix the roof", b_kor: "지붕을 고칠", c_en: [ADV.TN_EN], c_kor: [ADV.TN_KR] },
+        { vBase: "have", s: "I", p: "긍정", o: "a good reason", o_kor: "타당한 이유를", kor: { 현재:"가지고 있다.", 과거:"가지고 있었다.", 미래:"가지고 있을 것이다." }, s_kor: "나는", b_en: "for my choice", b_kor: "내 선택에 대한", c_en: ["in this situation"], c_kor: ["이 상황에서"] },
+        { vBase: "have", s: "They", p: "부정", o: "a fair chance", o_kor: "공정한 기회를", kor: { 현재:"가지고 있지 않다.", 과거:"가지고 있지 않았다.", 미래:"가지고 있지 않을 것이다." }, s_kor: "그들은", b_en: "to win the medal", b_kor: "메달을 딸", c_en: ["in this match"], c_kor: ["이 경기에서"] },
+        { vBase: "have", s: "We", p: "의문", o: "the legal right", o_kor: "법적 권리를", kor: { 현재:"가지고 있니?", 과거:"가지고 있었니?", 미래:"가지고 있을까?" }, s_kor: "우리가", b_en: "for this decision", b_kor: "이 결정에 대한", c_en: ["in the court"], c_kor: ["법정에서"] }
+    ];
+        return processRawRows3(subjPlurals, TENSES, rawRows);
+      })()
+      ,
+      advanced: null,
+      master:   null,
+    },
+    need: {
+      standard: (() => {
+        const subjPlurals = ["The students", "They", "We", "The workers"];
+        const TENSES = ["현재", "과거", "미래"];
+        const rawRows = [
+        { vBase: "need", s: "I", p: "긍정", o: "some help", o_kor: "도움을", kor: { 현재:"필요로 한다.", 과거:"필요로 했다.", 미래:"필요로 할 것이다." }, s_kor: "나는", b_en: "with this homework", b_kor: "이 숙제에 대한", c_en: [ADV.RN_EN], c_kor: [ADV.RN_KR] },
+        { vBase: "need", s: "She", p: "부정", o: "a long rest", o_kor: "긴 휴식을", kor: { 현재:"필요로 하지 않는다.", 과거:"필요로 하지 않았다.", 미래:"필요로 하지 않을 것이다." }, s_kor: "그녀는", b_en: "during the season", b_kor: "시즌 동안", c_en: ["despite the work"], c_kor: ["일에도 불구하고"] },
+        { vBase: "need", s: "They", p: "의문", o: "fresh water", o_kor: "신선한 물을", kor: { 현재:"필요로 하니?", 과거:"필요로 했니?", 미래:"필요로 할까?" }, s_kor: "그들은", b_en: "after the race", b_kor: "경주 후에", c_en: ["in the hot weather"], c_kor: ["더운 날씨에"] },
+        { vBase: "need", s: "He", p: "긍정", o: "a good doctor", o_kor: "좋은 의사를", kor: { 현재:"필요로 한다.", 과거:"필요로 했다.", 미래:"필요로 할 것이다." }, s_kor: "그는", b_en: "for his arm", b_kor: "그의 팔을 위해", c_en: ["in the hospital"], c_kor: ["병원에서"] },
+        { vBase: "need", s: "We", p: "부정", o: "a short break", o_kor: "짧은 휴식을", kor: { 현재:"필요로 하지 않는다.", 과거:"필요로 하지 않았다.", 미래:"필요로 하지 않을 것이다." }, s_kor: "우리는", b_en: "during the project", b_kor: "프로젝트 도중에는", c_en: ["in the office"], c_kor: ["사무실에서"] },
+        { vBase: "need", s: "You", p: "의문", o: "a fast taxi", o_kor: "빠른 택시를", kor: { 현재:"필요로 하니?", 과거:"필요로 했니?", 미래:"필요로 할까?" }, s_kor: "너는", b_en: "to the airport", b_kor: "공항으로 가는", c_en: ["in the morning"], c_kor: ["아침에"] },
+        { vBase: "need", s: "The man", p: "긍정", o: "a detailed map", o_kor: "상세한 지도를", kor: { 현재:"필요로 한다.", 과거:"필요로 했다.", 미래:"필요로 할 것이다." }, s_kor: "그 남자는", b_en: "for his trip", b_kor: "여행을 위해", c_en: ["in the city"], c_kor: ["도시에서"] },
+        { vBase: "need", s: "The students", p: "부정", o: "your advice", o_kor: "너의 조언을", kor: { 현재:"필요로 하지 않는다.", 과거:"필요로 하지 않았다.", 미래:"필요로 하지 않을 것이다." }, s_kor: "그 학생들은", b_en: "for the test", b_kor: "시험을 위해", c_en: ["at this point"], c_kor: ["이 시점에서는"] },
+        { vBase: "need", s: "My dad", p: "의문", o: "more time", o_kor: "더 많은 시간을", kor: { 현재:"필요로 하시니?", 과거:"필요로 하셨니?", 미래:"필요로 하실까?" }, s_kor: "나의 아빠는", b_en: "for the report", b_kor: "보고서를 위해", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] },
+        { vBase: "need", s: "I", p: "긍정", o: "the password", o_kor: "비밀번호를", kor: { 현재:"필요로 한다.", 과거:"필요로 했다.", 미래:"필요로 할 것이다." }, s_kor: "나는", b_en: "to unlock the computer", b_kor: "컴퓨터 잠금을 풀기 위해", c_en: ["right away"], c_kor: ["당장"] },
+        { vBase: "need", s: "She", p: "부정", o: "a blue pen", o_kor: "파란색 펜을", kor: { 현재:"필요로 하지 않는다.", 과거:"필요로 하지 않았다.", 미래:"필요로 하지 않을 것이다." }, s_kor: "그녀는", b_en: "for the signature", b_kor: "서명을 위해", c_en: ["in the room"], c_kor: ["방에서"] },
+        { vBase: "need", s: "He", p: "의문", o: "a new shirt", o_kor: "새 셔츠를", kor: { 현재:"필요로 하니?", 과거:"필요로 했니?", 미래:"필요로 할까?" }, s_kor: "그는", b_en: "for the party", b_kor: "파티를 위해", c_en: [ADV.TN_EN], c_kor: [ADV.TN_KR] },
+        { vBase: "need", s: "They", p: "긍정", o: "a neat haircut", o_kor: "깔끔한 이발을", kor: { 현재:"필요로 한다.", 과거:"필요로 했다.", 미래:"필요로 할 것이다." }, s_kor: "그들은", b_en: "before the interview", b_kor: "면접 전에", c_en: ["for a good impression"], c_kor: ["좋은 인상을 위해"] },
+        { vBase: "need", s: "We", p: "부정", o: "a ride", o_kor: "차편을", kor: { 현재:"필요로 하지 않는다.", 과거:"필요로 하지 않았다.", 미래:"필요로 하지 않을 것이다." }, s_kor: "우리는", b_en: "to the station", b_kor: "기차역까지 가는", c_en: ["thanks to the bus"], c_kor: ["버스 덕분에"] },
+        { vBase: "need", s: "You", p: "의문", o: "some money", o_kor: "약간의 돈을", kor: { 현재:"필요로 하니?", 과거:"필요로 했니?", 미래:"필요로 할까?" }, s_kor: "너는", b_en: "to buy the ticket", b_kor: "표를 사기 위해", c_en: [ADV.TW_EN], c_kor: [ADV.TW_KR] },
+        { vBase: "need", s: "The boy", p: "긍정", o: "a comfortable chair", o_kor: "편안한 의자를", kor: { 현재:"필요로 한다.", 과거:"필요로 했다.", 미래:"필요로 할 것이다." }, s_kor: "그 소년은", b_en: "for his desk", b_kor: "책상을 위해", c_en: ["in his room"], c_kor: ["방에"] },
+        { vBase: "need", s: "The girls", p: "부정", o: "a ticket", o_kor: "표 한 장을", kor: { 현재:"필요로 하지 않는다.", 과거:"필요로 하지 않았다.", 미래:"필요로 하지 않을 것이다." }, s_kor: "소녀들은", b_en: "for the movie", b_kor: "영화를 위한", c_en: ["with a free pass"], c_kor: ["무료 패스가 있어서"] },
+        { vBase: "need", s: "My mom", p: "의문", o: "a warm blanket", o_kor: "따뜻한 담요를", kor: { 현재:"필요로 하시니?", 과거:"필요로 하셨니?", 미래:"필요로 하실까?" }, s_kor: "나의 엄마는", b_en: "for the night", b_kor: "밤을 위해", c_en: ["in the living room"], c_kor: ["거실에서"] },
+        { vBase: "need", s: "I", p: "긍정", o: "a strong umbrella", o_kor: "튼튼한 우산을", kor: { 현재:"필요로 한다.", 과거:"필요로 했다.", 미래:"필요로 할 것이다." }, s_kor: "나는", b_en: "for the rain", b_kor: "비에 대비해", c_en: ["before going outside"], c_kor: ["외출하기 전에"] },
+        { vBase: "need", s: "He", p: "부정", o: "a thick mask", o_kor: "두꺼운 마스크를", kor: { 현재:"필요로 하지 않는다.", 과거:"필요로 하지 않았다.", 미래:"필요로 하지 않을 것이다." }, s_kor: "그는", b_en: "inside the house", b_kor: "집 안에서는", c_en: ["in this season"], c_kor: ["이 계절에"] },
+        { vBase: "need", s: "She", p: "의문", o: "a special tool", o_kor: "특별한 도구를", kor: { 현재:"필요로 하니?", 과거:"필요로 했니?", 미래:"필요로 할까?" }, s_kor: "그녀는", b_en: "to repair the engine", b_kor: "엔진을 수리하기 위해", c_en: ["in the garage"], c_kor: ["차고에서"] },
+        { vBase: "need", s: "The workers", p: "긍정", o: "a new battery", o_kor: "새 배터리를", kor: { 현재:"필요로 한다.", 과거:"필요로 했다.", 미래:"필요로 할 것이다." }, s_kor: "노동자들은", b_en: "for the machine", b_kor: "기계를 위해", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] },
+        { vBase: "need", s: "We", p: "부정", o: "a warm hug", o_kor: "따뜻한 포옹을", kor: { 현재:"필요로 하지 않는다.", 과거:"필요로 하지 않았다.", 미래:"필요로 하지 않을 것이다." }, s_kor: "우리는", b_en: "from strangers", b_kor: "낯선 사람의", c_en: ["in this situation"], c_kor: ["이 상황에서"] },
+        { vBase: "need", s: "They", p: "의문", o: "a good excuse", o_kor: "좋은 변명을", kor: { 현재:"필요로 하니?", 과거:"필요로 했니?", 미래:"필요로 할까?" }, s_kor: "그들은", b_en: "for the mistake", b_kor: "실수에 대한", c_en: ["in the meeting"], c_kor: ["회의에서"] },
+        { vBase: "need", s: "I", p: "긍정", o: "a helpful hint", o_kor: "유용한 힌트를", kor: { 현재:"필요로 한다.", 과거:"필요로 했다.", 미래:"필요로 할 것이다." }, s_kor: "나는", b_en: "to solve the puzzle", b_kor: "퍼즐을 풀기 위해", c_en: [ADV.RN_EN], c_kor: [ADV.RN_KR] },
+        { vBase: "need", s: "You", p: "부정", o: "a comic hero", o_kor: "만화 영웅을", kor: { 현재:"필요로 하지 않는다.", 과거:"필요로 하지 않았다.", 미래:"필요로 하지 않을 것이다." }, s_kor: "너는", b_en: "to save your life", b_kor: "네 삶을 구하기 위해", c_en: ["in the real world"], c_kor: ["현실 세계에서"] },
+        { vBase: "need", s: "He", p: "의문", o: "a clear sign", o_kor: "명확한 신호를", kor: { 현재:"필요로 하니?", 과거:"필요로 했니?", 미래:"필요로 할까?" }, s_kor: "그는", b_en: "to find the direction", b_kor: "방향을 찾기 위해", c_en: ["on the dark road"], c_kor: ["어두운 도로에서"] }
+    ];
+        return processRawRows3(subjPlurals, TENSES, rawRows);
+      })()
+      ,
+      advanced: null,
+      master:   null,
+    },
+    make: {
+      standard: (() => {
+        const subjPlurals = ["They", "We", "The workers", "The students", "The girls"];
+        const TENSES = ["현재", "과거", "미래"];
+        const rawRows = [
+        { vBase: "make", s: "I", p: "긍정", o: "a delicious cake", o_kor: "맛있는 케이크를", kor: { 현재:"만든다.", 과거:"만들었다.", 미래:"만들 것이다." }, s_kor: "나는", b_en: "for the party", b_kor: "파티를 위해", c_en: ["in the kitchen"], c_kor: ["부엌에서"] },
+        { vBase: "make", s: "She", p: "부정", o: "a silly mistake", o_kor: "어리석은 실수를", kor: { 현재:"만들지 않는다.", 과거:"만들지 않았다.", 미래:"만들지 않을 것이다." }, s_kor: "그녀는", b_en: "on the test", b_kor: "시험에서", c_en: ["thanks to her focus"], c_kor: ["집중력 덕분에"] },
+        { vBase: "make", s: "He", p: "의문", o: "a perfect plan", o_kor: "완벽한 계획을", kor: { 현재:"만드니?", 과거:"만들었니?", 미래:"만들까?" }, s_kor: "그는", b_en: "for the trip", b_kor: "여행을 위한", c_en: ["in advance"], c_kor: ["미리"] },
+        { vBase: "make", s: "They", p: "긍정", o: "a lot of noise", o_kor: "많은 소음을", kor: { 현재:"만든다.", 과거:"만들었다.", 미래:"만들 것이다." }, s_kor: "그들은", b_en: "in the classroom", b_kor: "교실에서", c_en: ["during the break"], c_kor: ["쉬는 시간 동안"] },
+        { vBase: "make", s: "We", p: "부정", o: "hot coffee", o_kor: "뜨거운 커피를", kor: { 현재:"만들지 않는다.", 과거:"만들지 않았다.", 미래:"만들지 않을 것이다." }, s_kor: "우리는", b_en: "in the morning", b_kor: "아침에", c_en: ["before going to work"], c_kor: ["출근하기 전에"] },
+        { vBase: "make", s: "You", p: "의문", o: "a final decision", o_kor: "최종 결정을", kor: { 현재:"만드니?", 과거:"만들었니?", 미래:"만들까?" }, s_kor: "너는", b_en: "about the job", b_kor: "직업에 대한", c_en: [ADV.RN_EN], c_kor: [ADV.RN_KR] },
+        { vBase: "make", s: "The boy", p: "긍정", o: "a firm promise", o_kor: "단단한 약속을", kor: { 현재:"만든다.", 과거:"만들었다.", 미래:"만들 것이다." }, s_kor: "그 소년은", b_en: "to his mom", b_kor: "엄마에게", c_en: ["with a serious face"], c_kor: ["진지한 얼굴로"] },
+        { vBase: "make", s: "The girls", p: "부정", o: "a shopping list", o_kor: "쇼핑 목록을", kor: { 현재:"만들지 않는다.", 과거:"만들지 않았다.", 미래:"만들지 않을 것이다." }, s_kor: "소녀들은", b_en: "for the mall", b_kor: "쇼핑몰을 위한", c_en: ["because of the rush"], c_kor: ["서두름 때문에"] },
+        { vBase: "make", s: "My dad", p: "의문", o: "a warm fire", o_kor: "따뜻한 불을", kor: { 현재:"만드시니?", 과거:"만드셨니?", 미래:"만드실까?" }, s_kor: "나의 아빠는", b_en: "in the camp", b_kor: "캠프에서", c_en: ["for us"], c_kor: ["우리를 위해"] },
+        { vBase: "make", s: "I", p: "긍정", o: "new friends", o_kor: "새 친구들을", kor: { 현재:"만든다.", 과거:"만들었다.", 미래:"만들 것이다." }, s_kor: "나는", b_en: "at the school", b_kor: "학교에서", c_en: ["with an open mind"], c_kor: ["열린 마음으로"] },
+        { vBase: "make", s: "She", p: "부정", o: "a reservation", o_kor: "예약을", kor: { 현재:"만들지 않는다.", 과거:"만들지 않았다.", 미래:"만들지 않을 것이다." }, s_kor: "그녀는", b_en: "for the restaurant", b_kor: "식당에 대한", c_en: ["by phone"], c_kor: ["전화로"] },
+        { vBase: "make", s: "They", p: "의문", o: "the bed", o_kor: "침대를 (잠자리를)", kor: { 현재:"만드니?", 과거:"만들었니?", 미래:"만들까?" }, s_kor: "그들은", b_en: "after waking up", b_kor: "일어난 후에", c_en: ["to keep the room clean"], c_kor: ["방을 깨끗이 유지하기 위해"] },
+        { vBase: "make", s: "He", p: "긍정", o: "a big snowman", o_kor: "큰 눈사람을", kor: { 현재:"만든다.", 과거:"만들었다.", 미래:"만들 것이다." }, s_kor: "그는", b_en: "in the yard", b_kor: "마당에서", c_en: ["with his hands"], c_kor: ["손으로"] },
+        { vBase: "make", s: "We", p: "부정", o: "a ham sandwich", o_kor: "햄 샌드위치를", kor: { 현재:"만들지 않는다.", 과거:"만들지 않았다.", 미래:"만들지 않을 것이다." }, s_kor: "우리는", b_en: "for our lunch", b_kor: "우리의 점심을 위해", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] },
+        { vBase: "make", s: "You", p: "의문", o: "a funny joke", o_kor: "재미있는 농담을", kor: { 현재:"만드니?", 과거:"만들었니?", 미래:"만들까?" }, s_kor: "너는", b_en: "about the situation", b_kor: "상황에 대해", c_en: ["in front of everyone"], c_kor: ["모두의 앞에서"] },
+        { vBase: "make", s: "The dog", p: "긍정", o: "a terrible mess", o_kor: "끔찍한 난장판을", kor: { 현재:"만든다.", 과거:"만들었다.", 미래:"만들 것이다." }, s_kor: "그 개는", b_en: "in the living room", b_kor: "거실에", c_en: ["while playing"], c_kor: ["노는 동안"] },
+        { vBase: "make", s: "The workers", p: "부정", o: "a strict rule", o_kor: "엄격한 규칙을", kor: { 현재:"만들지 않는다.", 과거:"만들지 않았다.", 미래:"만들지 않을 것이다." }, s_kor: "노동자들은", b_en: "for the factory", b_kor: "공장을 위한", c_en: ["without permission"], c_kor: ["허락 없이"] },
+        { vBase: "make", s: "My mom", p: "의문", o: "a small box", o_kor: "작은 상자를", kor: { 현재:"만드시니?", 과거:"만드셨니?", 미래:"만드실까?" }, s_kor: "나의 엄마는", b_en: "out of paper", b_kor: "종이로", c_en: ["to keep the books"], c_kor: ["책들을 보관하기 위해"] },
+        { vBase: "make", s: "I", p: "긍정", o: "a wooden toy", o_kor: "나무 장난감을", kor: { 현재:"만든다.", 과거:"만들었다.", 미래:"만들 것이다." }, s_kor: "나는", b_en: "for my brother", b_kor: "내 남동생을 위해", c_en: ["with care"], c_kor: ["정성을 다해"] },
+        { vBase: "make", s: "She", p: "부정", o: "a comfortable chair", o_kor: "편안한 의자를", kor: { 현재:"만들지 않는다.", 과거:"만들지 않았다.", 미래:"만들지 않을 것이다." }, s_kor: "그녀는", b_en: "in the workshop", b_kor: "작업장에서", c_en: ["due to her back"], c_kor: ["그녀의 허리 때문에"] },
+        { vBase: "make", s: "He", p: "의문", o: "a smart robot", o_kor: "똑똑한 로봇을", kor: { 현재:"만드니?", 과거:"만들었니?", 미래:"만들까?" }, s_kor: "그는", b_en: "for the contest", b_kor: "대회를 위해", c_en: ["by himself"], c_kor: ["스스로"] },
+        { vBase: "make", s: "They", p: "긍정", o: "a short video", o_kor: "짧은 비디오를", kor: { 현재:"만든다.", 과거:"만들었다.", 미래:"만들 것이다." }, s_kor: "그들은", b_en: "about the nature", b_kor: "자연에 대한", c_en: ["in the park"], c_kor: ["공원에서"] },
+        { vBase: "make", s: "We", p: "부정", o: "a public speech", o_kor: "대중 연설을", kor: { 현재:"만들지 않는다.", 과거:"만들지 않았다.", 미래:"만들지 않을 것이다." }, s_kor: "우리는", b_en: "for the event", b_kor: "행사를 위한", c_en: ["on the stage"], c_kor: ["무대 위에서"] },
+        { vBase: "make", s: "You", p: "의문", o: "a strange sound", o_kor: "이상한 소리를", kor: { 현재:"만드니?", 과거:"만들었니?", 미래:"만들까?" }, s_kor: "너는", b_en: "with that instrument", b_kor: "그 악기로", c_en: ["in the middle of the night"], c_kor: ["한밤중에"] },
+        { vBase: "make", s: "The students", p: "긍정", o: "a big difference", o_kor: "큰 차이를", kor: { 현재:"만든다.", 과거:"만들었다.", 미래:"만들 것이다." }, s_kor: "그 학생들은", b_en: "in the community", b_kor: "지역 사회에", c_en: ["through volunteering"], c_kor: ["봉사활동을 통해"] },
+        { vBase: "make", s: "I", p: "부정", o: "a large fortune", o_kor: "큰 부를", kor: { 현재:"만들지 않는다.", 과거:"만들지 않았다.", 미래:"만들지 않을 것이다." }, s_kor: "나는", b_en: "in this business", b_kor: "이 사업에서", c_en: ["without taking risks"], c_kor: ["위험을 감수하지 않고는"] },
+        { vBase: "make", s: "She", p: "의문", o: "a paper boat", o_kor: "종이배를", kor: { 현재:"만드니?", 과거:"만들었니?", 미래:"만들까?" }, s_kor: "그녀는", b_en: "to play in the tub", b_kor: "욕조에서 놀기 위해", c_en: ["out of a magazine"], c_kor: ["잡지로"] }
+    ];
+        return processRawRows3(subjPlurals, TENSES, rawRows);
+      })()
+      ,
+      advanced: null,
+      master:   null,
+    },
+    hate: {
+      standard: (() => {
+        const subjPlurals = ["They", "We", "The children", "Many people", "The girls"];
+        const TENSES = ["현재", "과거", "미래"];
+        const rawRows = [
+        { vBase: "hate", s: "I", p: "긍정", o: "scary bugs", o_kor: "무서운 벌레들을", kor: { 현재:"싫어한다.", 과거:"싫어했다.", 미래:"싫어할 것이다." }, s_kor: "나는", b_en: "inside my room", b_kor: "방 안에 있는", c_en: ["during the summer"], c_kor: ["여름 동안"] },
+        { vBase: "hate", s: "She", p: "부정", o: "the cold winter", o_kor: "추운 겨울을", kor: { 현재:"싫어하지 않는다.", 과거:"싫어하지 않았다.", 미래:"싫어하지 않을 것이다." }, s_kor: "그녀는", b_en: "in this country", b_kor: "이 나라의", c_en: ["because of sports"], c_kor: ["스포츠 때문에"] },
+        { vBase: "hate", s: "He", p: "의문", o: "Monday mornings", o_kor: "월요일 아침을", kor: { 현재:"싫어하니?", 과거:"싫어했니?", 미래:"싫어할까?" }, s_kor: "그는", b_en: "before going to work", b_kor: "출근하기 전의", c_en: ["like most people"], c_kor: ["대부분의 사람처럼"] },
+        { vBase: "hate", s: "They", p: "긍정", o: "obvious lies", o_kor: "명백한 거짓말을", kor: { 현재:"싫어한다.", 과거:"싫어했다.", 미래:"싫어할 것이다." }, s_kor: "그들은", b_en: "from their friends", b_kor: "친구들로부터의", c_en: ["with a passion"], c_kor: ["격렬하게"] },
+        { vBase: "hate", s: "We", p: "부정", o: "the hot weather", o_kor: "더운 날씨를", kor: { 현재:"싫어하지 않는다.", 과거:"싫어하지 않았다.", 미래:"싫어하지 않을 것이다." }, s_kor: "우리는", b_en: "on our vacation", b_kor: "휴가 중의", c_en: ["thanks to the breeze"], c_kor: ["바람 덕분에"] },
+        { vBase: "hate", s: "You", p: "의문", o: "spicy food", o_kor: "매운 음식을", kor: { 현재:"싫어하니?", 과거:"싫어했니?", 미래:"싫어할까?" }, s_kor: "너는", b_en: "at the restaurant", b_kor: "식당의", c_en: ["for your stomach"], c_kor: ["위장을 위해서"] },
+        { vBase: "hate", s: "The man", p: "긍정", o: "the long lines", o_kor: "긴 줄을", kor: { 현재:"싫어한다.", 과거:"싫어했다.", 미래:"싫어할 것이다." }, s_kor: "그 남자는", b_en: "at the bank", b_kor: "은행의", c_en: ["in the morning"], c_kor: ["아침에"] },
+        { vBase: "hate", s: "The woman", p: "부정", o: "the heavy rain", o_kor: "폭우를", kor: { 현재:"싫어하지 않는다.", 과거:"싫어하지 않았다.", 미래:"싫어하지 않을 것이다." }, s_kor: "그 여자는", b_en: "during the trip", b_kor: "여행 도중의", c_en: ["in the tent"], c_kor: ["텐트 안에서"] },
+        { vBase: "hate", s: "The children", p: "의문", o: "this boring song", o_kor: "이 지루한 노래를", kor: { 현재:"싫어하니?", 과거:"싫어했니?", 미래:"싫어할까?" }, s_kor: "아이들은", b_en: "on the radio", b_kor: "라디오에서 나오는", c_en: [ADV.RN_EN], c_kor: [ADV.RN_KR] },
+        { vBase: "hate", s: "I", p: "긍정", o: "traffic jams", o_kor: "교통 체증을", kor: { 현재:"싫어한다.", 과거:"싫어했다.", 미래:"싫어할 것이다." }, s_kor: "나는", b_en: "on the highway", b_kor: "고속도로의", c_en: ["during rush hour"], c_kor: ["퇴근 시간에"] },
+        { vBase: "hate", s: "He", p: "부정", o: "serious arguments", o_kor: "심각한 논쟁을", kor: { 현재:"싫어하지 않는다.", 과거:"싫어하지 않았다.", 미래:"싫어하지 않을 것이다." }, s_kor: "그는", b_en: "with his colleagues", b_kor: "동료들과의", c_en: ["to reach a conclusion"], c_kor: ["결론에 도달하기 위해"] },
+        { vBase: "hate", s: "She", p: "의문", o: "raw fish", o_kor: "날생선을", kor: { 현재:"싫어하니?", 과거:"싫어했니?", 미래:"싫어할까?" }, s_kor: "그녀는", b_en: "for her lunch", b_kor: "점심으로 나온", c_en: ["in the restaurant"], c_kor: ["식당에서"] },
+        { vBase: "hate", s: "They", p: "긍정", o: "horror movies", o_kor: "공포 영화를", kor: { 현재:"싫어한다.", 과거:"싫어했다.", 미래:"싫어할 것이다." }, s_kor: "그들은", b_en: "on a dark night", b_kor: "어두운 밤에 보는", c_en: ["due to fear"], c_kor: ["두려움 때문에"] },
+        { vBase: "hate", s: "We", p: "부정", o: "the freezing wind", o_kor: "차가운 바람을", kor: { 현재:"싫어하지 않는다.", 과거:"싫어하지 않았다.", 미래:"싫어하지 않을 것이다." }, s_kor: "우리는", b_en: "on the mountain", b_kor: "산의", c_en: ["during our hiking"], c_kor: ["등산 중에"] },
+        { vBase: "hate", s: "You", p: "의문", o: "that sad movie", o_kor: "저 슬픈 영화를", kor: { 현재:"싫어하니?", 과거:"싫어했니?", 미래:"싫어할까?" }, s_kor: "너는", b_en: "on the TV", b_kor: "TV에 나오는", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] },
+        { vBase: "hate", s: "My dad", p: "긍정", o: "loud video games", o_kor: "시끄러운 비디오 게임을", kor: { 현재:"싫어한다.", 과거:"싫어했다.", 미래:"싫어할 것이다." }, s_kor: "나의 아빠는", b_en: "on the computer", b_kor: "컴퓨터의", c_en: ["because of the noise"], c_kor: ["소음 때문에"] },
+        { vBase: "hate", s: "My mom", p: "부정", o: "dirty rooms", o_kor: "더러운 방을", kor: { 현재:"싫어하지 않는다.", 과거:"싫어하지 않았다.", 미래:"싫어하지 않을 것이다." }, s_kor: "나의 엄마는", b_en: "in the house", b_kor: "집 안의", c_en: ["before cleaning"], c_kor: ["청소하기 전이라면"] },
+        { vBase: "hate", s: "Many people", p: "의문", o: "sudden noises", o_kor: "갑작스러운 소음을", kor: { 현재:"싫어하니?", 과거:"싫어했니?", 미래:"싫어할까?" }, s_kor: "많은 사람들은", b_en: "in the library", b_kor: "도서관의", c_en: ["for obvious reasons"], c_kor: ["분명한 이유로"] },
+        { vBase: "hate", s: "I", p: "긍정", o: "bitter medicine", o_kor: "쓴 약을", kor: { 현재:"싫어한다.", 과거:"싫어했다.", 미래:"싫어할 것이다." }, s_kor: "나는", b_en: "for my cold", b_kor: "감기를 위한", c_en: ["from the bottom of my heart"], c_kor: ["마음속 깊이"] },
+        { vBase: "hate", s: "She", p: "부정", o: "strict rules", o_kor: "엄격한 규칙을", kor: { 현재:"싫어하지 않는다.", 과거:"싫어하지 않았다.", 미래:"싫어하지 않을 것이다." }, s_kor: "그녀는", b_en: "for safety", b_kor: "안전을 위한", c_en: ["in reality"], c_kor: ["실제로는"] },
+        { vBase: "hate", s: "He", p: "의문", o: "wet shoes", o_kor: "젖은 신발을", kor: { 현재:"싫어하니?", 과거:"싫어했니?", 미래:"싫어할까?" }, s_kor: "그는", b_en: "after the rain", b_kor: "비 온 뒤의", c_en: ["just like me"], c_kor: ["딱 나처럼"] },
+        { vBase: "hate", s: "They", p: "긍정", o: "continuous rain", o_kor: "계속되는 비를", kor: { 현재:"싫어한다.", 과거:"싫어했다.", 미래:"싫어할 것이다." }, s_kor: "그들은", b_en: "during the match", b_kor: "경기 도중의", c_en: ["without a doubt"], c_kor: ["의심의 여지 없이"] },
+        { vBase: "hate", s: "We", p: "부정", o: "fake tears", o_kor: "거짓 눈물을", kor: { 현재:"싫어하지 않는다.", 과거:"싫어하지 않았다.", 미래:"싫어하지 않을 것이다." }, s_kor: "우리는", b_en: "in the play", b_kor: "연극 속의", c_en: ["for entertainment"], c_kor: ["오락을 위한 것이라면"] },
+        { vBase: "hate", s: "You", p: "의문", o: "the strong smell", o_kor: "그 강한 냄새를", kor: { 현재:"싫어하니?", 과거:"싫어했니?", 미래:"싫어할까?" }, s_kor: "너는", b_en: "of garlic", b_kor: "마늘의", c_en: ["in the kitchen"], c_kor: ["부엌에서 나는"] },
+        { vBase: "hate", s: "The boy", p: "긍정", o: "bright colors", o_kor: "밝은 색깔을", kor: { 현재:"싫어한다.", 과거:"싫어했다.", 미래:"싫어할 것이다." }, s_kor: "그 소년은", b_en: "on his shirt", b_kor: "셔츠의", c_en: ["because of his friends"], c_kor: ["친구들 때문에"] },
+        { vBase: "hate", s: "The girls", p: "부정", o: "sweet tastes", o_kor: "단맛을", kor: { 현재:"싫어하지 않는다.", 과거:"싫어하지 않았다.", 미래:"싫어하지 않을 것이다." }, s_kor: "소녀들은", b_en: "of the juice", b_kor: "주스의", c_en: ["on a hot day"], c_kor: ["더운 날에"] },
+        { vBase: "hate", s: "I", p: "의문", o: "weird designs", o_kor: "이상한 디자인을", kor: { 현재:"싫어하니?", 과거:"싫어했니?", 미래:"싫어할까?" }, s_kor: "내가", b_en: "of the car", b_kor: "차의", c_en: ["to be honest"], c_kor: ["솔직하게 말해서"] }
+    ];
+        return processRawRows3(subjPlurals, TENSES, rawRows);
+      })()
+      ,
+      advanced: null,
+      master:   null,
+    },
+    do: {
+      standard: (() => {
+        const subjPlurals = ["The students", "They", "We", "The boys"];
+        const TENSES = ["현재", "과거", "미래"];
+        const rawRows = [
+        { vBase: "do", s: "I", p: "긍정", o: "my best", o_kor: "최선을", kor: { 현재:"다한다.", 과거:"다했다.", 미래:"다할 것이다." }, s_kor: "나는", b_en: "for the match", b_kor: "경기를 위해", c_en: ["without regrets"], c_kor: ["후회 없이"] },
+        { vBase: "do", s: "She", p: "부정", o: "her math homework", o_kor: "수학 숙제를", kor: { 현재:"하지 않는다.", 과거:"하지 않았다.", 미래:"하지 않을 것이다." }, s_kor: "그녀는", b_en: "after dinner", b_kor: "저녁 식사 후에", c_en: ["due to laziness"], c_kor: ["게으름 때문에"] },
+        { vBase: "do", s: "He", p: "의문", o: "the dishes", o_kor: "설거지를", kor: { 현재:"하니?", 과거:"했니?", 미래:"할까?" }, s_kor: "그는", b_en: "for his mother", b_kor: "엄마를 위해", c_en: ["without a complaint"], c_kor: ["불평 없이"] },
+        { vBase: "do", s: "They", p: "긍정", o: "a great job", o_kor: "훌륭한 일을", kor: { 현재:"해낸다.", 과거:"해냈다.", 미래:"해낼 것이다." }, s_kor: "그들은", b_en: "on the project", b_kor: "프로젝트에서", c_en: ["by working together"], c_kor: ["협력함으로써"] },
+        { vBase: "do", s: "We", p: "부정", o: "risky business", o_kor: "위험한 사업을", kor: { 현재:"하지 않는다.", 과거:"하지 않았다.", 미래:"하지 않을 것이다." }, s_kor: "우리는", b_en: "with that company", b_kor: "저 회사와", c_en: ["for our safety"], c_kor: ["우리의 안전을 위해"] },
+        { vBase: "do", s: "You", p: "의문", o: "a favor", o_kor: "부탁을", kor: { 현재:"들어주니?", 과거:"들어줬니?", 미래:"들어줄까?" }, s_kor: "너는", b_en: "for my presentation", b_kor: "내 발표를 위해", c_en: [ADV.RN_EN], c_kor: [ADV.RN_KR] },
+        { vBase: "do", s: "The boy", p: "긍정", o: "the laundry", o_kor: "빨래를", kor: { 현재:"한다.", 과거:"했다.", 미래:"할 것이다." }, s_kor: "그 소년은", b_en: "by himself", b_kor: "스스로", c_en: ["on weekends"], c_kor: ["주말마다"] },
+        { vBase: "do", s: "The students", p: "부정", o: "the extra work", o_kor: "추가 과제를", kor: { 현재:"하지 않는다.", 과거:"하지 않았다.", 미래:"하지 않을 것이다." }, s_kor: "그 학생들은", b_en: "after school", b_kor: "방과 후에", c_en: ["without a reason"], c_kor: ["이유 없이"] },
+        { vBase: "do", s: "My dad", p: "의문", o: "the holiday cooking", o_kor: "휴일 요리를", kor: { 현재:"하시니?", 과거:"하셨니?", 미래:"하실까?" }, s_kor: "나의 아빠는", b_en: "for the family", b_kor: "가족을 위해", c_en: ["in the kitchen"], c_kor: ["부엌에서"] },
+        { vBase: "do", s: "I", p: "긍정", o: "light exercise", o_kor: "가벼운 운동을", kor: { 현재:"한다.", 과거:"했다.", 미래:"할 것이다." }, s_kor: "나는", b_en: "in the morning", b_kor: "아침에", c_en: ["for my health"], c_kor: ["건강을 위해"] },
+        { vBase: "do", s: "She", p: "부정", o: "anything wrong", o_kor: "어떤 잘못된 일도", kor: { 현재:"하지 않는다.", 과거:"하지 않았다.", 미래:"하지 않을 것이다." }, s_kor: "그녀는", b_en: "to her friends", b_kor: "친구들에게", c_en: ["on purpose"], c_kor: ["고의로"] },
+        { vBase: "do", s: "They", p: "의문", o: "the spring cleaning", o_kor: "봄맞이 대청소를", kor: { 현재:"하니?", 과거:"했니?", 미래:"할까?" }, s_kor: "그들은", b_en: "in the living room", b_kor: "거실에서", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] },
+        { vBase: "do", s: "He", p: "긍정", o: "a magic trick", o_kor: "마술을", kor: { 현재:"한다.", 과거:"했다.", 미래:"할 것이다." }, s_kor: "그는", b_en: "for the kids", b_kor: "아이들을 위해", c_en: ["at the party"], c_kor: ["파티에서"] },
+        { vBase: "do", s: "We", p: "부정", o: "the grocery shopping", o_kor: "식료품 쇼핑을", kor: { 현재:"하지 않는다.", 과거:"하지 않았다.", 미래:"하지 않을 것이다." }, s_kor: "우리는", b_en: "at that mall", b_kor: "저 쇼핑몰에서", c_en: ["for financial reasons"], c_kor: ["재정적 이유로"] },
+        { vBase: "do", s: "You", p: "의문", o: "your hair", o_kor: "머리(손질)를", kor: { 현재:"하니?", 과거:"했니?", 미래:"할까?" }, s_kor: "너는", b_en: "by yourself", b_kor: "스스로", c_en: ["before the event"], c_kor: ["행사 전에"] },
+        { vBase: "do", s: "The dog", p: "긍정", o: "a cute trick", o_kor: "귀여운 묘기를", kor: { 현재:"한다.", 과거:"했다.", 미래:"할 것이다." }, s_kor: "그 개는", b_en: "for a snack", b_kor: "간식을 위해", c_en: ["in front of the guests"], c_kor: ["손님들 앞에서"] },
+        { vBase: "do", s: "The boys", p: "부정", o: "the math test", o_kor: "수학 시험을", kor: { 현재:"치르지 않는다.", 과거:"치르지 않았다.", 미래:"치르지 않을 것이다." }, s_kor: "그 소년들은", b_en: "in the classroom", b_kor: "교실에서", c_en: ["due to absence"], c_kor: ["결석 때문에"] },
+        { vBase: "do", s: "My mom", p: "의문", o: "the ironing", o_kor: "다림질을", kor: { 현재:"하시니?", 과거:"하셨니?", 미래:"하실까?" }, s_kor: "나의 엄마는", b_en: "in the living room", b_kor: "거실에서", c_en: [ADV.TN_EN], c_kor: [ADV.TN_KR] },
+        { vBase: "do", s: "I", p: "긍정", o: "deep research", o_kor: "깊은 연구를", kor: { 현재:"한다.", 과거:"했다.", 미래:"할 것이다." }, s_kor: "나는", b_en: "on the history topic", b_kor: "역사 주제에 대해", c_en: ["in the library"], c_kor: ["도서관에서"] },
+        { vBase: "do", s: "She", p: "부정", o: "her basic duty", o_kor: "기본적 의무를", kor: { 현재:"다하지 않는다.", 과거:"다하지 않았다.", 미래:"다하지 않을 것이다." }, s_kor: "그녀는", b_en: "for the team", b_kor: "팀을 위해", c_en: ["in a proper way"], c_kor: ["올바른 방식으로"] },
+        { vBase: "do", s: "He", p: "의문", o: "the paperwork", o_kor: "서류 작업을", kor: { 현재:"하니?", 과거:"했니?", 미래:"할까?" }, s_kor: "그는", b_en: "in his office", b_kor: "사무실에서", c_en: ["all alone"], c_kor: ["혼자서"] },
+        { vBase: "do", s: "They", p: "긍정", o: "a good deed", o_kor: "선한 행동을", kor: { 현재:"한다.", 과거:"했다.", 미래:"할 것이다." }, s_kor: "그들은", b_en: "for the neighbors", b_kor: "이웃들을 위해", c_en: ["without seeking praise"], c_kor: ["칭찬을 바라지 않고"] },
+        { vBase: "do", s: "We", p: "부정", o: "the exact translation", o_kor: "정확한 번역을", kor: { 현재:"하지 않는다.", 과거:"하지 않았다.", 미래:"하지 않을 것이다." }, s_kor: "우리는", b_en: "without a dictionary", b_kor: "사전 없이", c_en: ["in this class"], c_kor: ["이 수업에서"] },
+        { vBase: "do", s: "You", p: "의문", o: "permanent damage", o_kor: "영구적인 피해를", kor: { 현재:"입히니?", 과거:"입혔니?", 미래:"입힐까?" }, s_kor: "너는", b_en: "to the machine", b_kor: "기계에", c_en: ["by an accident"], c_kor: ["실수로"] },
+        { vBase: "do", s: "The students", p: "긍정", o: "their fair part", o_kor: "공정한 역할을", kor: { 현재:"다한다.", 과거:"다했다.", 미래:"다할 것이다." }, s_kor: "그 학생들은", b_en: "for the festival", b_kor: "축제를 위해", c_en: ["with enthusiasm"], c_kor: ["열정을 가지고"] },
+        { vBase: "do", s: "I", p: "부정", o: "any harm", o_kor: "어떤 해도", kor: { 현재:"끼치지 않는다.", 과거:"끼치지 않았다.", 미래:"끼치지 않을 것이다." }, s_kor: "나는", b_en: "to wild animals", b_kor: "야생 동물들에게", c_en: ["in nature"], c_kor: ["자연에서"] },
+        { vBase: "do", s: "She", p: "의문", o: "a warm-up", o_kor: "준비 운동을", kor: { 현재:"하니?", 과거:"했니?", 미래:"할까?" }, s_kor: "그녀는", b_en: "before the swim", b_kor: "수영 전에", c_en: ["at the pool"], c_kor: ["수영장에서"] }
+    ];
+        return processRawRows3(subjPlurals, TENSES, rawRows);
+      })()
+      ,
+      advanced: null,
+      master:   null,
+    },
+    enjoy: {
+      standard: (() => {
+        const subjPlurals = ["The students", "They", "We", "Many tourists", "The boys"];
+        const TENSES = ["현재", "과거", "미래"];
+        const rawRows = [
+        { vBase: "enjoy", s: "I", p: "긍정", o: "the fresh air", o_kor: "신선한 공기를", kor: { 현재:"즐긴다.", 과거:"즐겼다.", 미래:"즐길 것이다." }, s_kor: "나는", b_en: "in the mountain", b_kor: "산에서", c_en: ["on weekends"], c_kor: ["주말마다"] },
+        { vBase: "enjoy", s: "She", p: "부정", o: "the loud music", o_kor: "시끄러운 음악을", kor: { 현재:"즐기지 않는다.", 과거:"즐기지 않았다.", 미래:"즐기지 않을 것이다." }, s_kor: "그녀는", b_en: "in the cafe", b_kor: "카페에서", c_en: ["during the day"], c_kor: ["낮 동안"] },
+        { vBase: "enjoy", s: "He", p: "의문", o: "the delicious meal", o_kor: "맛있는 식사를", kor: { 현재:"즐기니?", 과거:"즐겼니?", 미래:"즐길까?" }, s_kor: "그는", b_en: "at the restaurant", b_kor: "식당에서", c_en: [ADV.TN_EN], c_kor: [ADV.TN_KR] },
+        { vBase: "enjoy", s: "They", p: "긍정", o: "the beautiful sunset", o_kor: "아름다운 일몰을", kor: { 현재:"즐긴다.", 과거:"즐겼다.", 미래:"즐길 것이다." }, s_kor: "그들은", b_en: "on the beach", b_kor: "해변에서", c_en: ["with their loved ones"], c_kor: ["사랑하는 사람들과 함께"] },
+        { vBase: "enjoy", s: "We", p: "부정", o: "the horror movie", o_kor: "공포 영화를", kor: { 현재:"즐기지 않는다.", 과거:"즐기지 않았다.", 미래:"즐기지 않을 것이다." }, s_kor: "우리는", b_en: "in the theater", b_kor: "영화관에서", c_en: ["due to fear"], c_kor: ["두려움 때문에"] },
+        { vBase: "enjoy", s: "You", p: "의문", o: "the long trip", o_kor: "긴 여행을", kor: { 현재:"즐기니?", 과거:"즐겼니?", 미래:"즐길까?" }, s_kor: "너는", b_en: "with your family", b_kor: "가족과 함께", c_en: ["by the train"], c_kor: ["기차로"] },
+        { vBase: "enjoy", s: "The boy", p: "긍정", o: "the exciting game", o_kor: "신나는 게임을", kor: { 현재:"즐긴다.", 과거:"즐겼다.", 미래:"즐길 것이다." }, s_kor: "그 소년은", b_en: "on his computer", b_kor: "컴퓨터로", c_en: ["after school"], c_kor: ["방과 후에"] },
+        { vBase: "enjoy", s: "The students", p: "부정", o: "the boring lecture", o_kor: "지루한 강의를", kor: { 현재:"즐기지 않는다.", 과거:"즐기지 않았다.", 미래:"즐기지 않을 것이다." }, s_kor: "그 학생들은", b_en: "in the hall", b_kor: "강당에서", c_en: ["without a doubt"], c_kor: ["의심의 여지 없이"] },
+        { vBase: "enjoy", s: "My dad", p: "의문", o: "the quiet morning", o_kor: "조용한 아침을", kor: { 현재:"즐기시니?", 과거:"즐기셨니?", 미래:"즐기실까?" }, s_kor: "나의 아빠는", b_en: "on the balcony", b_kor: "발코니에서", c_en: ["with a cup of coffee"], c_kor: ["커피 한 잔과 함께"] },
+        { vBase: "enjoy", s: "I", p: "긍정", o: "the warm sunshine", o_kor: "따뜻한 햇살을", kor: { 현재:"즐긴다.", 과거:"즐겼다.", 미래:"즐길 것이다." }, s_kor: "나는", b_en: "in the garden", b_kor: "정원에서", c_en: ["during the spring"], c_kor: ["봄 동안"] },
+        { vBase: "enjoy", s: "She", p: "부정", o: "the heavy traffic", o_kor: "교통 체증을", kor: { 현재:"즐기지 않는다.", 과거:"즐기지 않았다.", 미래:"즐기지 않을 것이다." }, s_kor: "그녀는", b_en: "on her way to work", b_kor: "출근길에", c_en: ["quite naturally"], c_kor: ["당연하게도"] },
+        { vBase: "enjoy", s: "They", p: "의문", o: "the live concert", o_kor: "라이브 콘서트를", kor: { 현재:"즐기니?", 과거:"즐겼니?", 미래:"즐길까?" }, s_kor: "그들은", b_en: "at the stadium", b_kor: "경기장에서", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] },
+        { vBase: "enjoy", s: "He", p: "긍정", o: "a good book", o_kor: "좋은 책을", kor: { 현재:"즐긴다.", 과거:"즐겼다.", 미래:"즐길 것이다." }, s_kor: "그는", b_en: "by the fireplace", b_kor: "벽난로 옆에서", c_en: ["on a cold day"], c_kor: ["추운 날에"] },
+        { vBase: "enjoy", s: "We", p: "부정", o: "the cold weather", o_kor: "추운 날씨를", kor: { 현재:"즐기지 않는다.", 과거:"즐기지 않았다.", 미래:"즐기지 않을 것이다." }, s_kor: "우리는", b_en: "in this region", b_kor: "이 지역의", c_en: ["without a heater"], c_kor: ["히터 없이는"] },
+        { vBase: "enjoy", s: "You", p: "의문", o: "the city view", o_kor: "도시의 경치를", kor: { 현재:"즐기니?", 과거:"즐겼니?", 미래:"즐길까?" }, s_kor: "너는", b_en: "from the tower", b_kor: "타워에서", c_en: ["at night"], c_kor: ["밤에"] },
+        { vBase: "enjoy", s: "Many tourists", p: "긍정", o: "the local food", o_kor: "지역 음식을", kor: { 현재:"즐긴다.", 과거:"즐겼다.", 미래:"즐길 것이다." }, s_kor: "많은 관광객들은", b_en: "at the market", b_kor: "시장에서", c_en: ["with great interest"], c_kor: ["큰 관심을 가지고"] },
+        { vBase: "enjoy", s: "The boys", p: "부정", o: "the slow music", o_kor: "느린 음악을", kor: { 현재:"즐기지 않는다.", 과거:"즐기지 않았다.", 미래:"즐기지 않을 것이다." }, s_kor: "그 소년들은", b_en: "in the hall", b_kor: "홀에서", c_en: ["to be honest"], c_kor: ["솔직하게 말해서"] },
+        { vBase: "enjoy", s: "My mom", p: "의문", o: "the short walk", o_kor: "짧은 산책을", kor: { 현재:"즐기시니?", 과거:"즐기셨니?", 미래:"즐기실까?" }, s_kor: "나의 엄마는", b_en: "along the river", b_kor: "강을 따라", c_en: ["after dinner"], c_kor: ["저녁 식사 후에"] },
+        { vBase: "enjoy", s: "I", p: "긍정", o: "the deep silence", o_kor: "깊은 침묵을", kor: { 현재:"즐긴다.", 과거:"즐겼다.", 미래:"즐길 것이다." }, s_kor: "나는", b_en: "in the library", b_kor: "도서관에서", c_en: ["while reading"], c_kor: ["읽는 동안"] },
+        { vBase: "enjoy", s: "She", p: "부정", o: "the fast roller coaster", o_kor: "빠른 롤러코스터를", kor: { 현재:"즐기지 않는다.", 과거:"즐기지 않았다.", 미래:"즐기지 않을 것이다." }, s_kor: "그녀는", b_en: "at the park", b_kor: "공원에서", c_en: ["because of dizziness"], c_kor: ["어지러움 때문에"] },
+        { vBase: "enjoy", s: "He", p: "의문", o: "the sweet dessert", o_kor: "달콤한 디저트를", kor: { 현재:"즐기니?", 과거:"즐겼니?", 미래:"즐길까?" }, s_kor: "그는", b_en: "after the meal", b_kor: "식사 후에", c_en: ["with a smile"], c_kor: ["미소와 함께"] },
+        { vBase: "enjoy", s: "They", p: "긍정", o: "the traditional dance", o_kor: "전통 춤을", kor: { 현재:"즐긴다.", 과거:"즐겼다.", 미래:"즐길 것이다." }, s_kor: "그들은", b_en: "at the festival", b_kor: "축제에서", c_en: ["enthusiastically"], c_kor: ["열정적으로"] },
+        { vBase: "enjoy", s: "We", p: "부정", o: "the bitter coffee", o_kor: "쓴 커피를", kor: { 현재:"즐기지 않는다.", 과거:"즐기지 않았다.", 미래:"즐기지 않을 것이다." }, s_kor: "우리는", b_en: "in the morning", b_kor: "아침에", c_en: ["without sugar"], c_kor: ["설탕 없이는"] },
+        { vBase: "enjoy", s: "You", p: "의문", o: "the boat ride", o_kor: "보트 타기를", kor: { 현재:"즐기니?", 과거:"즐겼니?", 미래:"즐길까?" }, s_kor: "너는", b_en: "on the lake", b_kor: "호수 위에서", c_en: ["on a sunny day"], c_kor: ["화창한 날에"] },
+        { vBase: "enjoy", s: "The students", p: "긍정", o: "the science experiment", o_kor: "과학 실험을", kor: { 현재:"즐긴다.", 과거:"즐겼다.", 미래:"즐길 것이다." }, s_kor: "그 학생들은", b_en: "in the lab", b_kor: "실험실에서", c_en: ["with their friends"], c_kor: ["친구들과 함께"] },
+        { vBase: "enjoy", s: "I", p: "부정", o: "the scary story", o_kor: "무서운 이야기를", kor: { 현재:"즐기지 않는다.", 과거:"즐기지 않았다.", 미래:"즐기지 않을 것이다." }, s_kor: "나는", b_en: "around the campfire", b_kor: "캠프파이어 주변에서", c_en: ["at night"], c_kor: ["밤에"] },
+        { vBase: "enjoy", s: "She", p: "의문", o: "the beautiful garden", o_kor: "아름다운 정원을", kor: { 현재:"즐기니?", 과거:"즐겼니?", 미래:"즐길까?" }, s_kor: "그녀는", b_en: "behind the house", b_kor: "집 뒤에 있는", c_en: ["in spring"], c_kor: ["봄에"] }
+    ];
+        return processRawRows3(subjPlurals, TENSES, rawRows);
+      })()
+      ,
+      advanced: null,
+      master:   null,
+    },
+    wear: {
+      standard: (() => {
+        const subjPlurals = ["The students", "They", "We", "The workers", "The girls"];
+        const TENSES = ["현재", "과거", "미래"];
+        const rawRows = [
+        { vBase: "wear", s: "I", p: "긍정", o: "a thick coat", o_kor: "두꺼운 코트를", kor: { 현재:"입는다.", 과거:"입었다.", 미래:"입을 것이다." }, s_kor: "나는", b_en: "in the winter", b_kor: "겨울에", c_en: ["against the cold"], c_kor: ["추위에 대비해"] },
+        { vBase: "wear", s: "She", p: "부정", o: "high heels", o_kor: "하이힐을", kor: { 현재:"신지 않는다.", 과거:"신지 않았다.", 미래:"신지 않을 것이다." }, s_kor: "그녀는", b_en: "at the workplace", b_kor: "직장에서", c_en: ["for her comfort"], c_kor: ["편안함을 위해"] },
+        { vBase: "wear", s: "He", p: "의문", o: "a seatbelt", o_kor: "안전벨트를", kor: { 현재:"매니?", 과거:"맸니?", 미래:"맬까?" }, s_kor: "그는", b_en: "in the car", b_kor: "차 안에서", c_en: ["for safety"], c_kor: ["안전을 위해"] },
+        { vBase: "wear", s: "They", p: "긍정", o: "a school uniform", o_kor: "학교 교복을", kor: { 현재:"입는다.", 과거:"입었다.", 미래:"입을 것이다." }, s_kor: "그들은", b_en: "at the school", b_kor: "학교에서", c_en: ["proudly"], c_kor: ["자랑스럽게"] },
+        { vBase: "wear", s: "We", p: "부정", o: "heavy makeup", o_kor: "짙은 화장을", kor: { 현재:"하지 않는다.", 과거:"하지 않았다.", 미래:"하지 않을 것이다." }, s_kor: "우리는", b_en: "on a daily basis", b_kor: "일상에서", c_en: ["in this town"], c_kor: ["이 마을에서"] },
+        { vBase: "wear", s: "You", p: "의문", o: "reading glasses", o_kor: "돋보기 안경을", kor: { 현재:"쓰니?", 과거:"썼니?", 미래:"쓸까?" }, s_kor: "너는", b_en: "in the library", b_kor: "도서관에서", c_en: ["while reading texts"], c_kor: ["글씨를 읽는 동안"] },
+        { vBase: "wear", s: "The boy", p: "긍정", o: "a blue cap", o_kor: "파란색 모자를", kor: { 현재:"쓴다.", 과거:"썼다.", 미래:"쓸 것이다." }, s_kor: "그 소년은", b_en: "during the game", b_kor: "경기 동안", c_en: ["under the sun"], c_kor: ["태양 아래서"] },
+        { vBase: "wear", s: "The students", p: "부정", o: "casual clothes", o_kor: "평상복을", kor: { 현재:"입지 않는다.", 과거:"입지 않았다.", 미래:"입지 않을 것이다." }, s_kor: "그 학생들은", b_en: "on weekdays", b_kor: "주중에는", c_en: ["at the school"], c_kor: ["학교에서"] },
+        { vBase: "wear", s: "My dad", p: "의문", o: "a black suit", o_kor: "검은색 정장을", kor: { 현재:"입으시니?", 과거:"입으셨니?", 미래:"입으실까?" }, s_kor: "나의 아빠는", b_en: "for the meeting", b_kor: "회의를 위해", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] },
+        { vBase: "wear", s: "I", p: "긍정", o: "a warm scarf", o_kor: "따뜻한 목도리를", kor: { 현재:"두른다.", 과거:"둘렀다.", 미래:"두를 것이다." }, s_kor: "나는", b_en: "around my neck", b_kor: "목 주위에", c_en: ["on windy days"], c_kor: ["바람 부는 날에"] },
+        { vBase: "wear", s: "She", p: "부정", o: "expensive jewelry", o_kor: "비싼 보석을", kor: { 현재:"착용하지 않는다.", 과거:"착용하지 않았다.", 미래:"착용하지 않을 것이다." }, s_kor: "그녀는", b_en: "at the party", b_kor: "파티에서", c_en: ["to avoid attention"], c_kor: ["주의를 피하기 위해"] },
+        { vBase: "wear", s: "They", p: "의문", o: "safety helmets", o_kor: "안전 헬멧을", kor: { 현재:"쓰니?", 과거:"썼니?", 미래:"쓸까?" }, s_kor: "그들은", b_en: "on the site", b_kor: "현장에서", c_en: [ADV.RN_EN], c_kor: [ADV.RN_KR] },
+        { vBase: "wear", s: "He", p: "긍정", o: "a gold watch", o_kor: "금시계를", kor: { 현재:"찬다.", 과거:"찼다.", 미래:"찰 것이다." }, s_kor: "그는", b_en: "on his wrist", b_kor: "손목에", c_en: ["with pride"], c_kor: ["자부심을 가지고"] },
+        { vBase: "wear", s: "We", p: "부정", o: "rain boots", o_kor: "장화를", kor: { 현재:"신지 않는다.", 과거:"신지 않았다.", 미래:"신지 않을 것이다." }, s_kor: "우리는", b_en: "on a sunny day", b_kor: "화창한 날에", c_en: ["quite obviously"], c_kor: ["당연하게도"] },
+        { vBase: "wear", s: "You", p: "의문", o: "a protective mask", o_kor: "보호 마스크를", kor: { 현재:"쓰니?", 과거:"썼니?", 미래:"쓸까?" }, s_kor: "너는", b_en: "in the room", b_kor: "방에서", c_en: ["for your health"], c_kor: ["건강을 위해"] },
+        { vBase: "wear", s: "The workers", p: "긍정", o: "thick gloves", o_kor: "두꺼운 장갑을", kor: { 현재:"낀다.", 과거:"꼈다.", 미래:"낄 것이다." }, s_kor: "노동자들은", b_en: "during the work", b_kor: "작업 동안", c_en: ["to protect their hands"], c_kor: ["손을 보호하기 위해"] },
+        { vBase: "wear", s: "The girls", p: "부정", o: "a long skirt", o_kor: "긴 치마를", kor: { 현재:"입지 않는다.", 과거:"입지 않았다.", 미래:"입지 않을 것이다." }, s_kor: "소녀들은", b_en: "for the PE class", b_kor: "체육 수업을 위해", c_en: ["for convenience"], c_kor: ["편의를 위해"] },
+        { vBase: "wear", s: "My mom", p: "의문", o: "a beautiful dress", o_kor: "아름다운 드레스를", kor: { 현재:"입으시니?", 과거:"입으셨니?", 미래:"입으실까?" }, s_kor: "나의 엄마는", b_en: "for the wedding", b_kor: "결혼식을 위해", c_en: [ADV.TN_EN], c_kor: [ADV.TN_KR] },
+        { vBase: "wear", s: "I", p: "긍정", o: "comfortable shoes", o_kor: "편안한 신발을", kor: { 현재:"신는다.", 과거:"신었다.", 미래:"신을 것이다." }, s_kor: "나는", b_en: "for the walk", b_kor: "산책을 위해", c_en: ["in the park"], c_kor: ["공원에서"] },
+        { vBase: "wear", s: "She", p: "부정", o: "bright colors", o_kor: "밝은 색상을", kor: { 현재:"입지 않는다.", 과거:"입지 않았다.", 미래:"입지 않을 것이다." }, s_kor: "그녀는", b_en: "at the funeral", b_kor: "장례식에서", c_en: ["out of respect"], c_kor: ["존중의 의미로"] },
+        { vBase: "wear", s: "He", p: "의문", o: "a red tie", o_kor: "빨간 넥타이를", kor: { 현재:"매니?", 과거:"맸니?", 미래:"맬까?" }, s_kor: "그는", b_en: "with the shirt", b_kor: "셔츠와 함께", c_en: ["for the interview"], c_kor: ["면접을 위해"] },
+        { vBase: "wear", s: "They", p: "긍정", o: "warm sweaters", o_kor: "따뜻한 스웨터를", kor: { 현재:"입는다.", 과거:"입었다.", 미래:"입을 것이다." }, s_kor: "그들은", b_en: "in the morning", b_kor: "아침에", c_en: ["before going out"], c_kor: ["나가기 전에"] },
+        { vBase: "wear", s: "We", p: "부정", o: "a name tag", o_kor: "이름표를", kor: { 현재:"달지 않는다.", 과거:"달지 않았다.", 미래:"달지 않을 것이다." }, s_kor: "우리는", b_en: "outside the building", b_kor: "건물 밖에서는", c_en: ["most of the time"], c_kor: ["보통은"] },
+        { vBase: "wear", s: "You", p: "의문", o: "dark sunglasses", o_kor: "어두운 선글라스를", kor: { 현재:"쓰니?", 과거:"썼니?", 미래:"쓸까?" }, s_kor: "너는", b_en: "on the beach", b_kor: "해변에서", c_en: ["to protect your eyes"], c_kor: ["눈을 보호하기 위해"] },
+        { vBase: "wear", s: "The students", p: "긍정", o: "a heavy backpack", o_kor: "무거운 배낭을", kor: { 현재:"멘다.", 과거:"맸다.", 미래:"맬 것이다." }, s_kor: "그 학생들은", b_en: "on their way to school", b_kor: "등굣길에", c_en: ["full of books"], c_kor: ["책으로 가득 찬 상태로"] },
+        { vBase: "wear", s: "I", p: "부정", o: "an old watch", o_kor: "오래된 시계를", kor: { 현재:"차지 않는다.", 과거:"차지 않았다.", 미래:"차지 않을 것이다." }, s_kor: "나는", b_en: "on my wrist", b_kor: "손목에", c_en: ["most of the time"], c_kor: ["이제는"] },
+        { vBase: "wear", s: "She", p: "의문", o: "a silver ring", o_kor: "은반지를", kor: { 현재:"끼니?", 과거:"꼈니?", 미래:"낄까?" }, s_kor: "그녀는", b_en: "on her finger", b_kor: "손가락에", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] }
+    ];
+        return processRawRows3(subjPlurals, TENSES, rawRows);
+      })()
+      ,
+      advanced: null,
+      master:   null,
+    },
+    buy: {
+      standard: (() => {
+        const subjPlurals = ["They", "We", "The tourists", "The students"];
+        const TENSES = ["현재", "과거", "미래"];
+        const rawRows = [
+        { vBase: "buy", s: "I", p: "긍정", o: "fresh milk", o_kor: "신선한 우유를", kor: { 현재:"산다.", 과거:"샀다.", 미래:"살 것이다." }, s_kor: "나는", b_en: "at the market", b_kor: "시장에서", c_en: ["in the morning"], c_kor: ["아침에"] },
+        { vBase: "buy", s: "She", p: "부정", o: "expensive clothes", o_kor: "비싼 옷을", kor: { 현재:"사지 않는다.", 과거:"사지 않았다.", 미래:"사지 않을 것이다." }, s_kor: "그녀는", b_en: "at the mall", b_kor: "쇼핑몰에서", c_en: ["without a good reason"], c_kor: ["타당한 이유 없이"] },
+        { vBase: "buy", s: "He", p: "의문", o: "a new car", o_kor: "새 차를", kor: { 현재:"사니?", 과거:"샀니?", 미래:"살까?" }, s_kor: "그는", b_en: "for his family", b_kor: "가족을 위해", c_en: [ADV.TY_EN], c_kor: [ADV.TY_KR] },
+        { vBase: "buy", s: "They", p: "긍정", o: "concert tickets", o_kor: "콘서트 표를", kor: { 현재:"산다.", 과거:"샀다.", 미래:"살 것이다." }, s_kor: "그들은", b_en: "on the website", b_kor: "웹사이트에서", c_en: ["in advance"], c_kor: ["사전에"] },
+        { vBase: "buy", s: "We", p: "부정", o: "junk food", o_kor: "정크 푸드를", kor: { 현재:"사지 않는다.", 과거:"사지 않았다.", 미래:"사지 않을 것이다." }, s_kor: "우리는", b_en: "at the store", b_kor: "가게에서", c_en: ["for our health"], c_kor: ["건강을 위해"] },
+        { vBase: "buy", s: "You", p: "의문", o: "a birthday gift", o_kor: "생일 선물을", kor: { 현재:"사니?", 과거:"샀니?", 미래:"살까?" }, s_kor: "너는", b_en: "for your friend", b_kor: "친구를 위해", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] },
+        { vBase: "buy", s: "The boy", p: "긍정", o: "a comic book", o_kor: "만화책을", kor: { 현재:"산다.", 과거:"샀다.", 미래:"살 것이다." }, s_kor: "그 소년은", b_en: "at the bookstore", b_kor: "서점에서", c_en: ["with his pocket money"], c_kor: ["용돈으로"] },
+        { vBase: "buy", s: "The tourists", p: "부정", o: "fake souvenirs", o_kor: "가짜 기념품을", kor: { 현재:"사지 않는다.", 과거:"사지 않았다.", 미래:"사지 않을 것이다." }, s_kor: "관광객들은", b_en: "in the market", b_kor: "시장에서", c_en: ["all the time"], c_kor: ["이제는"] },
+        { vBase: "buy", s: "My dad", p: "의문", o: "strong coffee", o_kor: "진한 커피를", kor: { 현재:"사시니?", 과거:"사셨니?", 미래:"사실까?" }, s_kor: "나의 아빠는", b_en: "at the cafe", b_kor: "카페에서", c_en: ["before work"], c_kor: ["출근 전에"] },
+        { vBase: "buy", s: "I", p: "긍정", o: "a train ticket", o_kor: "기차표를", kor: { 현재:"산다.", 과거:"샀다.", 미래:"살 것이다." }, s_kor: "나는", b_en: "at the station", b_kor: "역에서", c_en: ["for the trip"], c_kor: ["여행을 위해"] },
+        { vBase: "buy", s: "She", p: "부정", o: "a heavy coat", o_kor: "두꺼운 코트를", kor: { 현재:"사지 않는다.", 과거:"사지 않았다.", 미래:"사지 않을 것이다." }, s_kor: "그녀는", b_en: "during the summer", b_kor: "여름 동안에는", c_en: ["obviously"], c_kor: ["분명히"] },
+        { vBase: "buy", s: "They", p: "의문", o: "a big house", o_kor: "큰 집을", kor: { 현재:"사니?", 과거:"샀니?", 미래:"살까?" }, s_kor: "그들은", b_en: "in the suburbs", b_kor: "교외에", c_en: ["for a quiet life"], c_kor: ["조용한 삶을 위해"] },
+        { vBase: "buy", s: "He", p: "긍정", o: "fresh flowers", o_kor: "신선한 꽃을", kor: { 현재:"산다.", 과거:"샀다.", 미래:"살 것이다." }, s_kor: "그는", b_en: "at the florist", b_kor: "꽃집에서", c_en: ["for his mother"], c_kor: ["엄마를 위해"] },
+        { vBase: "buy", s: "We", p: "부정", o: "plastic bottles", o_kor: "플라스틱 병을", kor: { 현재:"사지 않는다.", 과거:"사지 않았다.", 미래:"사지 않을 것이다." }, s_kor: "우리는", b_en: "at the supermarket", b_kor: "슈퍼마켓에서", c_en: ["to protect the environment"], c_kor: ["환경을 보호하기 위해"] },
+        { vBase: "buy", s: "You", p: "의문", o: "a new smartphone", o_kor: "새 스마트폰을", kor: { 현재:"사니?", 과거:"샀니?", 미래:"살까?" }, s_kor: "너는", b_en: "at the store", b_kor: "매장에서", c_en: [ADV.TW_EN], c_kor: [ADV.TW_KR] },
+        { vBase: "buy", s: "My mom", p: "긍정", o: "organic vegetables", o_kor: "유기농 채소를", kor: { 현재:"사신다.", 과거:"사셨다.", 미래:"사실 것이다." }, s_kor: "나의 엄마는", b_en: "at the market", b_kor: "시장에서", c_en: ["for our health"], c_kor: ["건강을 위해"] },
+        { vBase: "buy", s: "The students", p: "부정", o: "expensive textbooks", o_kor: "비싼 교과서를", kor: { 현재:"사지 않는다.", 과거:"사지 않았다.", 미래:"사지 않을 것이다." }, s_kor: "그 학생들은", b_en: "at the bookstore", b_kor: "서점에서", c_en: ["if they can borrow them"], c_kor: ["빌릴 수 있다면"] },
+        { vBase: "buy", s: "I", p: "의문", o: "a digital camera", o_kor: "디지털 카메라를", kor: { 현재:"사니?", 과거:"샀니?", 미래:"살까?" }, s_kor: "내가", b_en: "for the class", b_kor: "수업을 위해", c_en: [ADV.RN_EN], c_kor: [ADV.RN_KR] },
+        { vBase: "buy", s: "He", p: "긍정", o: "a gold ring", o_kor: "금반지를", kor: { 현재:"산다.", 과거:"샀다.", 미래:"살 것이다." }, s_kor: "그는", b_en: "at the shop", b_kor: "가게에서", c_en: ["for the proposal"], c_kor: ["프로포즈를 위해"] },
+        { vBase: "buy", s: "She", p: "부정", o: "a leather bag", o_kor: "가죽 가방을", kor: { 현재:"사지 않는다.", 과거:"사지 않았다.", 미래:"사지 않을 것이다." }, s_kor: "그녀는", b_en: "on the internet", b_kor: "인터넷에서", c_en: ["without checking the quality"], c_kor: ["품질을 확인하지 않고는"] },
+        { vBase: "buy", s: "They", p: "의문", o: "a used car", o_kor: "중고차를", kor: { 현재:"사니?", 과거:"샀니?", 미래:"살까?" }, s_kor: "그들은", b_en: "from the dealer", b_kor: "딜러에게서", c_en: ["to save money"], c_kor: ["돈을 절약하기 위해"] },
+        { vBase: "buy", s: "We", p: "긍정", o: "movie tickets", o_kor: "영화 표를", kor: { 현재:"산다.", 과거:"샀다.", 미래:"살 것이다." }, s_kor: "우리는", b_en: "at the box office", b_kor: "매표소에서", c_en: ["before the show"], c_kor: ["공연 직전에"] },
+        { vBase: "buy", s: "You", p: "부정", o: "sweet snacks", o_kor: "단 간식을", kor: { 현재:"사지 않는다.", 과거:"사지 않았다.", 미래:"사지 않을 것이다." }, s_kor: "너는", b_en: "before dinner", b_kor: "저녁 식사 전에", c_en: ["most of the time"], c_kor: ["보통은"] },
+        { vBase: "buy", s: "The boy", p: "의문", o: "a fast bicycle", o_kor: "빠른 자전거를", kor: { 현재:"사니?", 과거:"샀니?", 미래:"살까?" }, s_kor: "그 소년은", b_en: "at the shop", b_kor: "가게에서", c_en: ["with his dad"], c_kor: ["아빠와 함께"] },
+        { vBase: "buy", s: "I", p: "긍정", o: "a travel guide", o_kor: "여행 가이드북을", kor: { 현재:"산다.", 과거:"샀다.", 미래:"살 것이다." }, s_kor: "나는", b_en: "for my trip", b_kor: "여행을 위해", c_en: ["in the bookstore"], c_kor: ["서점에서"] },
+        { vBase: "buy", s: "She", p: "부정", o: "a cold drink", o_kor: "차가운 음료를", kor: { 현재:"사지 않는다.", 과거:"사지 않았다.", 미래:"사지 않을 것이다." }, s_kor: "그녀는", b_en: "in the winter", b_kor: "겨울에", c_en: ["at all"], c_kor: ["전혀"] },
+        { vBase: "buy", s: "He", p: "의문", o: "a winter hat", o_kor: "겨울 모자를", kor: { 현재:"사니?", 과거:"샀니?", 미래:"살까?" }, s_kor: "그가", b_en: "for the trip", b_kor: "여행을 위해", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] }
+    ];
+        return processRawRows3(subjPlurals, TENSES, rawRows);
+      })()
+      ,
+      advanced: null,
+      master:   null,
+    },
+    want: {
+      standard: (() => {
+        const subjPlurals = ["The children", "They", "We", "The students"];
+        const TENSES = ["현재", "과거", "미래"];
+        const rawRows = [
+        { vBase: "want", s: "I", p: "긍정", o: "a new bike", o_kor: "새 자전거를", kor: { 현재:"원한다.", 과거:"원했다.", 미래:"원할 것이다." }, s_kor: "나는", b_en: "for my birthday", b_kor: "생일을 위해", c_en: ["from my parents"], c_kor: ["부모님으로부터"] },
+        { vBase: "want", s: "She", p: "부정", o: "extra help", o_kor: "추가적인 도움을", kor: { 현재:"원하지 않는다.", 과거:"원하지 않았다.", 미래:"원하지 않을 것이다." }, s_kor: "그녀는", b_en: "with her homework", b_kor: "숙제에 대해", c_en: ["at this moment"], c_kor: ["이 순간에는"] },
+        { vBase: "want", s: "He", p: "의문", o: "a hot drink", o_kor: "따뜻한 음료를", kor: { 현재:"원하니?", 과거:"원했니?", 미래:"원할까?" }, s_kor: "그는", b_en: "after the walk", b_kor: "산책 후에", c_en: ["in this weather"], c_kor: ["이 날씨에"] },
+        { vBase: "want", s: "They", p: "긍정", o: "a big house", o_kor: "큰 집을", kor: { 현재:"원한다.", 과거:"원했다.", 미래:"원할 것이다." }, s_kor: "그들은", b_en: "near the beach", b_kor: "해변 근처에", c_en: ["for their family"], c_kor: ["가족을 위해"] },
+        { vBase: "want", s: "We", p: "부정", o: "a long break", o_kor: "긴 휴식을", kor: { 현재:"원하지 않는다.", 과거:"원하지 않았다.", 미래:"원하지 않을 것이다." }, s_kor: "우리는", b_en: "during the season", b_kor: "시즌 동안", c_en: ["at our workplace"], c_kor: ["직장에서"] },
+        { vBase: "want", s: "You", p: "의문", o: "a quick answer", o_kor: "빠른 대답을", kor: { 현재:"원하니?", 과거:"원했니?", 미래:"원할까?" }, s_kor: "너는", b_en: "to this question", b_kor: "이 질문에 대한", c_en: [ADV.RN_EN], c_kor: [ADV.RN_KR] },
+        { vBase: "want", s: "The boy", p: "긍정", o: "a quiet room", o_kor: "조용한 방을", kor: { 현재:"원한다.", 과거:"원했다.", 미래:"원할 것이다." }, s_kor: "그 소년은", b_en: "for his study", b_kor: "공부를 위해", c_en: ["without noise"], c_kor: ["소음 없이"] },
+        { vBase: "want", s: "The children", p: "부정", o: "sudden trouble", o_kor: "갑작스러운 문제를", kor: { 현재:"원하지 않는다.", 과거:"원하지 않았다.", 미래:"원하지 않을 것이다." }, s_kor: "아이들은", b_en: "during their trip", b_kor: "여행 동안", c_en: ["in the forest"], c_kor: ["숲에서"] },
+        { vBase: "want", s: "My dad", p: "의문", o: "a second chance", o_kor: "두 번째 기회를", kor: { 현재:"원하시니?", 과거:"원하셨니?", 미래:"원하실까?" }, s_kor: "나의 아빠는", b_en: "for the project", b_kor: "프로젝트에 대한", c_en: ["despite the loss"], c_kor: ["손실에도 불구하고"] },
+        { vBase: "want", s: "I", p: "긍정", o: "a smartphone", o_kor: "스마트폰을", kor: { 현재:"원한다.", 과거:"원했다.", 미래:"원할 것이다." }, s_kor: "나는", b_en: "for my work", b_kor: "업무를 위해", c_en: ["with a good battery"], c_kor: ["좋은 배터리가 탑재된"] },
+        { vBase: "want", s: "She", p: "부정", o: "sweet snacks", o_kor: "단 간식을", kor: { 현재:"원하지 않는다.", 과거:"원하지 않았다.", 미래:"원하지 않을 것이다." }, s_kor: "그녀는", b_en: "before dinner", b_kor: "저녁 식사 전에는", c_en: ["for her diet"], c_kor: ["다이어트를 위해"] },
+        { vBase: "want", s: "They", p: "의문", o: "more time", o_kor: "더 많은 시간을", kor: { 현재:"원하니?", 과거:"원했니?", 미래:"원할까?" }, s_kor: "그들은", b_en: "for the test", b_kor: "시험을 위해", c_en: ["in the room"], c_kor: ["방에서"] },
+        { vBase: "want", s: "He", p: "긍정", o: "a window seat", o_kor: "창가 자리를", kor: { 현재:"원한다.", 과거:"원했다.", 미래:"원할 것이다." }, s_kor: "그는", b_en: "on the airplane", b_kor: "비행기에서", c_en: ["for the view"], c_kor: ["경치를 위해"] },
+        { vBase: "want", s: "We", p: "부정", o: "a pet dog", o_kor: "애완견을", kor: { 현재:"원하지 않는다.", 과거:"원하지 않았다.", 미래:"원하지 않을 것이다." }, s_kor: "우리는", b_en: "in our apartment", b_kor: "아파트에", c_en: ["due to neighbors"], c_kor: ["이웃들 때문에"] },
+        { vBase: "want", s: "You", p: "의문", o: "the exact location", o_kor: "정확한 위치를", kor: { 현재:"원하니?", 과거:"원했니?", 미래:"원할까?" }, s_kor: "너는", b_en: "of the restaurant", b_kor: "식당의", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] },
+        { vBase: "want", s: "The students", p: "긍정", o: "a front seat", o_kor: "맨 앞자리를", kor: { 현재:"원한다.", 과거:"원했다.", 미래:"원할 것이다." }, s_kor: "그 학생들은", b_en: "in the hall", b_kor: "강의실에서", c_en: ["for focus"], c_kor: ["집중을 위해"] },
+        { vBase: "want", s: "I", p: "부정", o: "strict rules", o_kor: "엄격한 규칙을", kor: { 현재:"원하지 않는다.", 과거:"원하지 않았다.", 미래:"원하지 않을 것이다." }, s_kor: "나는", b_en: "in my workplace", b_kor: "직장에", c_en: ["without a reason"], c_kor: ["이유 없이"] },
+        { vBase: "want", s: "She", p: "의문", o: "sincere advice", o_kor: "진심 어린 조언을", kor: { 현재:"원하니?", 과거:"원했니?", 미래:"원할까?" }, s_kor: "그녀는", b_en: "about her future", b_kor: "미래에 대한", c_en: ["at this point"], c_kor: ["이 시점에"] },
+        { vBase: "want", s: "He", p: "긍정", o: "a happy life", o_kor: "행복한 삶을", kor: { 현재:"원한다.", 과거:"원했다.", 미래:"원할 것이다." }, s_kor: "그는", b_en: "with his family", b_kor: "가족과 함께", c_en: ["far from the city"], c_kor: ["도시에서 멀리 떨어져"] },
+        { vBase: "want", s: "They", p: "부정", o: "an old car", o_kor: "낡은 차를", kor: { 현재:"원하지 않는다.", 과거:"원하지 않았다.", 미래:"원하지 않을 것이다." }, s_kor: "그들은", b_en: "for their road trip", b_kor: "자동차 여행을 위해", c_en: ["at all"], c_kor: ["전혀"] },
+        { vBase: "want", s: "We", p: "의문", o: "a simple solution", o_kor: "단순한 해결책을", kor: { 현재:"원하니?", 과거:"원했니?", 미래:"원할까?" }, s_kor: "우리가", b_en: "to this problem", b_kor: "이 문제에 대한", c_en: [ADV.NOW_EN], c_kor: [ADV.NOW_KR] },
+        { vBase: "want", s: "You", p: "긍정", o: "a fresh apple", o_kor: "신선한 사과를", kor: { 현재:"원한다.", 과거:"원했다.", 미래:"원할 것이다." }, s_kor: "너는", b_en: "from the tree", b_kor: "나무에서 딴", c_en: ["for your snack"], c_kor: ["간식을 위해"] },
+        { vBase: "want", s: "The children", p: "부정", o: "scary movies", o_kor: "무서운 영화를", kor: { 현재:"원하지 않는다.", 과거:"원하지 않았다.", 미래:"원하지 않을 것이다." }, s_kor: "아이들은", b_en: "on a dark night", b_kor: "어두운 밤에", c_en: ["in the living room"], c_kor: ["거실에서"] },
+        { vBase: "want", s: "He", p: "의문", o: "her full attention", o_kor: "그녀의 완전한 주의를", kor: { 현재:"원하니?", 과거:"원했니?", 미래:"원할까?" }, s_kor: "그가", b_en: "during his talk", b_kor: "대화 동안", c_en: ["without interruptions"], c_kor: ["방해 없이"] },
+        { vBase: "want", s: "I", p: "긍정", o: "a warm coat", o_kor: "따뜻한 코트를", kor: { 현재:"원한다.", 과거:"원했다.", 미래:"원할 것이다." }, s_kor: "나는", b_en: "for the winter", b_kor: "겨울을 위해", c_en: ["in this country"], c_kor: ["이 나라에서"] },
+        { vBase: "want", s: "She", p: "부정", o: "unexpected delays", o_kor: "예상치 못한 지연을", kor: { 현재:"원하지 않는다.", 과거:"원하지 않았다.", 미래:"원하지 않을 것이다." }, s_kor: "그녀는", b_en: "on her schedule", b_kor: "일정에", c_en: ["for the project"], c_kor: ["프로젝트를 위해"] },
+        { vBase: "want", s: "They", p: "의문", o: "a perfect grade", o_kor: "완벽한 성적을", kor: { 현재:"원하니?", 과거:"원했니?", 미래:"원할까?" }, s_kor: "그들이", b_en: "on the final exam", b_kor: "기말고사에서", c_en: ["to impress their parents"], c_kor: ["부모님을 감동시키기 위해"] }
+    ];
+        return processRawRows3(subjPlurals, TENSES, rawRows);
+      })()
+      ,
+      advanced: null,
+      master:   null,
+    },
+    know: {
+      standard: (() => {
+        const subjPlurals = ["The students", "They", "We", "The detectives"];
+        const TENSES = ["현재", "과거", "미래"];
+        const rawRows = [
+        { vBase: "know", s: "I", p: "긍정", o: "the right answer", o_kor: "정답을", kor: { 현재:"안다.", 과거:"알았다.", 미래:"알 것이다." }, s_kor: "나는", b_en: "to the problem", b_kor: "문제에 대한", c_en: ["without a doubt"], c_kor: ["의심 없이"] },
+        { vBase: "know", s: "She", p: "부정", o: "the hidden truth", o_kor: "숨겨진 진실을", kor: { 현재:"알지 못한다.", 과거:"알지 못했다.", 미래:"알지 못할 것이다." }, s_kor: "그녀는", b_en: "about the accident", b_kor: "사고에 대한", c_en: ["at this moment"], c_kor: ["이 순간에"] },
+        { vBase: "know", s: "He", p: "의문", o: "the password", o_kor: "비밀번호를", kor: { 현재:"아니?", 과거:"알았니?", 미래:"알까?" }, s_kor: "그는", b_en: "for the safe", b_kor: "금고를 위한", c_en: ["by any chance"], c_kor: ["혹시라도"] },
+        { vBase: "know", s: "They", p: "긍정", o: "the strict rules", o_kor: "엄격한 규칙을", kor: { 현재:"안다.", 과거:"알았다.", 미래:"알 것이다." }, s_kor: "그들은", b_en: "of the game", b_kor: "게임의", c_en: ["perfectly well"], c_kor: ["완벽하게 잘"] },
+        { vBase: "know", s: "We", p: "부정", o: "his real name", o_kor: "그의 진짜 이름을", kor: { 현재:"알지 못한다.", 과거:"알지 못했다.", 미래:"알지 못할 것이다." }, s_kor: "우리는", b_en: "in this situation", b_kor: "이 상황에서", c_en: ["for a fact"], c_kor: ["확실한 사실로써"] },
+        { vBase: "know", s: "You", p: "의문", o: "the basic facts", o_kor: "기본적인 사실들을", kor: { 현재:"아니?", 과거:"알았니?", 미래:"알까?" }, s_kor: "너는", b_en: "about the event", b_kor: "사건에 대한", c_en: ["like a normal person"], c_kor: ["평범한 사람처럼"] },
+        { vBase: "know", s: "The boy", p: "긍정", o: "the secret place", o_kor: "비밀 장소를", kor: { 현재:"안다.", 과거:"알았다.", 미래:"알 것이다." }, s_kor: "그 소년은", b_en: "in the forest", b_kor: "숲 속의", c_en: ["through exploration"], c_kor: ["탐험을 통해"] },
+        { vBase: "know", s: "The detectives", p: "부정", o: "the complex story", o_kor: "복잡한 이야기를", kor: { 현재:"알지 못한다.", 과거:"알지 못했다.", 미래:"알지 못할 것이다." }, s_kor: "형사들은", b_en: "behind the crime", b_kor: "범죄 이면의", c_en: ["despite their effort"], c_kor: ["노력에도 불구하고"] },
+        { vBase: "know", s: "My dad", p: "의문", o: "the right way", o_kor: "올바른 방법을", kor: { 현재:"아시니?", 과거:"아셨니?", 미래:"아실까?" }, s_kor: "나의 아빠는", b_en: "to fix the engine", b_kor: "엔진을 고치는", c_en: ["with his experience"], c_kor: ["경험으로"] },
+        { vBase: "know", s: "I", p: "긍정", o: "the final result", o_kor: "최종 결과를", kor: { 현재:"안다.", 과거:"알았다.", 미래:"알 것이다." }, s_kor: "나는", b_en: "of the exam", b_kor: "시험의", c_en: ["from the website"], c_kor: ["웹사이트로부터"] },
+        { vBase: "know", s: "She", p: "부정", o: "the main reason", o_kor: "주된 이유를", kor: { 현재:"알지 못한다.", 과거:"알지 못했다.", 미래:"알지 못할 것이다." }, s_kor: "그녀는", b_en: "for his departure", b_kor: "그의 떠남에 대한", c_en: ["at this time"], c_kor: ["이 시기에"] },
+        { vBase: "know", s: "They", p: "의문", o: "her phone number", o_kor: "전화번호를", kor: { 현재:"아니?", 과거:"알았니?", 미래:"알까?" }, s_kor: "그들은", b_en: "in case of an emergency", b_kor: "비상사태에 대비하여", c_en: ["by any chance"], c_kor: ["혹시라도"] },
+        { vBase: "know", s: "He", p: "긍정", o: "the safe route", o_kor: "안전한 경로를", kor: { 현재:"안다.", 과거:"알았다.", 미래:"알 것이다." }, s_kor: "그는", b_en: "through the mountains", b_kor: "산들을 통과하는", c_en: ["from his experience"], c_kor: ["경험으로부터"] },
+        { vBase: "know", s: "We", p: "부정", o: "the exact time", o_kor: "정확한 시간을", kor: { 현재:"알지 못한다.", 과거:"알지 못했다.", 미래:"알지 못할 것이다." }, s_kor: "우리는", b_en: "of the meeting", b_kor: "회의의", c_en: ["due to the schedule change"], c_kor: ["일정 변경 때문에"] },
+        { vBase: "know", s: "You", p: "의문", o: "the famous actor", o_kor: "유명한 배우를", kor: { 현재:"아니?", 과거:"알았니?", 미래:"알까?" }, s_kor: "너는", b_en: "in that movie", b_kor: "영화에 나오는", c_en: ["by his face"], c_kor: ["얼굴만으로"] },
+        { vBase: "know", s: "The students", p: "긍정", o: "the correct spelling", o_kor: "올바른 철자를", kor: { 현재:"안다.", 과거:"알았다.", 미래:"알 것이다." }, s_kor: "그 학생들은", b_en: "of the word", b_kor: "단어의", c_en: ["for the test"], c_kor: ["시험을 위해"] },
+        { vBase: "know", s: "I", p: "부정", o: "the full address", o_kor: "전체 주소를", kor: { 현재:"알지 못한다.", 과거:"알지 못했다.", 미래:"알지 못할 것이다." }, s_kor: "나는", b_en: "of the library", b_kor: "도서관의", c_en: ["in this town"], c_kor: ["이 마을에서"] },
+        { vBase: "know", s: "She", p: "의문", o: "the original owner", o_kor: "원래 주인을", kor: { 현재:"아니?", 과거:"알았니?", 미래:"알까?" }, s_kor: "그녀는", b_en: "of the wallet", b_kor: "지갑의", c_en: ["by checking the ID card"], c_kor: ["신분증을 확인함으로써"] },
+        { vBase: "know", s: "He", p: "긍정", o: "the optimal method", o_kor: "최적의 방법을", kor: { 현재:"안다.", 과거:"알았다.", 미래:"알 것이다." }, s_kor: "그는", b_en: "to solve the puzzle", b_kor: "퍼즐을 푸는", c_en: ["after his practice"], c_kor: ["연습 후에"] },
+        { vBase: "know", s: "They", p: "부정", o: "the true meaning", o_kor: "진실한 의미를", kor: { 현재:"알지 못한다.", 과거:"알지 못했다.", 미래:"알지 못할 것이다." }, s_kor: "그들은", b_en: "of the symbol", b_kor: "상징의", c_en: ["despite their study"], c_kor: ["연구에도 불구하고"] },
+        { vBase: "know", s: "We", p: "의문", o: "the ultimate destination", o_kor: "궁극적인 목적지를", kor: { 현재:"아니?", 과거:"알았니?", 미래:"알까?" }, s_kor: "우리가", b_en: "of the journey", b_kor: "여정의", c_en: ["at this point"], c_kor: ["이 시점에서"] },
+        { vBase: "know", s: "You", p: "긍정", o: "the whole process", o_kor: "전체 과정을", kor: { 현재:"안다.", 과거:"알았다.", 미래:"알 것이다." }, s_kor: "너는", b_en: "of the experiment", b_kor: "실험의", c_en: ["from the textbook"], c_kor: ["교과서로부터"] },
+        { vBase: "know", s: "The children", p: "부정", o: "the real danger", o_kor: "진짜 위험을", kor: { 현재:"알지 못한다.", 과거:"알지 못했다.", 미래:"알지 못할 것이다." }, s_kor: "아이들은", b_en: "of the river", b_kor: "강물의", c_en: ["at their age"], c_kor: ["그들의 나이에"] },
+        { vBase: "know", s: "He", p: "의문", o: "the secret message", o_kor: "비밀 메시지를", kor: { 현재:"아니?", 과거:"알았니?", 미래:"알까?" }, s_kor: "그는", b_en: "in the letter", b_kor: "편지 안의", c_en: ["by reading carefully"], c_kor: ["주의 깊게 읽음으로써"] },
+        { vBase: "know", s: "I", p: "긍정", o: "the best restaurant", o_kor: "최고의 식당을", kor: { 현재:"안다.", 과거:"알았다.", 미래:"알 것이다." }, s_kor: "나는", b_en: "in this neighborhood", b_kor: "이 동네에 있는", c_en: ["for a family dinner"], c_kor: ["가족 저녁 식사를 위해"] },
+        { vBase: "know", s: "She", p: "부정", o: "the fastest way", o_kor: "가장 빠른 길을", kor: { 현재:"알지 못한다.", 과거:"알지 못했다.", 미래:"알지 못할 것이다." }, s_kor: "그녀는", b_en: "to the train station", b_kor: "기차역으로 가는", c_en: ["during rush hour"], c_kor: ["출퇴근 시간 동안"] },
+        { vBase: "know", s: "They", p: "의문", o: "the exact date", o_kor: "정확한 날짜를", kor: { 현재:"아니?", 과거:"알았니?", 미래:"알까?" }, s_kor: "그들은", b_en: "of the school festival", b_kor: "학교 축제의", c_en: ["from the notice board"], c_kor: ["게시판을 통해"] }
+    ];
+        return processRawRows3(subjPlurals, TENSES, rawRows);
+      })()
+      ,
+      advanced: null,
+      master:   null,
+    },
+    take: {
+      standard: (() => {
+        const subjPlurals = ["The students", "They", "We", "The tourists", "The girls"];
+        const TENSES = ["현재", "과거", "미래"];
+        const rawRows = [
+        { vBase: "take", s: "I", p: "긍정", o: "the early bus", o_kor: "이른 버스를", kor: { 현재:"탄다.", 과거:"탔다.", 미래:"탈 것이다." }, s_kor: "나는", b_en: "to my office", b_kor: "사무실로 가는", c_en: ["in the morning"], c_kor: ["아침에"] },
+        { vBase: "take", s: "She", p: "부정", o: "the bitter medicine", o_kor: "쓴 약을", kor: { 현재:"먹지 않는다.", 과거:"먹지 않았다.", 미래:"먹지 않을 것이다." }, s_kor: "그녀는", b_en: "for her cold", b_kor: "감기를 위해", c_en: ["with a glass of water"], c_kor: ["물 한 잔과 함께"] },
+        { vBase: "take", s: "He", p: "의문", o: "a large umbrella", o_kor: "큰 우산을", kor: { 현재:"가져가니?", 과거:"가져갔니?", 미래:"가져갈까?" }, s_kor: "그는", b_en: "for the heavy rain", b_kor: "폭우를 대비해", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] },
+        { vBase: "take", s: "They", p: "긍정", o: "a short break", o_kor: "짧은 휴식을", kor: { 현재:"취한다.", 과거:"취했다.", 미래:"취할 것이다." }, s_kor: "그들은", b_en: "from their work", b_kor: "일로부터", c_en: ["under the tree"], c_kor: ["나무 아래서"] },
+        { vBase: "take", s: "We", p: "부정", o: "the final test", o_kor: "기말고사를", kor: { 현재:"치르지 않는다.", 과거:"치르지 않았다.", 미래:"치르지 않을 것이다." }, s_kor: "우리는", b_en: "in the classroom", b_kor: "교실에서", c_en: ["with high concentration"], c_kor: ["높은 집중력으로"] },
+        { vBase: "take", s: "You", p: "의문", o: "a beautiful picture", o_kor: "아름다운 사진을", kor: { 현재:"찍니?", 과거:"찍었니?", 미래:"찍을까?" }, s_kor: "너는", b_en: "of the landscape", b_kor: "풍경의", c_en: ["with your camera"], c_kor: ["카메라로"] },
+        { vBase: "take", s: "The boy", p: "긍정", o: "a deep breath", o_kor: "깊은 숨을", kor: { 현재:"들이쉰다.", 과거:"쉬었다.", 미래:"쉴 것이다." }, s_kor: "그 소년은", b_en: "before the speech", b_kor: "연설 전에", c_en: ["to calm his mind down"], c_kor: ["마음을 진정시키기 위해"] },
+        { vBase: "take", s: "The tourists", p: "부정", o: "the walking tour", o_kor: "도보 투어를", kor: { 현재:"받지 않는다.", 과거:"받지 않았다.", 미래:"받지 않을 것이다." }, s_kor: "관광객들은", b_en: "around the city", b_kor: "도시 주변의", c_en: ["for a better understanding"], c_kor: ["더 나은 이해를 위해"] },
+        { vBase: "take", s: "My dad", p: "의문", o: "a warm bath", o_kor: "따뜻한 목욕을", kor: { 현재:"하시니?", 과거:"하셨니?", 미래:"하실까?" }, s_kor: "나의 아빠는", b_en: "after a tiring day", b_kor: "피곤한 하루 후에", c_en: ["for his tired body"], c_kor: ["지친 몸을 위해"] },
+        { vBase: "take", s: "I", p: "긍정", o: "the heavy box", o_kor: "무거운 상자를", kor: { 현재:"가져간다.", 과거:"가져갔다.", 미래:"가져갈 것이다." }, s_kor: "나는", b_en: "to the second floor", b_kor: "2층으로", c_en: ["with my friend's help"], c_kor: ["친구의 도움으로"] },
+        { vBase: "take", s: "She", p: "부정", o: "the wrong train", o_kor: "잘못된 열차를", kor: { 현재:"타지 않는다.", 과거:"타지 않았다.", 미래:"타지 않을 것이다." }, s_kor: "그녀는", b_en: "to the airport", b_kor: "공항으로 가는", c_en: ["by a silly mistake"], c_kor: ["어리석은 실수로"] },
+        { vBase: "take", s: "They", p: "의문", o: "a bold step", o_kor: "대담한 발걸음을", kor: { 현재:"내딛니?", 과거:"내디뎠니?", 미래:"내디딜까?" }, s_kor: "그들은", b_en: "towards their goal", b_kor: "목표를 향해", c_en: ["without hesitation"], c_kor: ["망설임 없이"] },
+        { vBase: "take", s: "He", p: "긍정", o: "a quick shower", o_kor: "빠른 샤워를", kor: { 현재:"한다.", 과거:"했다.", 미래:"할 것이다." }, s_kor: "그는", b_en: "in the bathroom", b_kor: "욕실에서", c_en: ["right before going out"], c_kor: ["나가기 직전에"] },
+        { vBase: "take", s: "We", p: "부정", o: "the front seats", o_kor: "맨 앞자리 좌석들을", kor: { 현재:"차지하지 않는다.", 과거:"차지하지 않았다.", 미래:"차지하지 않을 것이다." }, s_kor: "우리는", b_en: "in the movie theater", b_kor: "영화관의", c_en: ["for a better view"], c_kor: ["더 나은 시야를 위해"] },
+        { vBase: "take", s: "You", p: "의문", o: "a golden opportunity", o_kor: "황금 같은 기회를", kor: { 현재:"잡니?", 과거:"잡았니?", 미래:"잡을까?" }, s_kor: "너는", b_en: "for the new job", b_kor: "새 직업을 위한", c_en: ["without a second thought"], c_kor: ["재고 없이"] },
+        { vBase: "take", s: "The students", p: "긍정", o: "detailed notes", o_kor: "상세한 노트를", kor: { 현재:"필기한다.", 과거:"필기했다.", 미래:"필기할 것이다." }, s_kor: "그 학생들은", b_en: "during the lecture", b_kor: "강의 동안", c_en: ["for the final exam"], c_kor: ["기말고사를 위해"] },
+        { vBase: "take", s: "I", p: "부정", o: "a different route", o_kor: "다른 경로를", kor: { 현재:"택하지 않는다.", 과거:"택하지 않았다.", 미래:"택하지 않을 것이다." }, s_kor: "나는", b_en: "to the shopping mall", b_kor: "쇼핑몰로 가는", c_en: ["to avoid heavy traffic"], c_kor: ["교통 체증을 피하기 위해"] },
+        { vBase: "take", s: "She", p: "의문", o: "the stray dog", o_kor: "유기견을", kor: { 현재:"데려가니?", 과거:"데려갔니?", 미래:"데려갈까?" }, s_kor: "그녀는", b_en: "to the animal shelter", b_kor: "동물 보호소로", c_en: ["for its safety"], c_kor: ["안전을 위해"] },
+        { vBase: "take", s: "He", p: "긍정", o: "the driving test", o_kor: "운전 면허 시험을", kor: { 현재:"치른다.", 과거:"치렀다.", 미래:"치를 것이다." }, s_kor: "그는", b_en: "at the local center", b_kor: "지역 센터에서", c_en: ["for the third time"], c_kor: ["세 번째로"] },
+        { vBase: "take", s: "They", p: "부정", o: "strong legal action", o_kor: "강력한 법적 조치를", kor: { 현재:"취하지 않는다.", 과거:"취하지 않았다.", 미래:"취하지 않을 것이다." }, s_kor: "그들은", b_en: "against the unfair rule", b_kor: "불공평한 규칙에 대항하여", c_en: ["for their human rights"], c_kor: ["인권을 위해"] },
+        { vBase: "take", s: "We", p: "의문", o: "the empty plates", o_kor: "빈 접시들을", kor: { 현재:"가져가니?", 과거:"가져갔니?", 미래:"가져갈까?" }, s_kor: "우리가", b_en: "to the kitchen sink", b_kor: "부엌 싱크대로", c_en: ["after a delicious dinner"], c_kor: ["맛있는 저녁 식사 후에"] },
+        { vBase: "take", s: "You", p: "긍정", o: "a small bite", o_kor: "작은 한 입을", kor: { 현재:"먹는다.", 과거:"먹었다.", 미래:"먹을 것이다." }, s_kor: "너는", b_en: "of the sweet cake", b_kor: "달콤한 케이크의", c_en: ["out of pure curiosity"], c_kor: ["순전한 호기심에서"] },
+        { vBase: "take", s: "The girls", p: "부정", o: "the dance class", o_kor: "댄스 수업을", kor: { 현재:"수강하지 않는다.", 과거:"수강하지 않았다.", 미래:"수강하지 않을 것이다." }, s_kor: "소녀들은", b_en: "at the community center", b_kor: "주민 센터에서", c_en: ["for fun"], c_kor: ["재미를 위해"] },
+        { vBase: "take", s: "I", p: "의문", o: "full responsibility", o_kor: "완전한 책임을", kor: { 현재:"지니?", 과거:"졌니?", 미래:"질까?" }, s_kor: "내가", b_en: "for the terrible mistake", b_kor: "끔찍한 실수에 대한", c_en: ["honestly"], c_kor: ["정직하게"] },
+        { vBase: "take", s: "She", p: "긍정", o: "a painkiller", o_kor: "진통제를", kor: { 현재:"먹는다.", 과거:"먹었다.", 미래:"먹을 것이다." }, s_kor: "그녀는", b_en: "for her bad headache", b_kor: "심한 두통을 위해", c_en: ["after a light lunch"], c_kor: ["가벼운 점심 식사 후에"] },
+        { vBase: "take", s: "He", p: "부정", o: "the final shot", o_kor: "마지막 슛을", kor: { 현재:"쏘지 않는다.", 과거:"쏘지 않았다.", 미래:"쏘지 않을 것이다." }, s_kor: "그는", b_en: "in the basketball game", b_kor: "농구 경기에서", c_en: ["with confidence"], c_kor: ["자신감을 가지고"] },
+        { vBase: "take", s: "They", p: "의문", o: "a long walk", o_kor: "긴 산책을", kor: { 현재:"하니?", 과거:"했니?", 미래:"할까?" }, s_kor: "그들은", b_en: "along the beach", b_kor: "해변을 따라", c_en: ["in the late afternoon"], c_kor: ["늦은 오후에"] }
+    ];
+        return processRawRows3(subjPlurals, TENSES, rawRows);
+      })()
+      ,
+      advanced: null,
+      master:   null,
+    },
+    see: {
+      standard: (() => {
+        const subjPlurals = ["The students", "They", "We", "The children", "The girls"];
+        const TENSES = ["현재", "과거", "미래"];
+        const rawRows = [
+        { vBase: "see", s: "I", p: "긍정", o: "a beautiful bird", o_kor: "아름다운 새를", kor: { 현재:"본다.", 과거:"보았다.", 미래:"볼 것이다." }, s_kor: "나는", b_en: "in the sky", b_kor: "하늘에서", c_en: ["on a sunny day"], c_kor: ["화창한 날에"] },
+        { vBase: "see", s: "She", p: "부정", o: "the small letters", o_kor: "작은 글씨를", kor: { 현재:"보지 못한다.", 과거:"보지 못했다.", 미래:"보지 못할 것이다." }, s_kor: "그녀는", b_en: "on the blackboard", b_kor: "칠판에 있는", c_en: ["from the back seat"], c_kor: ["뒷자리에서"] },
+        { vBase: "see", s: "He", p: "의문", o: "a famous actor", o_kor: "유명한 배우를", kor: { 현재:"보니?", 과거:"보았니?", 미래:"볼까?" }, s_kor: "그는", b_en: "at the airport", b_kor: "공항에서", c_en: [ADV.TODAY_EN], c_kor: [ADV.TODAY_KR] },
+        { vBase: "see", s: "They", p: "긍정", o: "a shooting star", o_kor: "별똥별을", kor: { 현재:"본다.", 과거:"보았다.", 미래:"볼 것이다." }, s_kor: "그들은", b_en: "over the mountain", b_kor: "산 위로", c_en: ["in the middle of the night"], c_kor: ["한밤중에"] },
+        { vBase: "see", s: "We", p: "부정", o: "the red sign", o_kor: "빨간 표지판을", kor: { 현재:"보지 못한다.", 과거:"보지 못했다.", 미래:"보지 못할 것이다." }, s_kor: "우리는", b_en: "on the road", b_kor: "도로에 있는", c_en: ["during the night drive"], c_kor: ["야간 드라이브 중에"] },
+        { vBase: "see", s: "You", p: "의문", o: "the whole city", o_kor: "도시 전체를", kor: { 현재:"보니?", 과거:"보았니?", 미래:"볼까?" }, s_kor: "너는", b_en: "from the tall tower", b_kor: "높은 타워에서", c_en: ["without glasses"], c_kor: ["안경 없이도"] },
+        { vBase: "see", s: "The boy", p: "긍정", o: "a huge dinosaur", o_kor: "거대한 공룡을", kor: { 현재:"본다.", 과거:"보았다.", 미래:"볼 것이다." }, s_kor: "그 소년은", b_en: "in the museum", b_kor: "박물관에서", c_en: ["with wide open eyes"], c_kor: ["눈을 크게 뜨고"] },
+        { vBase: "see", s: "The children", p: "부정", o: "the magic trick", o_kor: "그 마술을", kor: { 현재:"보지 못한다.", 과거:"보지 못했다.", 미래:"보지 못할 것이다." }, s_kor: "아이들은", b_en: "on the stage", b_kor: "무대 위에서 하는", c_en: ["with surprise"], c_kor: ["놀라움과 함께"] },
+        { vBase: "see", s: "My mom", p: "의문", o: "the thick dirt", o_kor: "두꺼운 먼지를", kor: { 현재:"보시니?", 과거:"보셨니?", 미래:"보실까?" }, s_kor: "나의 엄마는", b_en: "on the living room floor", b_kor: "거실 바닥에 있는", c_en: ["at a quick glance"], c_kor: ["빠른 눈길로"] },
+        { vBase: "see", s: "I", p: "긍정", o: "a familiar face", o_kor: "낯익은 얼굴을", kor: { 현재:"본다.", 과거:"보았다.", 미래:"볼 것이다." }, s_kor: "나는", b_en: "in the crowded mall", b_kor: "붐비는 쇼핑몰에서", c_en: ["unexpectedly"], c_kor: ["예상치 못하게"] },
+        { vBase: "see", s: "She", p: "부정", o: "the hidden meaning", o_kor: "숨겨진 의미를", kor: { 현재:"알아채지 못한다.", 과거:"알아채지 못했다.", 미래:"알아채지 못할 것이다." }, s_kor: "그녀는", b_en: "in his short message", b_kor: "그의 짧은 메시지에 담긴", c_en: ["right away"], c_kor: ["즉시"] },
+        { vBase: "see", s: "They", p: "의문", o: "a wild bear", o_kor: "야생 곰을", kor: { 현재:"보니?", 과거:"보았니?", 미래:"볼까?" }, s_kor: "그들은", b_en: "near their tent", b_kor: "그들의 텐트 근처에 있는", c_en: ["through the window"], c_kor: ["창문을 통해"] },
+        { vBase: "see", s: "He", p: "긍정", o: "the final score", o_kor: "최종 점수를", kor: { 현재:"본다.", 과거:"보았다.", 미래:"볼 것이다." }, s_kor: "그는", b_en: "on the electronic board", b_kor: "전광판에 있는", c_en: ["with a heavy sigh"], c_kor: ["무거운 한숨과 함께"] },
+        { vBase: "see", s: "We", p: "부정", o: "the colorful fireworks", o_kor: "다채로운 불꽃놀이를", kor: { 현재:"보지 못한다.", 과거:"보지 못했다.", 미래:"보지 못할 것이다." }, s_kor: "우리는", b_en: "over the river", b_kor: "강 위로 터지는", c_en: ["for the festival"], c_kor: ["축제를 위한"] },
+        { vBase: "see", s: "You", p: "의문", o: "a bright future", o_kor: "밝은 미래를", kor: { 현재:"보니?", 과거:"보았니?", 미래:"볼까?" }, s_kor: "너는", b_en: "of this small company", b_kor: "이 작은 회사의", c_en: ["without a doubt"], c_kor: ["의심 없이"] },
+        { vBase: "see", s: "The students", p: "긍정", o: "the chemical reaction", o_kor: "화학 반응을", kor: { 현재:"본다.", 과거:"보았다.", 미래:"볼 것이다." }, s_kor: "그 학생들은", b_en: "in the science lab", b_kor: "과학 실험실에서", c_en: ["very carefully"], c_kor: ["매우 주의 깊게"] },
+        { vBase: "see", s: "I", p: "부정", o: "a small mistake", o_kor: "작은 실수를", kor: { 현재:"발견하지 못한다.", 과거:"발견하지 못했다.", 미래:"발견하지 못할 것이다." }, s_kor: "나는", b_en: "in the official report", b_kor: "공식 보고서에 있는", c_en: ["before printing"], c_kor: ["인쇄를 하기 전에"] },
+        { vBase: "see", s: "She", p: "의문", o: "deep sadness", o_kor: "깊은 슬픔을", kor: { 현재:"보니?", 과거:"보았니?", 미래:"볼까?" }, s_kor: "그녀는", b_en: "in his brown eyes", b_kor: "그의 갈색 눈에 담긴", c_en: ["despite his bright smile"], c_kor: ["그의 밝은 미소에도 불구하고"] },
+        { vBase: "see", s: "He", p: "긍정", o: "a beautiful rainbow", o_kor: "아름다운 무지개를", kor: { 현재:"본다.", 과거:"보았다.", 미래:"볼 것이다." }, s_kor: "그는", b_en: "after the heavy rain", b_kor: "심한 폭우가 내린 후에", c_en: ["from his balcony"], c_kor: ["그의 발코니에서"] },
+        { vBase: "see", s: "They", p: "부정", o: "a huge whale", o_kor: "거대한 고래를", kor: { 현재:"보지 못한다.", 과거:"보지 못했다.", 미래:"보지 못할 것이다." }, s_kor: "그들은", b_en: "in the marine park", b_kor: "해양 공원에서", c_en: ["during the boat tour"], c_kor: ["보트 투어 동안"] },
+        { vBase: "see", s: "We", p: "의문", o: "the exact difference", o_kor: "정확한 차이를", kor: { 현재:"알아채니?", 과거:"알아챘니?", 미래:"알아챌까?" }, s_kor: "우리가", b_en: "between the two pictures", b_kor: "두 사진 사이의", c_en: ["easily"], c_kor: ["쉽게"] },
+        { vBase: "see", s: "You", p: "긍정", o: "a funny clown", o_kor: "재미있는 광대를", kor: { 현재:"본다.", 과거:"보았다.", 미래:"볼 것이다." }, s_kor: "너는", b_en: "at the amusement park", b_kor: "놀이공원에서", c_en: [ADV.RN_EN], c_kor: [ADV.RN_KR] },
+        { vBase: "see", s: "The girls", p: "부정", o: "a cute puppy", o_kor: "귀여운 강아지를", kor: { 현재:"보지 못한다.", 과거:"보지 못했다.", 미래:"보지 못할 것이다." }, s_kor: "소녀들은", b_en: "across the street", b_kor: "길 건너편에 있는", c_en: ["suddenly"], c_kor: ["갑자기"] },
+        { vBase: "see", s: "I", p: "의문", o: "an incoming message", o_kor: "들어오는 메시지를", kor: { 현재:"보니?", 과거:"보았니?", 미래:"볼까?" }, s_kor: "내가", b_en: "on my smartphone screen", b_kor: "나의 스마트폰 화면에", c_en: ["during the meeting"], c_kor: ["회의 도중에"] },
+        { vBase: "see", s: "She", p: "긍정", o: "a brilliant idea", o_kor: "훌륭한 아이디어를", kor: { 현재:"발견한다.", 과거:"발견했다.", 미래:"발견할 것이다." }, s_kor: "그녀는", b_en: "in his messy notebook", b_kor: "그의 지저분한 공책에서", c_en: ["by accident"], c_kor: ["우연히"] },
+        { vBase: "see", s: "He", p: "부정", o: "clear evidence", o_kor: "명백한 증거를", kor: { 현재:"보지 못한다.", 과거:"보지 못했다.", 미래:"보지 못할 것이다." }, s_kor: "그는", b_en: "in the crime scene", b_kor: "범죄 현장에서", c_en: ["with a magnifying glass"], c_kor: ["돋보기를 가지고도"] },
+        { vBase: "see", s: "They", p: "의문", o: "the finish line", o_kor: "결승선을", kor: { 현재:"보니?", 과거:"보았니?", 미래:"볼까?" }, s_kor: "그들은", b_en: "at the end of the road", b_kor: "그 길의 맨 끝에 있는", c_en: ["after hard running"], c_kor: ["힘든 달리기 후에"] }
+    ];
+        return processRawRows3(subjPlurals, TENSES, rawRows);
+      })()
+      ,
+      advanced: null,
+      master:   null,
+    },
+  };
+})();
