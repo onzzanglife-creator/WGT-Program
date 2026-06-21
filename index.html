@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WGT Generator — 로그인</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="login-wrap">
+  <div class="login-card">
+    <div class="logo">WGT</div>
+    <div class="subtitle">Word Order Grammar Training<br>파일 생성 도구</div>
+
+    <button class="btn-google" onclick="signIn()">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+      Google 계정으로 로그인
+    </button>
+
+    <div id="error-msg"></div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<!-- 설정 & 인증 -->
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  watchAuthOnIndex();
+</script>
+
+</body>
+</html>
