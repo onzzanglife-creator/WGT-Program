@@ -229,7 +229,7 @@ function renderVerbGrid(cfg) {
     btn.className = 'verb-btn ' + (hasData ? 'ready' : 'locked');
     btn.textContent = vk === 'there_be' ? 'There be' : vk;
     btn.title = meta.title;
-    if (hasData) btn.onclick = () => selectVerb(vk, meta.title, meta.options);
+    if (hasData) btn.onclick = () => selectVerb(vk, meta.forms, meta.options);
     grid.appendChild(btn);
   }
 }
