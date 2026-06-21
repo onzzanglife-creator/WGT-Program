@@ -6,7 +6,7 @@
   <title>WGT Generator — 대시보드</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="dashboard-page">
 
 <!-- 상단 바 -->
 <div class="topbar">
@@ -24,10 +24,11 @@
 
   <div class="card-grid">
 
-    <div class="gen-card" onclick="location.href='player.html?pattern=1'">
+    <div class="gen-card" id="toggle-card" onclick="toggleSubCards()">
       <div class="card-icon">📚</div>
       <h2>5형식 마스터 프로그램</h2>
       <p>1~5형식 문장 패턴 드래그&드롭 훈련 파일 생성</p>
+      <span class="card-arrow">▼</span>
     </div>
 
     <div class="gen-card" onclick="alert('준비 중입니다.')">
@@ -36,7 +37,7 @@
       <p>교과서 / 모의고사 지문 기반 어순 훈련 파일 생성</p>
     </div>
 
-    <div class="gen-card" style="opacity:.6; cursor:default;">
+    <div class="gen-card" style="opacity:.5; cursor:default;">
       <div class="card-icon">➕</div>
       <h2>더 많은 유형</h2>
       <p>새로운 생성기가 추가될 예정입니다.</p>
@@ -45,39 +46,41 @@
 
   </div>
 
-  <!-- 5형식 마스터 프로그램 서브 카드 -->
-  <div class="card-grid card-grid-sub">
+  <!-- 5형식 서브 카드 (토글) -->
+  <div id="sub-cards-wrap" class="sub-cards-wrap">
+    <div class="sub-cards-grid">
 
-    <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=1'">
-      <div class="card-icon">1️⃣</div>
-      <h2>1형식 (SV)</h2>
-      <p>주어 + 동사</p>
+      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=1'">
+        <div class="card-icon">1️⃣</div>
+        <h2>1형식 <span class="pattern-label">SV</span></h2>
+        <p>주어 + 동사</p>
+      </div>
+
+      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=2'">
+        <div class="card-icon">2️⃣</div>
+        <h2>2형식 <span class="pattern-label">SVC</span></h2>
+        <p>주어 + 동사 + 보어</p>
+      </div>
+
+      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=3'">
+        <div class="card-icon">3️⃣</div>
+        <h2>3형식 <span class="pattern-label">SVO</span></h2>
+        <p>주어 + 동사 + 목적어</p>
+      </div>
+
+      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=4'">
+        <div class="card-icon">4️⃣</div>
+        <h2>4형식 <span class="pattern-label">SVOO</span></h2>
+        <p>주어 + 동사 + 간목 + 직목</p>
+      </div>
+
+      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=5'">
+        <div class="card-icon">5️⃣</div>
+        <h2>5형식 <span class="pattern-label">SVOC</span></h2>
+        <p>주어 + 동사 + 목적어 + 목적보어</p>
+      </div>
+
     </div>
-
-    <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=2'">
-      <div class="card-icon">2️⃣</div>
-      <h2>2형식 (SVC)</h2>
-      <p>주어 + 동사 + 보어</p>
-    </div>
-
-    <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=3'">
-      <div class="card-icon">3️⃣</div>
-      <h2>3형식 (SVO)</h2>
-      <p>주어 + 동사 + 목적어</p>
-    </div>
-
-    <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=4'">
-      <div class="card-icon">4️⃣</div>
-      <h2>4형식 (SVOO)</h2>
-      <p>주어 + 동사 + 간목 + 직목</p>
-    </div>
-
-    <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=5'">
-      <div class="card-icon">5️⃣</div>
-      <h2>5형식 (SVOC)</h2>
-      <p>주어 + 동사 + 목적어 + 목적보어</p>
-    </div>
-
   </div>
 
 </div>
@@ -91,6 +94,13 @@
 <script src="js/auth.js"></script>
 <script>
   watchAuthOnDashboard();
+
+  function toggleSubCards() {
+    var wrap = document.getElementById('sub-cards-wrap');
+    var card = document.getElementById('toggle-card');
+    wrap.classList.toggle('open');
+    card.classList.toggle('open');
+  }
 </script>
 
 </body>
