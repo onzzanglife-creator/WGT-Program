@@ -4,6 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WGT Generator — 로그인</title>
+  
+  <script>
+    (function() {
+        var userAgent = navigator.userAgent.toLowerCase();
+        
+        // 현재 브라우저가 카카오톡인지 확인
+        if (userAgent.indexOf('kakaotalk') > -1) {
+            
+            // 안드로이드 폰인 경우 처리
+            if (userAgent.indexOf('android') > -1) {
+                // 크롬 브라우저를 강제로 열도록 주소 변경
+                location.href = 'intent://' + location.href.replace(/https?:\/\//i, '') + '#Intent;scheme=http;package=com.android.chrome;end';
+            } 
+            // 아이폰(iOS)인 경우 처리
+            else if (userAgent.indexOf('iphone') > -1 || userAgent.indexOf('ipad') > -1) {
+                // Safari 브라우저로 열도록 주소 변경
+                location.href = 'ftp://' + location.href.replace(/https?:\/\//i, '');
+            }
+        }
+    })();
+  </script>
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -22,12 +44,10 @@
   </div>
 </div>
 
-<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-<!-- 설정 & 인증 -->
 <script src="js/firebase-config.js"></script>
 <script src="js/auth.js"></script>
 <script>
