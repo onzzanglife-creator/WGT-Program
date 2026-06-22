@@ -85,6 +85,7 @@
     .result-box.show { opacity: 1; visibility: visible; }
     .result-box.correct { background: var(--lime-soft); color: var(--lime-deep); border: 1px solid #DCEFA0; display: flex; align-items: center; justify-content: center; gap: 14px; }
     .tts-btn { padding: 7px 14px; border-radius: 100px; border: none; background: var(--ink); color: var(--lime); cursor: pointer; font-weight: 700; font-size: 13px; font-family: inherit; }
+    .next-btn { padding: 7px 16px; border-radius: 100px; border: none; background: var(--lime); color: var(--ink); cursor: pointer; font-weight: 800; font-size: 13px; font-family: inherit; }
   </style>
 </head>
 <body>
@@ -93,7 +94,7 @@
 <div class="topbar">
   <div class="brand">WGT 5형식 마스터</div>
   <div class="topbar-right">
-    <a class="btn-back-dash" href="dashboard.html">← 대시보드</a>
+    <a class="btn-back-dash" href="dashboard.html">← 홈</a>
     <span id="user-name"></span>
     <button class="btn-logout" onclick="doSignOut()">로그아웃</button>
   </div>
@@ -375,6 +376,7 @@ function handleSuccess() {
   resultBox.innerHTML = `
     <span>★ 정답입니다! 아주 훌륭해요.</span>
     <button class="tts-btn" onclick="playTTS('${clean}')">🔊 듣기</button>
+    <button class="next-btn" onclick="goNextQuestion()">다음 문항 →</button>
   `;
   resultBox.classList.add('correct', 'show');
   score++;
@@ -387,8 +389,13 @@ function handleSuccess() {
       el.classList.add(`chunk-${t}`);
     });
   }
-  playTTS(activeQuestion.full);
-  setTimeout(() => { currentIndex++; loadQuestion(); }, 3500);
+}
+
+// ── 다음 문항 (사용자 탭으로 진행 — 모바일 자동재생 정책 대응) ──
+function goNextQuestion() {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  currentIndex++;
+  loadQuestion();
 }
 
 // ── 기타 유틸 ────────────────────────────────
