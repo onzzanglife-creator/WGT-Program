@@ -343,7 +343,7 @@ body.dashboard-page { background: var(--paper); }
 .profile { display: flex; align-items: center; gap: 15px; margin-bottom: 22px; }
 .profile .avatar { width: 60px; height: 60px; border-radius: 20px; background: var(--lime); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; color: var(--ink); flex: none; }
 .profile .pname { font-size: 19px; font-weight: 800; }
-.profile .pmeta { font-size: 13px; color: var(--sub); margin-top: 3px; }
+.profile .pmeta { font-size: 13px; color: var(--sub); margin-top: 3px; white-space: nowrap; }
 
 /* 통계 타일 */
 .stat-row { display: flex; gap: 10px; margin-bottom: 6px; }
@@ -384,3 +384,10 @@ body.dashboard-page { background: var(--paper); }
   .app-content { padding: 16px 16px 8px; }
   .greeting h1 { font-size: 1.4rem; }
 }
+
+/* ── 데스크톱 정렬 (넓은 화면에서 가운데 480 컬럼으로 통일) ── */
+@media (min-width: 512px) {
+  /* 상단 바 배경은 전체 폭 유지, 내용(브랜드·로그아웃)만 480 컬럼에 맞춤 */
+  .topbar { padding-left: calc(50% - 240px); padding-right: calc(50% - 240px); }
+}
+
