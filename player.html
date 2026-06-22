@@ -128,12 +128,22 @@
     </div>
 
     <div class="step-box">
-      <div id="step2-label" class="step-label">2단계. 시제를 선택하면 학습이 시작됩니다. (기초)</div>
+      <div id="step2-label" class="step-label">2단계. 시제를 선택하세요. (기초)</div>
       <div class="btn-group">
-        <button class="opt-btn-tense" onclick="startQuiz('현재')">현재</button>
-        <button class="opt-btn-tense" onclick="startQuiz('과거')">과거</button>
-        <button class="opt-btn-tense" onclick="startQuiz('미래')">미래</button>
+        <button class="opt-btn-tense" onclick="selectTense('현재')">현재</button>
+        <button class="opt-btn-tense" onclick="selectTense('과거')">과거</button>
+        <button class="opt-btn-tense" onclick="selectTense('미래')">미래</button>
       </div>
+    </div>
+  </div>
+
+  <!-- ── 세트 선택 페이지 ── -->
+  <div id="page-sets" class="page">
+    <button class="back-btn" onclick="switchPage('page-setup')">← 레벨/시제</button>
+    <div id="sets-title" class="verb-title">세트를 선택하세요</div>
+    <div class="step-box">
+      <div class="step-label">한 세트를 끝내면 100점 만점으로 채점됩니다.</div>
+      <div class="btn-group" id="set-grid"></div>
     </div>
   </div>
 
@@ -152,6 +162,18 @@
     </div>
     <div class="result-wrapper">
       <div class="result-box" id="result-box"></div>
+    </div>
+  </div>
+
+  <!-- ── 세트 완료 페이지 ── -->
+  <div id="page-done" class="page">
+    <div class="verb-title" style="margin-bottom:6px">세트 완료!</div>
+    <div id="done-score" style="font-size:56px;font-weight:900;color:var(--lime-deep);line-height:1">0<span style="font-size:22px">점</span></div>
+    <div id="done-detail" class="step-label" style="margin:12px 0 26px"></div>
+    <div class="btn-group">
+      <button class="opt-btn-tense" onclick="startSet(currentSetIndex)">다시 풀기</button>
+      <button class="opt-btn-tense" id="done-next" onclick="startSet(currentSetIndex + 1)">다음 세트 →</button>
+      <button class="opt-btn-tense" onclick="switchPage('page-sets')">세트 목록</button>
     </div>
   </div>
 
@@ -184,6 +206,9 @@ let currentIndex    = 0;
 let score           = 0;
 let activeQuestion  = null;
 let currentTense    = null;
+let currentSets     = [];   // SET_SIZE 문항씩 분할된 세트 배열
+let currentSetIndex = 0;
+const SET_SIZE      = 10;    // 세트당 문항 수 (27→10/10/7, 30→10/10/10)
 
 // ── 레벨 → 데이터 매핑 ───────────────────────
 function getQuizData(verbKey, level, tense) {
@@ -271,7 +296,7 @@ function updateLevelButtons() {
     if (lv === selectedLevel) btn.classList.add('active-level');
   });
   document.getElementById('step2-label').textContent =
-    `2단계. 시제를 선택하면 학습이 시작됩니다. (${selectedLevel})`;
+    `2단계. 시제를 선택하세요. (${selectedLevel})`;
 }
 
 // ── 레벨 선택 ────────────────────────────────
@@ -283,15 +308,42 @@ function selectLevel(level) {
   updateLevelButtons();
 }
 
-// ── 퀴즈 시작 ────────────────────────────────
-function startQuiz(tense) {
+// ── 시제 선택 → 세트 분할 ─────────────────────
+function selectTense(tense) {
   currentTense = tense;
   const data = getQuizData(selectedVerb, selectedLevel, tense);
   if (!data || data.length === 0) {
     alert('해당 단계의 데이터가 아직 준비되지 않았습니다.');
     return;
   }
-  currentData  = data;
+  currentSets = [];
+  for (let i = 0; i < data.length; i += SET_SIZE) {
+    currentSets.push(data.slice(i, i + SET_SIZE));
+  }
+  renderSetGrid();
+  switchPage('page-sets');
+}
+
+// ── 세트 선택 화면 렌더링 ─────────────────────
+function renderSetGrid() {
+  const vk = selectedVerb === 'there_be' ? 'There be' : selectedVerb;
+  document.getElementById('sets-title').textContent = `${vk} · ${selectedLevel} · ${currentTense}`;
+  const grid = document.getElementById('set-grid');
+  grid.innerHTML = '';
+  currentSets.forEach((set, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn-tense';
+    btn.innerHTML = `세트 ${i + 1} <span style="opacity:.55;font-weight:600">· ${set.length}문항</span>`;
+    btn.onclick = () => startSet(i);
+    grid.appendChild(btn);
+  });
+}
+
+// ── 세트 시작 ────────────────────────────────
+function startSet(setIndex) {
+  if (setIndex < 0 || setIndex >= currentSets.length) return;
+  currentSetIndex = setIndex;
+  currentData  = currentSets[setIndex];
   currentIndex = 0;
   score        = 0;
   document.getElementById('score-text').textContent = '정답: 0';
@@ -302,15 +354,12 @@ function startQuiz(tense) {
 // ── 문항 로드 ────────────────────────────────
 function loadQuestion() {
   if (currentIndex >= currentData.length) {
-    const total = currentData.length;
-    alert(`학습 완료! ${total}문항 중 ${score}문항 정답.`);
-    saveScore(total);
-    switchPage('page-setup');
+    finishSet();
     return;
   }
   activeQuestion = currentData[currentIndex];
   document.getElementById('progress-text').textContent =
-    `문항: ${currentIndex + 1} / ${currentData.length}`;
+    `세트 ${currentSetIndex + 1} · 문항 ${currentIndex + 1} / ${currentData.length}`;
 
   // 한국어 힌트 렌더링
   const qBox = document.getElementById('question-box');
@@ -400,9 +449,9 @@ function goNextQuestion() {
 
 // ── 기타 유틸 ────────────────────────────────
 function exitQuiz() {
-  if (confirm('학습을 중단하고 설정 화면으로 돌아가시겠습니까?')) {
+  if (confirm('이 세트를 중단하고 세트 목록으로 돌아가시겠습니까?')) {
     window.speechSynthesis.cancel();
-    switchPage('page-setup');
+    switchPage('page-sets');
   }
 }
 
@@ -435,21 +484,37 @@ function playTTS(text) {
   }
 }
 
-// ── Firestore 점수 저장 ───────────────────────
-async function saveScore(total) {
+// ── 세트 완료 처리 ───────────────────────────
+function finishSet() {
+  const total = currentData.length;
+  const pct = total ? Math.round((score / total) * 100) : 0;
+  saveScore(total, pct);
+  document.getElementById('done-score').innerHTML = pct + '<span style="font-size:22px">점</span>';
+  document.getElementById('done-detail').textContent =
+    `세트 ${currentSetIndex + 1} · ${total}문항 중 ${score}문항 정답`;
+  const hasNext = currentSetIndex + 1 < currentSets.length;
+  document.getElementById('done-next').style.display = hasNext ? '' : 'none';
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  switchPage('page-done');
+}
+
+// ── Firestore 점수 저장 (세트 단위) ───────────
+async function saveScore(total, pct) {
   try {
     const user = auth.currentUser;
     if (!user) return;
     await db.collection('user_progress').doc(user.uid)
       .collection('p1')
-      .doc(`${currentPattern}_${selectedVerb}_${selectedLevel}_${currentTense}`)
+      .doc(`${currentPattern}_${selectedVerb}_${selectedLevel}_${currentTense}_set${currentSetIndex + 1}`)
       .set({
         pattern: currentPattern,
         verb: selectedVerb,
         level: selectedLevel,
         tense: currentTense,
+        set: currentSetIndex + 1,
         score: score,
         total: total,
+        scorePct: pct,
         completedAt: firebase.firestore.FieldValue.serverTimestamp()
       }, { merge: true });
   } catch (e) {
