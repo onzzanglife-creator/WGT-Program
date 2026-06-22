@@ -228,10 +228,14 @@ body.dashboard-page { background: var(--paper); }
 .sub-cards-wrap {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
+  margin-top: -12px;
+  transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), margin-top 0.45s cubic-bezier(0.4,0,0.2,1);
 }
 
-.sub-cards-wrap.open { max-height: 900px; }
+.sub-cards-wrap.open { max-height: 900px; margin-top: 0; }
+
+/* 5형식 펼치면 나머지 프로그램 숨김 */
+.card-grid.subs-open .other-prog { display: none; }
 
 .sub-cards-grid {
   display: grid;

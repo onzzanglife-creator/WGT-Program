@@ -67,58 +67,60 @@
 
   <div class="sec-title">프로그램</div>
 
-  <div class="card-grid">
+  <div class="card-grid" id="card-grid">
 
+    <!-- 5형식 마스터 (클릭 시 바로 아래 1~5형식 펼침) -->
     <div class="gen-card" id="toggle-card" onclick="toggleSubCards()">
       <h2>5형식 마스터</h2>
       <span class="card-arrow">▼</span>
     </div>
 
-    <div class="gen-card" onclick="alert('준비 중입니다.')">
+    <!-- 5형식 서브 카드 — 5형식 마스터 바로 아래 -->
+    <div id="sub-cards-wrap" class="sub-cards-wrap">
+      <div class="sub-cards-grid">
+
+        <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=1'">
+          <div class="card-icon">1️⃣</div>
+          <h2>1형식 <span class="pattern-label">SV</span></h2>
+          <p>주어 + 동사</p>
+        </div>
+
+        <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=2'">
+          <div class="card-icon">2️⃣</div>
+          <h2>2형식 <span class="pattern-label">SVC</span></h2>
+          <p>주어 + 동사 + 보어</p>
+        </div>
+
+        <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=3'">
+          <div class="card-icon">3️⃣</div>
+          <h2>3형식 <span class="pattern-label">SVO</span></h2>
+          <p>주어 + 동사 + 목적어</p>
+        </div>
+
+        <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=4'">
+          <div class="card-icon">4️⃣</div>
+          <h2>4형식 <span class="pattern-label">SVOO</span></h2>
+          <p>주어 + 동사 + 간목 + 직목</p>
+        </div>
+
+        <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=5'">
+          <div class="card-icon">5️⃣</div>
+          <h2>5형식 <span class="pattern-label">SVOC</span></h2>
+          <p>주어 + 동사 + 목적어 + 목적보어</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 펼쳤을 때 숨길 나머지 프로그램 -->
+    <div class="gen-card other-prog" onclick="alert('준비 중입니다.')">
       <h2>영어내신 마스터</h2>
     </div>
 
-    <div class="gen-card" style="opacity:.5; cursor:default;">
+    <div class="gen-card other-prog" style="opacity:.5; cursor:default;">
       <h2>Coming Soon</h2>
     </div>
 
-  </div>
-
-  <!-- 5형식 서브 카드 (토글) -->
-  <div id="sub-cards-wrap" class="sub-cards-wrap">
-    <div class="sub-cards-grid">
-
-      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=1'">
-        <div class="card-icon">1️⃣</div>
-        <h2>1형식 <span class="pattern-label">SV</span></h2>
-        <p>주어 + 동사</p>
-      </div>
-
-      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=2'">
-        <div class="card-icon">2️⃣</div>
-        <h2>2형식 <span class="pattern-label">SVC</span></h2>
-        <p>주어 + 동사 + 보어</p>
-      </div>
-
-      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=3'">
-        <div class="card-icon">3️⃣</div>
-        <h2>3형식 <span class="pattern-label">SVO</span></h2>
-        <p>주어 + 동사 + 목적어</p>
-      </div>
-
-      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=4'">
-        <div class="card-icon">4️⃣</div>
-        <h2>4형식 <span class="pattern-label">SVOO</span></h2>
-        <p>주어 + 동사 + 간목 + 직목</p>
-      </div>
-
-      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=5'">
-        <div class="card-icon">5️⃣</div>
-        <h2>5형식 <span class="pattern-label">SVOC</span></h2>
-        <p>주어 + 동사 + 목적어 + 목적보어</p>
-      </div>
-
-    </div>
   </div>
 
 </div>
@@ -165,8 +167,10 @@
   function toggleSubCards() {
     var wrap = document.getElementById('sub-cards-wrap');
     var card = document.getElementById('toggle-card');
+    var grid = document.getElementById('card-grid');
     wrap.classList.toggle('open');
     card.classList.toggle('open');
+    grid.classList.toggle('subs-open'); // 펼치면 나머지 프로그램 숨김
   }
 </script>
 
