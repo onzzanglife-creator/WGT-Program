@@ -93,7 +93,7 @@
 
   function setText(el, text) { if (el) el.textContent = text; }
 
-  function render(stats) {
+  function render(stats, five, reader) {
     var g = computeGrowth(stats.xp);
 
     // ── 성장 카드 (홈·마이 공통) ──
@@ -142,16 +142,34 @@
       if (earned[key]) el.classList.remove('locked');
       else el.classList.add('locked');
     });
+
+    // ── 학습별 통계 (마이) ──
+    if (five) {
+      setText(document.querySelector('[data-prog-five="sentences"]'), five.sentences);
+      var fAcc = document.querySelector('[data-prog-five="accuracy"]');
+      if (fAcc) fAcc.innerHTML = five.accuracy + '<span>%</span>';
+      setText(document.querySelector('[data-prog-five="sessions"]'), five.sessions);
+    }
+    if (reader) {
+      setText(document.querySelector('[data-prog-reader="passages"]'), reader.sessions);
+      var rAcc = document.querySelector('[data-prog-reader="accuracy"]');
+      if (rAcc) rAcc.innerHTML = reader.accuracy + '<span>%</span>';
+      setText(document.querySelector('[data-prog-reader="sentences"]'), reader.sentences);
+    }
   }
 
   function load(uid) {
-    firebase.firestore()
-      .collection('user_progress').doc(uid)
-      .collection('p1').get()
-      .then(function (snap) {
-        var docs = [];
-        snap.forEach(function (doc) { docs.push(doc.data()); });
-        render(aggregate(docs));
+    var base = firebase.firestore().collection('user_progress').doc(uid);
+    Promise.all([
+      base.collection('p1').get(),
+      base.collection('reader').get()
+    ])
+      .then(function (snaps) {
+        var p1 = [], rd = [];
+        snaps[0].forEach(function (doc) { p1.push(doc.data()); });
+        snaps[1].forEach(function (doc) { rd.push(doc.data()); });
+        // 누적(전체) = 5형식 + 직독직해 합산 / 학습별 = 각각 집계
+        render(aggregate(p1.concat(rd)), aggregate(p1), aggregate(rd));
       })
       .catch(function (e) {
         console.error('학습 통계 로드 오류:', e);

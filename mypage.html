@@ -68,11 +68,29 @@
     </div>
   </div>
 
-  <!-- 통계 타일 -->
+  <!-- 통계 타일 (전체 누적: 5형식 + 직독직해 합산) -->
+  <div class="sec-title">전체 누적</div>
   <div class="stat-row">
     <div class="stat-tile"><b data-stat="sentences">342</b><small>학습한 문장</small></div>
     <div class="stat-tile"><b data-stat="accuracy">88<span>%</span></b><small>평균 정답률</small></div>
     <div class="stat-tile dark"><b data-stat="streak">12</b><small>연속 학습</small></div>
+  </div>
+
+  <!-- 학습별 통계 -->
+  <div class="sec-title">학습별 통계</div>
+  <div class="growth-card" style="margin-bottom:12px">
+    <div style="font-weight:800;font-size:0.95rem;margin-bottom:12px;">📝 5형식 마스터</div>
+    <div class="stat-row" style="margin-bottom:0">
+      <div class="stat-tile"><b data-prog-five="sentences">0</b><small>학습한 문장</small></div>
+      <div class="stat-tile"><b data-prog-five="accuracy">0<span>%</span></b><small>평균 정답률</small></div>
+    </div>
+  </div>
+  <div class="growth-card" style="margin-bottom:0">
+    <div style="font-weight:800;font-size:0.95rem;margin-bottom:12px;">📖 직독직해 마스터</div>
+    <div class="stat-row" style="margin-bottom:0">
+      <div class="stat-tile"><b data-prog-reader="passages">0</b><small>완료 지문</small></div>
+      <div class="stat-tile"><b data-prog-reader="accuracy">0<span>%</span></b><small>평균 정답률</small></div>
+    </div>
   </div>
 
   <!-- 형식별 진도 -->
