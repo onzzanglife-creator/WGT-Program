@@ -370,7 +370,7 @@ body.dashboard-page { background: var(--paper); }
 .badge-item .ic.green { background: var(--lime-soft); }
 .badge-item .ic.dark { background: var(--ink); color: var(--lime); font-size: 18px; font-weight: 900; }
 .badge-item .ic.locked { background: #F0F0E8; }
-.badge-item small { font-size: 10px; font-weight: 700; color: var(--sub); text-align: center; }
+.badge-item small { font-size: 10px; font-weight: 700; color: var(--sub); text-align: center; white-space: nowrap; }
 .badge-item.locked { opacity: 0.4; }
 
 /* 하단 탭바 */
