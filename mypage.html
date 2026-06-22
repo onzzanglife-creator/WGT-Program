@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WGT — 홈</title>
+  <title>WGT — 마이페이지</title>
 
   <script>
     (function() {
@@ -37,10 +37,13 @@
 <!-- 본문 -->
 <div class="app-content">
 
-  <!-- 인사말 -->
-  <div class="greeting">
-    <h1><span id="greet-name">학생</span>님,<br>오늘도 힘내봐요!</h1>
-    <p>한 문장씩 차근차근 자라볼까요?</p>
+  <!-- 프로필 -->
+  <div class="profile">
+    <div class="avatar" id="mp-initial">학</div>
+    <div>
+      <div class="pname"><span id="mp-name">학생</span></div>
+      <div class="pmeta">Lv.7 · 새싹 단계</div>
+    </div>
   </div>
 
   <!-- 성장 카드 (예시값 — 추후 학습 기록 연동) -->
@@ -65,59 +68,41 @@
     </div>
   </div>
 
-  <div class="sec-title">프로그램</div>
-
-  <div class="card-grid">
-
-    <div class="gen-card" id="toggle-card" onclick="toggleSubCards()">
-      <h2>5형식 마스터</h2>
-      <span class="card-arrow">▼</span>
-    </div>
-
-    <div class="gen-card" onclick="alert('준비 중입니다.')">
-      <h2>영어내신 마스터</h2>
-    </div>
-
-    <div class="gen-card" style="opacity:.5; cursor:default;">
-      <h2>Coming Soon</h2>
-    </div>
-
+  <!-- 통계 타일 -->
+  <div class="stat-row">
+    <div class="stat-tile"><b>342</b><small>학습한 문장</small></div>
+    <div class="stat-tile"><b>88<span>%</span></b><small>평균 정답률</small></div>
+    <div class="stat-tile dark"><b>12</b><small>연속 학습</small></div>
   </div>
 
-  <!-- 5형식 서브 카드 (토글) -->
-  <div id="sub-cards-wrap" class="sub-cards-wrap">
-    <div class="sub-cards-grid">
+  <!-- 형식별 진도 -->
+  <div class="sec-title">형식별 진도</div>
+  <div class="growth-card" style="margin-bottom:0">
+    <div class="prog-row"><b>1형식</b><div class="bar"><i style="width:92%;background:#3B82F6"></i></div><em>92%</em></div>
+    <div class="prog-row"><b>2형식</b><div class="bar"><i style="width:74%;background:#8B5CF6"></i></div><em>74%</em></div>
+    <div class="prog-row"><b>3형식</b><div class="bar"><i style="width:45%;background:#22C55E"></i></div><em>45%</em></div>
+    <div class="prog-row"><b>4형식</b><div class="bar"><i style="width:18%;background:#EC4899"></i></div><em>18%</em></div>
+    <div class="prog-row"><b>5형식</b><div class="bar"><i style="width:6%;background:#F59E0B"></i></div><em>6%</em></div>
+  </div>
 
-      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=1'">
-        <div class="card-icon">1️⃣</div>
-        <h2>1형식 <span class="pattern-label">SV</span></h2>
-        <p>주어 + 동사</p>
-      </div>
-
-      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=2'">
-        <div class="card-icon">2️⃣</div>
-        <h2>2형식 <span class="pattern-label">SVC</span></h2>
-        <p>주어 + 동사 + 보어</p>
-      </div>
-
-      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=3'">
-        <div class="card-icon">3️⃣</div>
-        <h2>3형식 <span class="pattern-label">SVO</span></h2>
-        <p>주어 + 동사 + 목적어</p>
-      </div>
-
-      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=4'">
-        <div class="card-icon">4️⃣</div>
-        <h2>4형식 <span class="pattern-label">SVOO</span></h2>
-        <p>주어 + 동사 + 간목 + 직목</p>
-      </div>
-
-      <div class="gen-card gen-card-sub" onclick="location.href='player.html?pattern=5'">
-        <div class="card-icon">5️⃣</div>
-        <h2>5형식 <span class="pattern-label">SVOC</span></h2>
-        <p>주어 + 동사 + 목적어 + 목적보어</p>
-      </div>
-
+  <!-- 배지 -->
+  <div class="sec-title">획득한 배지</div>
+  <div class="badge-grid">
+    <div class="badge-item">
+      <div class="ic green"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6B8A0E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <small>첫 문장</small>
+    </div>
+    <div class="badge-item">
+      <div class="ic dark">7</div>
+      <small>7일 연속</small>
+    </div>
+    <div class="badge-item">
+      <div class="ic green"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6B8A0E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1-6.3-4.6-6.3 4.6L7.9 13.9 2 9.4h7.6z"/></svg></div>
+      <small>1형식 완성</small>
+    </div>
+    <div class="badge-item locked">
+      <div class="ic locked"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A6A79F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div>
+      <small>듣기왕</small>
     </div>
   </div>
 
@@ -126,7 +111,7 @@
 <!-- 하단 탭바 -->
 <nav class="tabbar">
   <div class="tabbar-inner">
-    <a class="tab active" href="dashboard.html">
+    <a class="tab" href="dashboard.html">
       <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg>
       홈
     </a>
@@ -134,7 +119,7 @@
       <svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h6v16H6a2 2 0 00-2 2V5z"/><path d="M20 5a2 2 0 00-2-2h-6v16h6a2 2 0 012 2V5z"/></svg>
       학습
     </a>
-    <a class="tab" href="mypage.html">
+    <a class="tab active" href="mypage.html">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg>
       마이
     </a>
@@ -149,25 +134,20 @@
 <script src="js/firebase-config.js"></script>
 <script src="js/auth.js"></script>
 <script>
+  // 로그인/접근 권한 가드 (대시보드와 동일 로직 재사용)
   watchAuthOnDashboard();
 
-  // 인사말에 로그인한 학생 이름 표시
+  // 프로필에 로그인한 학생 이름 표시
   firebase.auth().onAuthStateChanged(function(u) {
     if (u) {
-      var g = document.getElementById('greet-name');
-      if (g) {
-        var n = (u.displayName || '').trim();
-        g.textContent = n ? n.split(' ')[0] : '학생';
-      }
+      var n = (u.displayName || '').trim();
+      var first = n ? n.split(' ')[0] : '학생';
+      var nameEl = document.getElementById('mp-name');
+      var initEl = document.getElementById('mp-initial');
+      if (nameEl) nameEl.textContent = first;
+      if (initEl) initEl.textContent = first.charAt(0) || '학';
     }
   });
-
-  function toggleSubCards() {
-    var wrap = document.getElementById('sub-cards-wrap');
-    var card = document.getElementById('toggle-card');
-    wrap.classList.toggle('open');
-    card.classList.toggle('open');
-  }
 </script>
 
 </body>
