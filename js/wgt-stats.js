@@ -58,7 +58,7 @@
   }
 
   function aggregate(docs) {
-    var sentences = 0, correct = 0, perPattern = {}, dates = [];
+    var sentences = 0, correct = 0, perPattern = {}, perLevel = {}, dates = [];
     docs.forEach(function (d) {
       var t = parseInt(d.total, 10) || 0;
       var s = parseInt(d.score, 10) || 0;
@@ -69,6 +69,10 @@
         perPattern[p] = perPattern[p] || { s: 0, t: 0 };
         perPattern[p].s += s;
         perPattern[p].t += t;
+      }
+      // 직독직해 레벨별 완료 지문 수 (문서 1개 = 완료 지문 1개)
+      if (d.level != null) {
+        perLevel[d.level] = (perLevel[d.level] || 0) + 1;
       }
       if (d.completedAt && typeof d.completedAt.toDate === 'function') {
         dates.push(fmtDate(d.completedAt.toDate()));
@@ -81,7 +85,8 @@
       accuracy: sentences ? Math.round((correct / sentences) * 100) : 0,
       xp: correct,
       streak: streakFrom(dates),
-      perPattern: perPattern
+      perPattern: perPattern,
+      perLevel: perLevel
     };
   }
 
@@ -155,6 +160,18 @@
       var rAcc = document.querySelector('[data-prog-reader="accuracy"]');
       if (rAcc) rAcc.innerHTML = reader.accuracy + '<span>%</span>';
       setText(document.querySelector('[data-prog-reader="sentences"]'), reader.sentences);
+
+      // ── 직독직해 레벨별 진도 (완료 지문 수 / 목표 5) ──
+      var READER_TARGET = 5;
+      document.querySelectorAll('.prog-row[data-reader-level]').forEach(function (row) {
+        var lv = row.getAttribute('data-reader-level');
+        var done = (reader.perLevel && reader.perLevel[lv]) || 0;
+        var pct = Math.min(100, Math.round((done / READER_TARGET) * 100));
+        var fill = row.querySelector('.bar > i');
+        var label = row.querySelector('em');
+        if (fill) fill.style.width = pct + '%';
+        if (label) label.textContent = done + '/' + READER_TARGET;
+      });
     }
   }
 
