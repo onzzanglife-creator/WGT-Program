@@ -122,8 +122,6 @@
         <button id="btn-lvl-기초" class="opt-btn active-level" onclick="selectLevel('기초')">기초</button>
         <button id="btn-lvl-기본" class="opt-btn"              onclick="selectLevel('기본')">기본</button>
         <button id="btn-lvl-도전" class="opt-btn"              onclick="selectLevel('도전')">도전</button>
-        <button id="btn-lvl-실력" class="opt-btn coming-soon"  onclick="selectLevel('실력')" title="준비 중">실력 (준비 중)</button>
-        <button id="btn-lvl-완성" class="opt-btn coming-soon"  onclick="selectLevel('완성')" title="준비 중">완성 (준비 중)</button>
       </div>
     </div>
 
@@ -217,8 +215,6 @@ function getQuizData(verbKey, level, tense) {
   if (level === '기초') return d.standard?.기초?.[tense] ?? null;
   if (level === '기본') return d.standard?.기본?.[tense] ?? null;
   if (level === '도전') return d.standard?.도전?.[tense] ?? null;
-  if (level === '실력') return d.advanced?.도전?.[tense] ?? null;
-  if (level === '완성') return d.master?.도전?.[tense]  ?? null;
   return null;
 }
 
@@ -276,23 +272,10 @@ function selectVerb(verbKey, title, options) {
 
 // ── 레벨 버튼 UI 업데이트 ──────────────────────
 function updateLevelButtons() {
-  ['기초','기본','도전','실력','완성'].forEach(lv => {
+  ['기초','기본','도전'].forEach(lv => {
     const btn = document.getElementById(`btn-lvl-${lv}`);
     if (!btn) return;
-    const d = VERB_DATA[currentPattern]?.[selectedVerb];
-    const hasAdvanced = d?.advanced !== null;
-    const hasMaster   = d?.master   !== null;
-
-    btn.classList.remove('active-level', 'coming-soon');
-    if (lv === '실력') {
-      btn.textContent = hasAdvanced ? '실력' : '실력 (준비 중)';
-      btn.classList.add(hasAdvanced ? '' : 'coming-soon');
-      btn.onclick = hasAdvanced ? () => selectLevel('실력') : null;
-    } else if (lv === '완성') {
-      btn.textContent = hasMaster ? '완성' : '완성 (준비 중)';
-      btn.classList.add(hasMaster ? '' : 'coming-soon');
-      btn.onclick = hasMaster ? () => selectLevel('완성') : null;
-    }
+    btn.classList.remove('active-level');
     if (lv === selectedLevel) btn.classList.add('active-level');
   });
   document.getElementById('step2-label').textContent =
@@ -301,9 +284,6 @@ function updateLevelButtons() {
 
 // ── 레벨 선택 ────────────────────────────────
 function selectLevel(level) {
-  const d = VERB_DATA[currentPattern]?.[selectedVerb];
-  if (level === '실력' && !d?.advanced) return;
-  if (level === '완성' && !d?.master)   return;
   selectedLevel = level;
   updateLevelButtons();
 }

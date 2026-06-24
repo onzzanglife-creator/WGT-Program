@@ -239,7 +239,7 @@ sound: {
     { vBase: "sound", s: "The laugh", p: "긍정", c: "fake", kor: { 현재:"가짜처럼 들린다.", 과거:"가짜처럼 들렸다.", 미래:"가짜처럼 들릴 것이다." }, s_kor: "웃음소리가", b_en: "to me", b_kor: "나에게는", c_en: ["during the conversation", "all of a sudden"], c_kor: ["대화 중에", "갑자기"] },
     { vBase: "sound", s: "The warning", p: "부정", c: "serious", kor: { 현재:"심각하게 들리지 않는다.", 과거:"심각하게 들리지 않았다.", 미래:"심각하게 들리지 않을 것이다." }, s_kor: "경고가", b_en: "to them", b_kor: "그들에게는", c_en: ["in the building", "at all"], c_kor: ["건물 안에서", "전혀"] },
     { vBase: "sound", s: "The project", p: "의문", c: "difficult", kor: { 현재:"어렵게 들리니?", 과거:"어렵게 들렸니?", 미래:"어렵게 들릴까?" }, s_kor: "프로젝트가", b_en: "at first", b_kor: "처음에는", c_en: ["to the team", "without a guide"], c_kor: ["팀에게", "가이드 없이는"] },
-    { vBase: "sound", s: "The instructions", p: "긍정", c: "clear", kor: { 현재:"선명하게 들린다.", 과거:"선명하게 들렸다.", 미래:"선명하게 들릴 것이다." }, s_kor: "지시사항은", b_en: "over the radio", b_kor: "라디오를 통해", c_en: ["in a loud voice", "from the captain"], c_kor: ["큰 목소리로", "기장으로부터"] },
+    { vBase: "sound", s: "The announcement", p: "긍정", c: "clear", kor: { 현재:"선명하게 들린다.", 과거:"선명하게 들렸다.", 미래:"선명하게 들릴 것이다." }, s_kor: "안내방송은", b_en: "at the station", b_kor: "역에서", c_en: ["to everyone", "through the speakers"], c_kor: ["모두에게", "스피커를 통해"] },
     { vBase: "sound", s: "The steps", p: "부정", c: "heavy", kor: { 현재:"무겁게 들리지 않는다.", 과거:"무겁게 들리지 않았다.", 미래:"무겁게 들리지 않을 것이다." }, s_kor: "발소리는", b_en: "in the hallway", b_kor: "복도에서", c_en: ["with soft slippers", "at all"], c_kor: ["부드러운 실내화 덕분에", "전혀"] },
     { vBase: "sound", s: "The song", p: "의문", c: "sad", kor: { 현재:"슬프게 들리니?", 과거:"슬프게 들렸니?", 미래:"슬프게 들릴까?" }, s_kor: "노래가", b_en: "in the theater", b_kor: "극장 안에서", c_en: ["for a special reason", "to the audience"], c_kor: ["특별한 이유로", "관객들에게"] }
   ];
@@ -281,7 +281,7 @@ smell: {
     { vBase: "smell", s: "The paint", p: "부정", c: "strong", kor: { 현재:"독한 냄새가 나지 않는다.", 과거:"독한 냄새가 나지 않았다.", 미래:"독한 냄새가 나지 않을 것이다." }, s_kor: "페인트가", b_en: "in this room", b_kor: "이 방에서는", c_en: ["to everyone", "without ventilation"], c_kor: ["모두에게", "환기 없이"] },
     { vBase: "smell", s: "The tea", p: "의문", c: "herbal", kor: { 현재:"허브 냄새가 나니?", 과거:"허브 냄새가 났니?", 미래:"허브 냄새가 날까?" }, s_kor: "차가", b_en: "in the cup", b_kor: "컵 안에서", c_en: ["to me", "in a mild way"], c_kor: ["나에게", "은은하게"] },
     { vBase: "smell", s: "The shoes", p: "긍정", c: "bad", kor: { 현재:"나쁜 냄새가 난다.", 과거:"나쁜 냄새가 났다.", 미래:"나쁜 냄새가 날 것이다." }, s_kor: "신발은", b_en: "in the closet", b_kor: "옷장 안에서", c_en: ["to me", "after a rainy day"], c_kor: ["나에게", "비가 온 날 후에"] },
-    { vBase: "smell", s: "The milk", p: "부정", c: "sour", kor: { 현재:"상한 냄새가 나지 않는다.", 과거:"상한 냄새가 나지 않았다.", 미래:"상한 냄새가 나지 않을 것이다." }, s_kor: "우유는", b_en: "in the fridge", b_kor: "냉장고 안에서", c_en: ["to us", "under the right temperature"], c_kor: ["우리에게", "적절한 온도 아래에서는"] },
+    { vBase: "smell", s: "The sauce", p: "부정", c: "sour", kor: { 현재:"상한 냄새가 나지 않는다.", 과거:"상한 냄새가 나지 않았다.", 미래:"상한 냄새가 나지 않을 것이다." }, s_kor: "소스는", b_en: "on the table", b_kor: "식탁 위에서", c_en: ["to me", "even after a day"], c_kor: ["나에게", "하루가 지나도"] },
     { vBase: "smell", s: "The soup", p: "의문", c: "spicy", kor: { 현재:"매운 냄새가 나니?", 과거:"매운 냄새가 났니?", 미래:"매운 냄새가 날까?" }, s_kor: "수프는", b_en: "in the kitchen", b_kor: "주방에서", c_en: ["to you", "with this black pepper"], c_kor: ["너에게", "이 후추 때문에"] }
   ];
         return processRawRows2(subjPlurals, TENSES, rawRows);
@@ -362,7 +362,7 @@ get: {
     { vBase: "get", s: "The story", p: "긍정", c: "complicated", kor: { 현재:"복잡해진다.", 과거:"복잡해졌다.", 미래:"복잡해질 것이다." }, s_kor: "이야기가", b_en: "at the end", b_kor: "결말에 가서", c_en: ["to the readers", "for sure"], c_kor: ["독자들에게", "확실히"] },
     { vBase: "get", s: "The plan", p: "부정", c: "confusing", kor: { 현재:"혼란스러워지지 않는다.", 과거:"혼란스러워지지 않았다.", 미래:"혼란스러워지지 않을 것이다." }, s_kor: "계획이", b_en: "with the guide", b_kor: "가이드와 함께라면", c_en: ["in this situation", "at all"], c_kor: ["이 상황에서는", "전혀"] },
     { vBase: "get", s: "The price", p: "의문", c: "high", kor: { 현재:"높아지니?", 과거:"높아졌니?", 미래:"높아질까?" }, s_kor: "가격이", b_en: "in summer", b_kor: "여름에", c_en: ["at the market", "every year"], c_kor: ["시장에서", "매년"] },
-    { vBase: "get", s: "The players", p: "긍정", c: "ready", kor: { 현재:"준비가 된다.", 과거:"준비가 되었다.", 미래:"준비가 될 것이다." }, s_kor: "선수들은", b_en: "in the locker room", b_kor: "라커룸에서", c_en: ["with their coach", "before the big match"], c_kor: ["코치와 함께", "큰 경기 전에"] },
+    { vBase: "get", s: "The actors", p: "긍정", c: "ready", kor: { 현재:"준비가 된다.", 과거:"준비가 되었다.", 미래:"준비가 될 것이다." }, s_kor: "배우들은", b_en: "backstage", b_kor: "무대 뒤에서", c_en: ["with the crew", "before the show"], c_kor: ["스태프와 함께", "공연 전에"] },
     { vBase: "get", s: "The children", p: "부정", c: "bored", kor: { 현재:"지루해하지 않는다.", 과거:"지루해하지 않았다.", 미래:"지루해하지 않을 것이다." }, s_kor: "아이들은", b_en: "at the school", b_kor: "학교에서", c_en: ["with their friends", "during the festival"], c_kor: ["친구들과 함께", "축제 동안에는"] },
     { vBase: "get", s: "The days", p: "의문", c: "short", kor: { 현재:"짧아지니?", 과거:"짧아졌니?", 미래:"짧아질까?" }, s_kor: "낮은", b_en: "in the north", b_kor: "북부 지방에서", c_en: ["without a doubt", "during December"], c_kor: ["의심의 여지 없이", "12월 동안"] }
   ];
@@ -485,9 +485,9 @@ stay: {
     { vBase: "stay", s: "The bridge", p: "긍정", c: "strong", kor: { 현재:"튼튼하게 유지된다.", 과거:"튼튼하게 유지되었다.", 미래:"튼튼하게 유지될 것이다." }, s_kor: "다리가", b_en: "over the river", b_kor: "강 위에서", c_en: ["in the strong wind", "with sturdy pillars"], c_kor: ["강한 바람 속에서도", "튼튼한 기둥 덕분에"] },
     { vBase: "stay", s: "The fire", p: "부정", c: "alive", kor: { 현재:"살아있지(타오르지) 않는다.", 과거:"살아있지(타오르지) 않았다.", 미래:"살아있지(타오르지) 않을 것이다." }, s_kor: "불이", b_en: "in the camp", b_kor: "캠프에서는", c_en: ["during the heavy rain", "without dry wood"], c_kor: ["폭우가 내리는 동안", "마른장작 없이"] },
     { vBase: "stay", s: "The problem", p: "의문", c: "simple", kor: { 현재:"간단하게 유지되니?", 과거:"간단하게 유지되었니?", 미래:"간단하게 유지될까?" }, s_kor: "문제가", b_en: "in this textbook", b_kor: "이 교과서에서는", c_en: ["for beginners", "without a hint"], c_kor: ["초보자들에게는", "힌트 없이"] },
-    { vBase: "stay", s: "The children", p: "긍정", c: "quiet", kor: { 현재:"조용히 있다.", 과거:"조용히 있었다.", 미래:"조용히 있을 것이다." }, s_kor: "아이들은", b_en: "in the library", b_kor: "도서관에서", c_en: ["without a sound", "during reading time"], c_kor: ["소리 없이", "독서 시간 동안"] },
+    { vBase: "stay", s: "The audience", p: "긍정", c: "quiet", kor: { 현재:"조용히 있다.", 과거:"조용히 있었다.", 미래:"조용히 있을 것이다." }, s_kor: "관객들은", b_en: "in the theater", b_kor: "극장에서", c_en: ["out of respect", "during the play"], c_kor: ["예의를 갖추어", "연극 동안"] },
     { vBase: "stay", s: "The stores", p: "부정", c: "open", kor: { 현재:"열려 있지 않는다.", 과거:"열려 있지 않았다.", 미래:"열려 있지 않을 것이다." }, s_kor: "가게들은", b_en: "in this area", b_kor: "이 지역에서", c_en: ["for security reasons", "after midnight"], c_kor: ["보안상의 이유로", "자정 이후에는"] },
-    { vBase: "stay", s: "The animals", p: "의문", c: "warm", kor: { 현재:"따뜻하게 지내니?", 과거:"따뜻하게 지냈니?", 미래:"따뜻하게 지낼까?" }, s_kor: "동물들은", b_en: "in the barn", b_kor: "헛간에서", c_en: ["with thick straw", "during a cold blizzard"], c_kor: ["두꺼운 짚과 함께", "추운 눈보라 속에서"] }
+    { vBase: "stay", s: "The campers", p: "의문", c: "warm", kor: { 현재:"따뜻하게 지내니?", 과거:"따뜻하게 지냈니?", 미래:"따뜻하게 지낼까?" }, s_kor: "캠핑객들은", b_en: "in the tent", b_kor: "텐트 안에서", c_en: ["with a sleeping bag", "during the cold night"], c_kor: ["침낭과 함께", "추운 밤 동안"] }
   ];
         return processRawRows2(subjPlurals, TENSES, rawRows);
       })(),

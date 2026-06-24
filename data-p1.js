@@ -108,7 +108,7 @@ run: {
     { vBase: "run", s: "She", p: "부정", kor: { 현재:"달리지 않는다.", 과거:"달리지 않았다.", 미래:"달리지 않을 것이다." }, s_kor: "그녀는", b_en: "in the rain", b_kor: "빗속에서", c_en: ["willingly", "at all"], c_kor: ["자발적으로는", "전혀"] },
     { vBase: "run", s: "We", p: "의문", kor: { 현재:"달리니?", 과거:"달렸니?", 미래:"달릴까?" }, s_kor: "우리가", b_en: "towards the goal", b_kor: "목표를 향해", c_en: ["together", "as a team"], c_kor: ["함께", "팀으로서"] },
     { vBase: "run", s: "The engine", p: "긍정", kor: { 현재:"작동한다.", 과거:"작동했다.", 미래:"작동할 것이다." }, s_kor: "엔진이", b_en: "smoothly", b_kor: "부드럽게", c_en: ["without noise", "after the repair"], c_kor: ["소음 없이", "수리 후에"] },
-    { vBase: "run", s: "You", p: "부정", kor: { 현재:"달리지 않는다.", 과거:"달리지 않았다.", 미래:"달리지 않을 것이다." }, s_kor: "너는", b_en: "outside", b_kor: "바깥에서", c_en: ["in winter", "due to the cold"], c_kor: ["겨울에는", "추위 때문에"] },
+    { vBase: "run", s: "You", p: "부정", kor: { 현재:"달리지 않는다.", 과거:"달리지 않았다.", 미래:"달리지 않을 것이다." }, s_kor: "너는", b_en: "on the treadmill", b_kor: "러닝머신에서", c_en: ["these days", "at the gym"], c_kor: ["요즘", "체육관에서"] },
     { vBase: "run", s: "The children", p: "의문", kor: { 현재:"달리니?", 과거:"달렸니?", 미래:"달릴까?" }, s_kor: "아이들이", b_en: "safely", b_kor: "안전하게", c_en: ["on the grass", "during recess"], c_kor: ["잔디밭에서", "쉬는 시간에"] },
     { vBase: "run", s: "He", p: "긍정", kor: { 현재:"달려간다.", 과거:"달려갔다.", 미래:"달려갈 것이다." }, s_kor: "그는", b_en: "upstairs", b_kor: "위층으로", c_en: ["quickly", "to check"], c_kor: ["빠르게", "확인하러"] },
     { vBase: "run", s: "They", p: "부정", kor: { 현재:"운영하지 않는다.", 과거:"운영하지 않았다.", 미래:"운영하지 않을 것이다." }, s_kor: "그들은", b_en: "the store", b_kor: "그 가게를", c_en: ["for a profit", "in this town"], c_kor: ["이익을 위해", "이 마을에서"] },
