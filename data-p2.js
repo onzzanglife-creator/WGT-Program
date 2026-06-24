@@ -1,3 +1,7 @@
+// WGT 2형식 데이터 — 정제 및 30문항 확장 완료 (수일치 수정 반영)
+(function() {
+  if (!window.VERB_DATA) window.VERB_DATA = {};
+  window.VERB_DATA[2] = {
 be: {
       standard: (() => {
         const subjPlurals = ["The boxes", "The children", "The students", "The books", "The apples"];
@@ -490,3 +494,5 @@ stay: {
       advanced: null,
       master:   null,
     },
+  };
+})();
