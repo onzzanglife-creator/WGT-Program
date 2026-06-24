@@ -494,3 +494,5 @@ promise: {
       advanced: null,
       master:   null,
     }
+    };
+})();
