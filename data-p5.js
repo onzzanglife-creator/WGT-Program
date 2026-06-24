@@ -1,4 +1,8 @@
-see: {
+// WGT 5형식 데이터 — 정제 및 30문항 확장 완료
+(function() {
+  if (!window.VERB_DATA) window.VERB_DATA = {};
+  window.VERB_DATA[5] = {
+    see: {
       standard: (() => {
         const subjPlurals = ["They", "We", "The girls", "The kids", "The fans"];
         const TENSES = ["현재", "과거", "미래"];
@@ -33,13 +37,13 @@ see: {
         { vBase: "see", s: "They", p: "긍정", o: "the eagles", o_kor: "독수리들이", oc: "flying high", oc_kor: "높이 날아가는 것을", kor: { 현재:"본다.", 과거:"보았다.", 미래:"볼 것이다." }, s_kor: "그들은", b_en: "near the mountain top", b_kor: "산 정상 근처에서", c_en: ["during the field trip", "with wide open eyes"], c_kor: ["현장 학습 동안", "눈을 크게 뜨고"] },
         { vBase: "see", s: "We", p: "부정", o: "the stage manager", o_kor: "무대 감독이", oc: "leaving the hall", oc_kor: "강당을 떠나는 것을", kor: { 현재:"보지 못한다.", 과거:"보지 못했다.", 미래:"보지 못할 것이다." }, s_kor: "우리는", b_en: "at this late hour", b_kor: "이 늦은 시간에", c_en: ["through the closed doors", "at all"], c_kor: ["닫힌 문을 통해서는", "전혀"] },
         { vBase: "see", s: "The fans", p: "의문", o: "the actor", o_kor: "그 배우가", oc: "signing the autographs", oc_kor: "사인해 주는 것을", kor: { 현재:"보니?", 과거:"보았니?", 미래:"볼까?" }, s_kor: "팬들은", b_en: "at the theater entrance", b_kor: "극장 입구에서", c_en: ["after the performance", "with excitement"], c_kor: ["공연 후에", "흥분하여"] }
-    ];
+        ];
         return processRawRows5(subjPlurals, TENSES, rawRows);
       })(),
       advanced: null,
       master:   null,
     },
-hear: {
+    hear: {
       standard: (() => {
         const subjPlurals = ["They", "We", "The students", "The neighbors"];
         const TENSES = ["현재", "과거", "미래"];
@@ -74,13 +78,13 @@ hear: {
         { vBase: "hear", s: "We", p: "긍정", o: "the wolves", o_kor: "늑대들이", oc: "howling in the distance", oc_kor: "멀리서 울부짖는 것을", kor: { 현재:"듣는다.", 과거:"들었다.", 미래:"들을 것이다." }, s_kor: "우리는", b_en: "at the campsite", b_kor: "캠프장에서", c_en: ["during the cold night", "with fear"], c_kor: ["추운 밤 동안", "두려움 속에서"] },
         { vBase: "hear", s: "They", p: "부정", o: "the alarm", o_kor: "알람이", oc: "beeping continuously", oc_kor: "계속해서 울리는 것을", kor: { 현재:"듣지 못한다.", 과거:"듣지 못했다.", 미래:"듣지 못할 것이다." }, s_kor: "그들은", b_en: "in the bedroom", b_kor: "침실에서", c_en: ["during their deep sleep", "at all"], c_kor: ["깊은 잠을 자는 동안", "전혀"] },
         { vBase: "hear", s: "The students", p: "의문", o: "the instructor", o_kor: "강사가", oc: "explaining the rule", oc_kor: "규칙을 설명하는 것을", kor: { 현재:"듣니?", 과거:"들었니?", 미래:"들을까?" }, s_kor: "학생들은", b_en: "in the noisy laboratory", b_kor: "시끄러운 실험실에서", c_en: ["during the chemistry class", "clearly"], c_kor: ["화학 수업 동안", "분명하게"] }
-    ];
+        ];
         return processRawRows5(subjPlurals, TENSES, rawRows);
       })(),
       advanced: null,
       master:   null,
     },
-watch: {
+    watch: {
       standard: (() => {
         const subjPlurals = ["They", "We", "The fans", "The kids"];
         const TENSES = ["현재", "과거", "미래"];
@@ -115,13 +119,13 @@ watch: {
         { vBase: "watch", s: "The parents", p: "긍정", o: "the children", o_kor: "아이들이", oc: "playing on the grass", oc_kor: "잔디밭에서 노는 것을", kor: { 현재:"지켜본다.", 과거:"지켜보았다.", 미래:"지켜볼 것이다." }, s_kor: "부모들은", b_en: "at the local park", b_kor: "지역 공원에서", c_en: ["during the weekend", "with a warm smile"], c_kor: ["주말 동안", "따뜻한 미소와 함께"] },
         { vBase: "watch", s: "We", p: "부정", o: "the scientists", o_kor: "과학자들이", oc: "conducting the experiment", oc_kor: "실험을 진행하는 것을", kor: { 현재:"지켜보지 못한다.", 과거:"지켜보지 못했다.", 미래:"지켜보지 못할 것이다." }, s_kor: "우리는", b_en: "in the high-security lab", b_kor: "보안이 철저한 실험실에서", c_en: ["without a special permit", "for safety reasons"], c_kor: ["특별 허가증 없이는", "안전상의 이유로"] },
         { vBase: "watch", s: "They", p: "의문", o: "the ants", o_kor: "개미들이", oc: "carrying the food", oc_kor: "먹이를 나르는 것을", kor: { 현재:"지켜보니?", 과거:"지켜보았니?", 미래:"지켜볼까?" }, s_kor: "그들은", b_en: "in the school garden", b_kor: "학교 정원에서", c_en: ["during the break time", "closely"], c_kor: ["쉬는 시간 동안", "가까이서"] }
-    ];
+        ];
         return processRawRows5(subjPlurals, TENSES, rawRows);
       })(),
       advanced: null,
       master:   null,
     },
-want: {
+    want: {
       standard: (() => {
         const subjPlurals = ["They", "We", "The kids", "The parents", "The fans"];
         const TENSES = ["현재", "과거", "미래"];
@@ -156,13 +160,13 @@ want: {
         { vBase: "want", s: "The manager", p: "긍정", o: "the staff", o_kor: "직원들이", oc: "to complete the project", oc_kor: "프로젝트를 완료하기를", kor: { 현재:"원한다.", 과거:"원했다.", 미래:"원할 것이다." }, s_kor: "매니저는", b_en: "at the corporate headquarters", b_kor: "회사 본사에서", c_en: ["before the deadline", "for our growth"], c_kor: ["마감일 전에", "우리의 성장을 위해"] },
         { vBase: "want", s: "The parents", p: "부정", o: "the kids", o_kor: "아이들이", oc: "to eat fast food", oc_kor: "패스트푸드를 먹기를", kor: { 현재:"원하지 않는다.", 과거:"원하지 않았다.", 미래:"원하지 않을 것이다." }, s_kor: "부모님은", b_en: "at home", b_kor: "집에서", c_en: ["during the school semester", "for their health"], c_kor: ["학기 동안", "그들의 건강을 위해"] },
         { vBase: "want", s: "We", p: "의문", o: "him", o_kor: "그가", oc: "to present the plan", oc_kor: "계획을 발표하기를", kor: { 현재:"원하니?", 과거:"원했니?", 미래:"원할까?" }, s_kor: "우리가", b_en: "in the conference room", b_kor: "회의실에서", c_en: ["during the big seminar", "sincerely"], c_kor: ["대형 세미나 동안", "진심으로"] }
-    ];
+        ];
         return processRawRows5(subjPlurals, TENSES, rawRows);
       })(),
       advanced: null,
       master:   null,
     },
-ask: {
+    ask: {
       standard: (() => {
         const subjPlurals = ["They", "We", "The kids", "The students", "The fans"];
         const TENSES = ["현재", "과거", "미래"];
@@ -197,13 +201,13 @@ ask: {
         { vBase: "ask", s: "The students", p: "긍정", o: "the professor", o_kor: "교수님에게", oc: "to explain the text", oc_kor: "본문을 설명해 달라고", kor: { 현재:"부탁한다.", 과거:"부탁했다.", 미래:"부탁할 것이다." }, s_kor: "학생들은", b_en: "in the classroom", b_kor: "교실에서", c_en: ["after the difficult lesson", "politely"], c_kor: ["어려운 수업 후에", "정중하게"] },
         { vBase: "ask", s: "We", p: "부정", o: "the landlord", o_kor: "집주인에게", oc: "to lower the rent", oc_kor: "집세를 낮춰 달라고", kor: { 현재:"부탁하지 않는다.", 과거:"부탁하지 않았다.", 미래:"부탁하지 않을 것이다." }, s_kor: "우리는", b_en: "in this late hour", b_kor: "이 늦은 시간에", c_en: ["without an urgent reason", "out of respect"], c_kor: ["긴급한 이유 없이는", "존중의 의미로"] },
         { vBase: "ask", s: "They", p: "의문", o: "the guide", o_kor: "가이드에게", oc: "to show the route", oc_kor: "경로를 보여 달라고", kor: { 현재:"부탁하니?", 과거:"부탁했니?", 미래:"부탁할까?" }, s_kor: "그들은", b_en: "near the ancient temple", b_kor: "고대 사원 근처에서", c_en: ["during the rainy weather", "urgently"], c_kor: ["비 오는 날씨 동안", "다급하게"] }
-    ];
+        ];
         return processRawRows5(subjPlurals, TENSES, rawRows);
       })(),
       advanced: null,
       master:   null,
     },
-tell: {
+    tell: {
       standard: (() => {
         const subjPlurals = ["They", "We", "The kids", "The students", "The parents"];
         const TENSES = ["현재", "과거", "미래"];
@@ -220,7 +224,7 @@ tell: {
         { vBase: "tell", s: "I", p: "부정", o: "him", o_kor: "그에게", oc: "to give up", oc_kor: "포기하도록", kor: { 현재:"말하지 않는다.", 과거:"말하지 않았다.", 미래:"말하지 않을 것이다." }, s_kor: "나는", b_en: "on this matter", b_kor: "이 문제에서는", c_en: ["for any reason", "in reality"], c_kor: ["결코", "실제로는"] },
         { vBase: "tell", s: "She", p: "부정", o: "me", o_kor: "나에게", oc: "to go there alone", oc_kor: "혼자 가도록", kor: { 현재:"말하지 않는다.", 과거:"말하지 않았다.", 미래:"말하지 않을 것이다." }, s_kor: "그녀는", b_en: "at night", b_kor: "밤에는", c_en: ["for any reason", "in the dark"], c_kor: ["결코", "어둠 속에서"] },
         { vBase: "tell", s: "He", p: "부정", o: "us", o_kor: "우리에게", oc: "to stop the project", oc_kor: "프로젝트를 멈추도록", kor: { 현재:"말하지 않는다.", 과거:"말하지 않았다.", 미래:"말하지 않을 것이다." }, s_kor: "그는", b_en: "under any circumstances", b_kor: "어떤 상황에서도", c_en: ["at all", "for any reason"], c_kor: ["전혀", "어떤 이유로도"] },
-        { vBase: "tell", s: "They", p: "부정", o: "him", o_kor: "그에게", oc: "to leave the team", oc_kor: "팀을 떠나도록", kor: { 현재:"말하지 않는다.", 과거:"말하지 않았다.", 미래:"말하지 않을 것이다." }, s_kor: "그들은", b_en: "after all this time", b_kor: "이 오랜 시간 후에", c_en: ["at all", "despite his mistakes"], c_kor: ["전혀", "그의 실수에도 불구하고"] },
+        { vBase: "tell", s: "They", p: "부정", o: "him", o_kor: "그에게", oc: "to leave the team", oc_kor: "팀을 떠하도록", kor: { 현재:"말하지 않는다.", 과거:"말하지 않았다.", 미래:"말하지 않을 것이다." }, s_kor: "그들은", b_en: "after all this time", b_kor: "이 오랜 시간 후에", c_en: ["at all", "despite his mistakes"], c_kor: ["전혀", "그의 실수에도 불구하고"] },
         { vBase: "tell", s: "We", p: "부정", o: "her", o_kor: "그녀에게", oc: "to worry", oc_kor: "걱정하도록", kor: { 현재:"말하지 않는다.", 과거:"말하지 않았다.", 미래:"말하지 않을 것이다." }, s_kor: "우리는", b_en: "about the result", b_kor: "결과에 대해", c_en: ["at all", "in this situation"], c_kor: ["전혀", "이 상황에서"] },
         { vBase: "tell", s: "My mom", p: "부정", o: "me", o_kor: "나에게", oc: "to eat fast food", oc_kor: "패스트푸드를 먹도록", kor: { 현재:"말하지 않는다.", 과거:"말하지 않았다.", 미래:"말하지 않을 것이다." }, s_kor: "나의 엄마는", b_en: "every day", b_kor: "매일", c_en: ["in reality", "for my health"], c_kor: ["실제로는", "나의 건강을 위해"] },
         { vBase: "tell", s: "The coach", p: "부정", o: "us", o_kor: "우리에게", oc: "to skip training", oc_kor: "훈련을 빠지도록", kor: { 현재:"말하지 않는다.", 과거:"말하지 않았다.", 미래:"말하지 않을 것이다." }, s_kor: "코치는", b_en: "for any reason", b_kor: "어떤 이유로도", c_en: ["for any reason", "in reality"], c_kor: ["결코", "실제로는"] },
@@ -238,7 +242,7 @@ tell: {
         { vBase: "tell", s: "The coach", p: "긍정", o: "us", o_kor: "우리에게", oc: "to practice the match", oc_kor: "경기를 연습하라고", kor: { 현재:"말한다.", 과거:"말했다.", 미래:"말할 것이다." }, s_kor: "코치는", b_en: "at the stadium", b_kor: "경기장에서", c_en: ["before the final game", "with a firm voice"], c_kor: ["결승전 전에", "단호한 목소리로"] },
         { vBase: "tell", s: "We", p: "부정", o: "the kids", o_kor: "아이들에게", oc: "to stay up late", oc_kor: "늦게까지 자지 말라고", kor: { 현재:"말하지 않는다.", 과거:"말하지 않았다.", 미래:"말하지 않을 것이다." }, s_kor: "우리는", b_en: "at home", b_kor: "집에서", c_en: ["on school nights", "under any circumstances"], c_kor: ["학교 가는 날 밤에는", "어떤 상황에서도"] },
         { vBase: "tell", s: "They", p: "의문", o: "the workers", o_kor: "근로자들에게", oc: "to stop the machine", oc_kor: "기계를 멈추라고", kor: { 현재:"말하니?", 과거:"말했니?", 미래:"할까?" }, s_kor: "그들은", b_en: "in the factory", b_kor: "공장에서", c_en: ["during the emergency", "directly"], c_kor: ["비상사태 동안", "직접"] }
-    ];
+        ];
         return processRawRows5(subjPlurals, TENSES, rawRows);
       })(),
       advanced: null,
@@ -279,13 +283,13 @@ make: {
         { vBase: "make", s: "The teacher", p: "긍정", o: "us", o_kor: "우리를", oc: "write the paragraph", oc_kor: "단락을 쓰게", kor: { 현재:"시킨다.", 과거:"시켰다.", 미래:"시킬 것이다." }, s_kor: "선생님은", b_en: "on the board", b_kor: "칠판에", c_en: ["during the lesson", "as a punishment"], c_kor: ["수업 동안", "벌로"] },
         { vBase: "make", s: "They", p: "부정", o: "her", o_kor: "그녀를", oc: "feel left out", oc_kor: "소외감을 느끼게", kor: { 현재:"만들지 않는다.", 과거:"만들지 않았다.", 미래:"만들지 않을 것이다." }, s_kor: "그들은", b_en: "at the club meeting", b_kor: "동아리 모임에서", c_en: ["during the discussion", "intentionally"], c_kor: ["토론 동안", "의도적으로"] },
         { vBase: "make", s: "We", p: "의문", o: "him", o_kor: "그를", oc: "apologize to the team", oc_kor: "팀에 사과하게", kor: { 현재:"시키니?", 과거:"시켰니?", 미래:"시킬까?" }, s_kor: "우리가", b_en: "in the office", b_kor: "사무실에서", c_en: ["after the big mistake", "finally"], c_kor: ["큰 실수 후에", "마침내"] }
-    ];
+        ];
         return processRawRows5(subjPlurals, TENSES, rawRows);
       })(),
       advanced: null,
       master:   null,
     },
-let: {
+    let: {
       standard: (() => {
         const subjPlurals = ["They", "We", "The kids", "The parents", "The fans"];
         const TENSES = ["현재", "과거", "미래"];
@@ -320,13 +324,13 @@ let: {
         { vBase: "let", s: "My dad", p: "긍정", o: "me", o_kor: "나를", oc: "use his laptop", oc_kor: "그의 노트북을 사용하게", kor: { 현재:"허락한다.", 과거:"허락했다.", 미래:"허락할 것이다." }, s_kor: "나의 아빠는", b_en: "at home", b_kor: "집에서", c_en: ["on weekends", "for my research"], c_kor: ["주말마다", "내 연구를 위해"] },
         { vBase: "let", s: "She", p: "부정", o: "the dog", o_kor: "그 개가", oc: "enter the kitchen", oc_kor: "주방에 들어가게", kor: { 현재:"허락하지 않는다.", 과거:"허락하지 않았다.", 미래:"허락하지 않을 것이다." }, s_kor: "그녀는", b_en: "in the house", b_kor: "집 안에서", c_en: ["during the cooking time", "for hygiene"], c_kor: ["요리 시간 동안", "위생을 위해"] },
         { vBase: "let", s: "They", p: "의문", o: "you", o_kor: "너를", oc: "join the executive board", oc_kor: "이사회에 합류하게", kor: { 현재:"허락하니?", 과거:"허락했니?", 미래:"허락할까?" }, s_kor: "그들이", b_en: "at the headquarters", b_kor: "본사에서", c_en: ["after long talks", "finally"], c_kor: ["오랜 설득 끝에", "마침내"] }
-    ];
+        ];
         return processRawRows5(subjPlurals, TENSES, rawRows);
       })(),
       advanced: null,
       master:   null,
     },
-have: {
+    have: {
       standard: (() => {
         const subjPlurals = ["They", "We", "The kids", "The parents", "The fans"];
         const TENSES = ["현재", "과거", "미래"];
@@ -361,13 +365,13 @@ have: {
         { vBase: "have", s: "We", p: "긍정", o: "him", o_kor: "그를", oc: "wash the family car", oc_kor: "가족 차를 세차하게", kor: { 현재:"시킨다.", 과거:"시켰다.", 미래:"시킬 것이다." }, s_kor: "우리는", b_en: "in the garage", b_kor: "차고에서", c_en: ["on sunny weekends", "before the trip"], c_kor: ["화창 주말마다", "여행 전에"] },
         { vBase: "have", s: "She", p: "부정", o: "the workers", o_kor: "근로자들을", oc: "move the heavy boxes", oc_kor: "무거운 상자를 옮기게", kor: { 현재:"시키지 않는다.", 과거:"시키지 않았다.", 미래:"시키지 않을 것이다." }, s_kor: "그녀는", b_en: "at the factory", b_kor: "공장에서", c_en: ["without a protective gear", "for their safety"], c_kor: ["보호 장비 없이는", "그들의 안전을 위해"] },
         { vBase: "have", s: "They", p: "의문", o: "the assistant", o_kor: "비서가", oc: "check the numbers", oc_kor: "숫자를 확인하게", kor: { 현재:"시키니?", 과거:"시켰니?", 미래:"시킬까?" }, s_kor: "그들은", b_en: "in the office", b_kor: "사무실에서", c_en: ["before the corporate meeting", "urgently"], c_kor: ["기업 회의 전에", "다급하게"] }
-    ];
+        ];
         return processRawRows5(subjPlurals, TENSES, rawRows);
       })(),
       advanced: null,
       master:   null,
     },
-help: {
+    help: {
       standard: (() => {
         const subjPlurals = ["They", "We", "The kids", "The students", "The fans"];
         const TENSES = ["현재", "과거", "미래"];
@@ -402,13 +406,13 @@ help: {
         { vBase: "help", s: "The teacher", p: "긍정", o: "us", o_kor: "우리가", oc: "solve the equation", oc_kor: "방정식을 풀게", kor: { 현재:"돕는다.", 과거:"도왔다.", 미래:"도울 것이다." }, s_kor: "선생님은", b_en: "in the science lab", b_kor: "과학실에서", c_en: ["step by step", "kindly"], c_kor: ["단계적으로", "친절하게"] },
         { vBase: "help", s: "They", p: "부정", o: "him", o_kor: "그가", oc: "escape his duty", oc_kor: "그의 의무에서 빠져나가게", kor: { 현재:"돕지 않는다.", 과거:"돕지 않았다.", 미래:"돕지 않을 것이다." }, s_kor: "그들은", b_en: "at the workplace", b_kor: "직장에서", c_en: ["after the critical mistake", "at all"], c_kor: ["중대한 실수 후에", "전혀"] },
         { vBase: "help", s: "We", p: "의문", o: "her", o_kor: "그녀가", oc: "decorate the hall", oc_kor: "강당을 꾸미게", kor: { 현재:"도와주니?", 과거:"도와줬니?", 미래:"도와줄까?" }, s_kor: "우리가", b_en: "for the festival", b_kor: "축제를 위해", c_en: ["during the break time", "with a smile"], c_kor: ["쉬는 시간 동안", "미소와 함께"] }
-    ];
+        ];
         return processRawRows5(subjPlurals, TENSES, rawRows);
       })(),
       advanced: null,
       master:   null,
     },
-get: {
+    get: {
       standard: (() => {
         const subjPlurals = ["They", "We", "The kids", "The students", "The fans"];
         const TENSES = ["현재", "과거", "미래"];
@@ -424,7 +428,7 @@ get: {
         { vBase: "get", s: "Mom", p: "긍정", o: "me", o_kor: "내가", oc: "to read every night", oc_kor: "매일 밤 읽도록", kor: { 현재:"하게 한다.", 과거:"하게 했다.", 미래:"하게 할 것이다." }, s_kor: "엄마는", b_en: "before bed", b_kor: "자기 전에", c_en: ["successfully", "in the bedroom"], c_kor: ["성공적으로", "침실에서"] },
         { vBase: "get", s: "I", p: "부정", o: "him", o_kor: "그가", oc: "to change his opinion", oc_kor: "의견을 바꾸도록", kor: { 현재:"하게 하지 못한다.", 과거:"하게 하지 못했다.", 미래:"하게 하지 못할 것이다." }, s_kor: "나는", b_en: "no matter what", b_kor: "무슨 말을 해도", c_en: ["at all", "in reality"], c_kor: ["전혀", "실제로는"] },
         { vBase: "get", s: "She", p: "부정", o: "me", o_kor: "내가", oc: "to give up my goal", oc_kor: "목표를 포기하도록", kor: { 현재:"하게 하지 못한다.", 과거:"하게 하지 못했다.", 미래:"하게 하지 못할 것이다." }, s_kor: "그녀는", b_en: "for any reason", b_kor: "결코", c_en: ["at all", "in reality"], c_kor: ["전혀", "실제로는"] },
-        { vBase: "get", s: "He", p: "부정", o: "us", o_kor: "우리가", oc: "to work for free", oc_kor: "무보수로 일하도록", kor: { 현재:"하게 하지 못한다.", 과거:"하게 하지 못했다.", 미래:"하게 하지 못할 것이다." }, s_kor: "그는", b_en: "this time", b_kor: "이번에는", c_en: ["thankfully", "in reality"], c_kor: ["고맙게도", "실제로는"] },
+        { vBase: "get", s: "He", p: "부정", o: "us", o_kor: "우리가", oc: "to work for free", oc_kor: "무보수로 일하도록", kor: { 현재:"하게 하지 못한다.", 과거:"하게 하지 못했다.", 미래:"하게 하지 못할 것이다." }, s_kor: "그는", b_en: "this time", b_kor: "이번에는", c_en: ["thankfully", "in reality"], c_kor: ["다행히도", "실제로는"] },
         { vBase: "get", s: "They", p: "부정", o: "her", o_kor: "그녀가", oc: "to move away", oc_kor: "멀리 이사 가도록", kor: { 현재:"하게 하지 못한다.", 과거:"하게 하지 못했다.", 미래:"하게 하지 못할 것이다." }, s_kor: "그들은", b_en: "from her family", b_kor: "그녀의 가족으로부터", c_en: ["fortunately", "in reality"], c_kor: ["다행히도", "실제로는"] },
         { vBase: "get", s: "We", p: "부정", o: "him", o_kor: "그가", oc: "to leave the group", oc_kor: "그룹을 떠나도록", kor: { 현재:"하게 하지 못한다.", 과거:"하게 하지 못했다.", 미래:"하게 하지 못할 것이다." }, s_kor: "우리는", b_en: "despite our efforts", b_kor: "우리의 노력에도", c_en: ["at all", "in reality"], c_kor: ["전혀", "실제로는"] },
         { vBase: "get", s: "My mom", p: "부정", o: "me", o_kor: "내가", oc: "to skip the class", oc_kor: "수업을 빠지도록", kor: { 현재:"하게 하지 않는다.", 과거:"하게 하지 않았다.", 미래:"하게 하지 않을 것이다." }, s_kor: "나의 엄마는", b_en: "for no reason", b_kor: "이유 없이", c_en: ["for any reason", "in reality"], c_kor: ["결코", "실제로는"] },
@@ -443,13 +447,13 @@ get: {
         { vBase: "get", s: "The teacher", p: "긍정", o: "us", o_kor: "우리가", oc: "to think deeply", oc_kor: "더 깊이 생각하도록", kor: { 현재:"하게 한다.", 과거:"하게 했다.", 미래:"하게 할 것이다." }, s_kor: "선생님은", b_en: "with tough questions", b_kor: "어려운 질문으로", c_en: ["during the philosophy class", "every time"], c_kor: ["철학 수업 동안", "매번"] },
         { vBase: "get", s: "We", p: "부정", o: "him", o_kor: "그가", oc: "to change his mind", oc_kor: "마음을 바꾸도록", kor: { 현재:"하게 하지 못한다.", 과거:"하게 하지 못했다.", 미래:"하게 하지 못할 것이다." }, s_kor: "우리는", b_en: "in the office", b_kor: "사무실에서", c_en: ["despite our endless efforts", "at all"], c_kor: ["우리의 끊임없는 노력에도", "전혀"] },
         { vBase: "get", s: "They", p: "의문", o: "you", o_kor: "너를", oc: "to join the club", oc_kor: "동아리에 가입하도록", kor: { 현재:"하게 하니?", 과거:"하게 했니?", 미래:"하게 할까?" }, s_kor: "그들이", b_en: "at the school", b_kor: "학교에서", c_en: ["after long talks", "finally"], c_kor: ["오랜 설득 끝에", "마침내"] }
-    ];
+        ];
         return processRawRows5(subjPlurals, TENSES, rawRows);
       })(),
       advanced: null,
       master:   null,
     },
-find: {
+    find: {
       standard: (() => {
         const subjPlurals = ["They", "We", "The kids", "The students", "The parents"];
         const TENSES = ["현재", "과거", "미래"];
@@ -484,9 +488,11 @@ find: {
         { vBase: "find", s: "The students", p: "긍정", o: "the homework", o_kor: "그 숙제가", oc: "difficult", oc_kor: "어렵다는 것을", kor: { 현재:"알게 된다.", 과거:"알았다.", 미래:"알게 될 것이다." }, s_kor: "학생들은", b_en: "on the first try", b_kor: "처음 시도할 때", c_en: ["during the physics semester", "most of the time"], c_kor: ["물리학 학기 동안", "대부분의 경우에"] },
         { vBase: "find", s: "We", p: "부정", o: "the proposal", o_kor: "그 제안이", oc: "useful", oc_kor: "유용하다는 것을", kor: { 현재:"알지 못한다.", 과거:"알지 못했다.", 미래:"알지 못할 것이다." }, s_kor: "우리는", b_en: "at the meeting", b_kor: "회의에서", c_en: ["without a detailed explanation", "at all"], c_kor: ["상세한 설명 없이는", "전혀"] },
         { vBase: "find", s: "They", p: "의문", o: "living alone", o_kor: "혼자 사는 것이", oc: "lonely", oc_kor: "외롭다는 것을", kor: { 현재:"알게 되니?", 과거:"알았니?", 미래:"알게 될까?" }, s_kor: "그들은", b_en: "in the big city", b_kor: "큰 도시에서", c_en: ["during the winter season", "gradually"], c_kor: ["겨울철 동안", "점차"] }
-    ];
+        ];
         return processRawRows5(subjPlurals, TENSES, rawRows);
-      })()
+      })(),
+      advanced: null,
+      master:   null,
     }
   };
 })();
