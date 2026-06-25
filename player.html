@@ -244,6 +244,19 @@ function initPlayer() {
     `${cfg.label} — 동사를 선택하세요.`;
 
   renderVerbGrid(cfg);
+
+  // 이어하기: URL에 verb/level/tense가 있으면 해당 동사·레벨·시제의 세트 선택 화면까지 자동 진입
+  const rVerb = params.get('verb'), rLevel = params.get('level'), rTense = params.get('tense');
+  if (rVerb && rLevel && rTense &&
+      VERB_DATA[currentPattern]?.[rVerb]?.standard &&
+      cfg.verbs[rVerb] &&
+      ['기초','기본','도전'].includes(rLevel) &&
+      ['현재','과거','미래'].includes(rTense)) {
+    const meta = cfg.verbs[rVerb];
+    selectVerb(rVerb, meta.forms, meta.options);
+    selectLevel(rLevel);
+    selectTense(rTense);
+  }
 }
 
 // ── 동사 그리드 렌더링 ─────────────────────────
@@ -326,6 +339,12 @@ function startSet(setIndex) {
   currentData  = currentSets[setIndex];
   currentIndex = 0;
   score        = 0;
+  // 이어하기용 마지막 학습 지점 저장
+  try {
+    localStorage.setItem('wgt_resume', JSON.stringify({
+      pattern: currentPattern, verb: selectedVerb, level: selectedLevel, tense: currentTense
+    }));
+  } catch (e) {}
   document.getElementById('score-text').textContent = '정답: 0';
   switchPage('page-quiz');
   loadQuestion();

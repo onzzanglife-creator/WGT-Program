@@ -132,7 +132,7 @@
       <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg>
       홈
     </a>
-    <a class="tab" href="player.html?pattern=1">
+    <a class="tab" id="tab-study" href="player.html?pattern=1">
       <svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h6v16H6a2 2 0 00-2 2V5z"/><path d="M20 5a2 2 0 00-2-2h-6v16h6a2 2 0 012 2V5z"/></svg>
       학습
     </a>
@@ -173,6 +173,20 @@
     card.classList.toggle('open');
     grid.classList.toggle('subs-open'); // 펼치면 나머지 프로그램 숨김
   }
+
+  // 학습 탭 = 마지막에 하던 학습으로 이어가기
+  (function () {
+    try {
+      var r = JSON.parse(localStorage.getItem('wgt_resume') || 'null');
+      if (r && r.pattern && r.verb && r.level && r.tense) {
+        var a = document.getElementById('tab-study');
+        if (a) a.href = 'player.html?pattern=' + r.pattern +
+          '&verb=' + encodeURIComponent(r.verb) +
+          '&level=' + encodeURIComponent(r.level) +
+          '&tense=' + encodeURIComponent(r.tense);
+      }
+    } catch (e) {}
+  })();
 </script>
 
 </body>

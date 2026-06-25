@@ -302,7 +302,7 @@ function processRawRows3(subjPlurals, TENSES, rawRows) {
       result["기본"][tense].push(makeObj(enChunksB, korB));
 
       const enChunksC = [...enChunksB.map(x => [...x]), [cEn0, "A"]];
-      const korC = [[sKorStr, "S"], [cKor0, "A"], [bKorStr, "A"], [r.o_kor, "O"], [predKorStr, "V"]];
+      const korC = [[sKorStr, "S"], [bKorStr, "A"], [r.o_kor, "O"], [cKor0, "A"], [predKorStr, "V"]];
       result["도전"][tense].push(makeObj(enChunksC, korC));
     });
   });
@@ -376,7 +376,7 @@ function processRawRows4(subjPlurals, TENSES, rawRows) {
       result["기본"][tense].push(makeObj(enChunksB, korB));
 
       const enChunksC = [...enChunksB.map(x => [...x]), [cEn0, "A"]];
-      const korC = [[sKorStr, "S"], [cKor0, "A"], [bKorStr, "A"], [r.io_kor, "IO"], [r.do_kor, "DO"], [predKorStr, "V"]];
+      const korC = [[sKorStr, "S"], [bKorStr, "A"], [r.io_kor, "IO"], [r.do_kor, "DO"], [cKor0, "A"], [predKorStr, "V"]];
       result["도전"][tense].push(makeObj(enChunksC, korC));
     });
   });
@@ -450,7 +450,7 @@ function processRawRows5(subjPlurals, TENSES, rawRows) {
       result["기본"][tense].push(makeObj(enChunksB, korB));
 
       const enChunksC = [...enChunksB.map(x => [...x]), [cEn0, "A"]];
-      const korC = [[sKorStr, "S"], [cKor0, "A"], [bKorStr, "A"], [r.o_kor, "O"], [r.oc_kor, "OC"], [predKorStr, "V"]];
+      const korC = [[sKorStr, "S"], [bKorStr, "A"], [r.o_kor, "O"], [r.oc_kor, "OC"], [cKor0, "A"], [predKorStr, "V"]];
       result["도전"][tense].push(makeObj(enChunksC, korC));
     });
   });
