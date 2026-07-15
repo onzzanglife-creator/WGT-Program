@@ -20,7 +20,7 @@
             // 아이폰(iOS)인 경우 처리
             else if (userAgent.indexOf('iphone') > -1 || userAgent.indexOf('ipad') > -1) {
                 // Safari 브라우저로 열도록 주소 변경
-                location.href = 'ftp://' + location.href.replace(/https?:\/\//i, '');
+                location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(location.href);
             }
         }
     })();
