@@ -316,7 +316,7 @@ function saveProg(p){try{localStorage.setItem(PKEY,JSON.stringify(p));}catch(e){
 function isCleared(id){return loadProg().cleared.indexOf(id)>-1;}
 function markCleared(id){const p=loadProg();if(p.cleared.indexOf(id)===-1){p.cleared.push(id);saveProg(p);}}
 function levelCleared(L){return L.passages.length>0&&L.passages.every(p=>isCleared(p.id));}
-function levelUnlocked(idx){if(idx===0)return true;return levelCleared(LEVELS[idx-1]);}
+function levelUnlocked(idx){return true;} // 전 레벨 개방 — 학생별 시작 단계 자유 선택
 
 // ══ 화면 전환 ══
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('show',s.id===id));window.scrollTo({top:0});}
